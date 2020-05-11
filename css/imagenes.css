@@ -1,0 +1,26 @@
+html {
+    --imagen-logo-splash: url("../assets/images/logo_splash.svg"); 
+    --imagen-fondo-onboarding: url("../assets/images/fondo_onboarding.svg"); 
+    --imagen-flecha-izq: url("../assets/images/flecha-izq.svg");
+    --imagen-flecha-der: url("../assets/images/flecha-der.svg");
+    --imagen-punto-lleno: url("../assets/images/punto-lleno.svg");
+    --imagen-punto-vacio: url("../assets/images/punto-vacio.svg");
+    --icon-flecha-izq: url("../assets/images/icon/flecha-izq.svg");
+    --icon-flecha-der: url("../assets/images/icon/flecha-der.svg"); 
+    --icon-punto-lleno: url("../assets/images/icon/punto-lleno.svg"); 
+    --icon-punto-vacio: url("../assets/images/icon/punto-vacio.svg"); 
+    --icon-cerrar: url("../assets/images/icon/x.svg"); 
+}
+view-manager {
+    background-size: 100vw 100vh;
+
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+}
+
+view-manager[media-size="small"]{
+    /* background-image: url('../assets/images/fondo.png'); */
+
+}

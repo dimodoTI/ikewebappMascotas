@@ -1,0 +1,13 @@
+html {
+    --font-header-h1-family:inherit;
+    --font-header-h1-size: 1.2rem;
+    --font-header-h1-weight:600;
+
+    --font-header-h2-family:inherit;
+    --font-header-h2-size: 0.7rem;
+    --font-header-h2-weight:600;
+
+    --font-bajada-family:inherit;
+    --font-bajada-size: 0.7rem;
+    --font-bajada-weight:normal;
+}
