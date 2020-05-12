@@ -27,6 +27,8 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
             height:100%;
             width: 100%;
             background-color:var(--color-gris-claro);
+            overflow-y: hidden; 
+            overflow-y: auto; 
         }
         :host([hidden]){
             display: none; 
@@ -62,13 +64,14 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
             position: absolute;
             display:grid;
             grid-auto-flow:row;
-            grid-gap: 1rem;
+            grid-gap: .7rem;
             padding-left:1rem;
             top: 20%;
             left: 0px;
             width: 100%;
             background-color: transparent;
             justify-items:left;
+
         }
         label, input, button {
             position: relative;
@@ -84,27 +87,51 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">
-            <label id="lblTitulo">${idiomas[this.idioma].accesoplan.titulo}</label>
-            <label id="lblLeyenda">${idiomas[this.idioma].accesoplan.leyenda}</label>
+            <label id="lblTitulo">${idiomas[this.idioma].usuarioregistro.titulo}</label>
+            <label id="lblLeyenda">${idiomas[this.idioma].usuarioregistro.leyenda}</label>
         </div>
         <div id="cuerpo">
-            <label id="lblDocumento" style="top:1.5rem">${idiomas[this.idioma].accesoplan.documento}
+            <label id="lblNombre" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblNombre}
             </label>
-            <input id="txtDocumento" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorDocumento" error oculto></label>
-            <button id="btnIngresar" btn1 apagado style="margin-top:1.5rem" @click=${this.clickBoton1}>
-            ${idiomas[this.idioma].accesoplan.btn1}</button>
-            <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].accesoplan.btn2}
-            </button>
-            <button id="btnInvitado" btn2 @click=${this.clickBoton3}>${idiomas[this.idioma].accesoplan.btn3}</button>
-            <button id="btnTengoCuenta" btn2 style="margin-top:1.5rem" @click=${this.clickBoton4}>${idiomas[this.idioma].accesoplan.btn4}</button>
+            <input id="txtNombre" style="margin-top:1.5rem" @input=${this.activaIngreso}>
+            <label id="lblErrorNombre" error oculto></label>
+ 
+            <label id="lblMail" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblMail}
+            </label>
+            <input id="txtMail" style="margin-top:1.5rem" @input=${this.activaIngreso}>
+            <label id="lblErrorMail" error oculto></label>
+ 
+            <label id="lblCelular" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblCelu}
+            </label>
+            <input id="txtCelular" style="margin-top:1.5rem" @input=${this.activaIngreso}>
+            <label id="lblErrorCelular" error oculto></label>
 
+            <label id="lblClave1" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblClave1}
+            </label>
+            <input id="txtClave1" style="margin-top:1.5rem" @input=${this.activaIngreso}>
+            <label id="lblErrorClave1" error oculto></label>
+
+            <label id="lblClave2" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblClave2}
+            </label>
+            <input id="txtClave2" style="margin-top:1.5rem" @input=${this.activaIngreso}>
+            <label id="lblErrorClave2" error oculto></label>
+
+            <button id="btnIngresar" btn1 apagado style="margin-top:1.5rem" @click=${this.clickBoton1}>
+            ${idiomas[this.idioma].usuarioregistro.btn1}</button>
+            <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].usuarioregistro.btn2}
+            </button>
+            <button id="btnInvitado" btn2 @click=${this.clickBoton3} style="padding-bottom:1rem;">${idiomas[this.idioma].usuarioregistro.btn3}</button>
         </div>
         `
     }
 
     activaIngreso(){
-        if (this.shadowRoot.getElementById("txtDocumento").value != ""){
+        let nom = this.shadowRoot.getElementById("txtNombre");
+        let mail = this.shadowRoot.getElementById("txtMail");
+        let cel =this.shadowRoot.getElementById("txtCelular");
+        let c1 =this.shadowRoot.getElementById("txtClave1");
+        let c2 =this.shadowRoot.getElementById("txtClave2");
+        if (nom.value != "" && mail.value != "" && cel.value != "" && c1.value != "" && c2.value != ""){
             if(this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
                 this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado","");
             }
@@ -117,7 +144,9 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
     stateChanged(state, name) {
     }
     firstUpdated() {
+        this.shadowRoot.getElementById("cuerpo").scroll(1000.1000)
     }
+    
 
     clickBoton1(){
         let ok=false

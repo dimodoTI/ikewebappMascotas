@@ -24,6 +24,7 @@ import { pantallaCrearClave } from "../views/formularios/crearclave";
 import { pantallaCrearClaveMsg } from "../views/formularios/crearclavemsg";
 import { pantallaAccespPlan } from "../views/formularios/accesoplan";
 import { pantallaVErCobertuta } from "../views/formularios/vercobertura";
+import { pantallaUsuarioRegistro } from "../views/formularios/usuarioRegistro";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -60,6 +61,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-crearclavemsg id="crearclavemsg"></pantalla-crearclavemsg>
         <pantalla-accesoplan id="accesoplan"></pantalla-accesoplan>
         <pantalla-vercobertura id="vercobertura"></pantalla-vercobertura>
+        <pantalla-usuarioregistro id="usuarioregistro"></pantalla-usuarioregistro>
         `;
     }
  
@@ -75,6 +77,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#crearclavemsg").hidden = state.ui.quePantalla != "crearclavemsg";
                 this.shadowRoot.querySelector("#accesoplan").hidden = state.ui.quePantalla != "accesoplan";
                 this.shadowRoot.querySelector("#vercobertura").hidden = state.ui.quePantalla != "vercobertura";
+                this.shadowRoot.querySelector("#usuarioregistro").hidden = state.ui.quePantalla != "usuarioregistro";
             }
         }
 

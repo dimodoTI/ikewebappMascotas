@@ -20,7 +20,12 @@ export const idiomas = {
         btn2:"Quiero contratar un Plan Iké", btn3:"Ingresar sin registrarme", btn4:"Ya tengo cuenta", 
         errorDocumento: {err1:"Documento incorrecto", err2:"wer"}},
         vercobertura: { titulo: "¿Necesitás ayuda con tu cobertura Iké Mascotas?", leyenda: "Contacta a un asesor para hacer consultas o contratar un plan.", 
-        btn1:"Ver planes disponibles", btn2:"Contactar a un asesor de Iké", btn3:"Volver"}
+        btn1:"Ver planes disponibles", btn2:"Contactar a un asesor de Iké", btn3:"Volver"},
+        usuarioregistro: { titulo: "Creá tu cuenta", leyenda: "Ahora completá tus datos para crear tu cuenta.", 
+        lblNombre:"Tu nombre", lblMail:"Tu mail", lblCelu:"Tu celular", 
+        lblClave1:"Creá tu contraseña", lblClave2:"Repeti tu contraseña",
+        btn1:"Crear cuenta", btn2:"¿Qué incluye mi cobertura?", btn3:"Ingresar sin registrarme"}
+
     }
 }
 
