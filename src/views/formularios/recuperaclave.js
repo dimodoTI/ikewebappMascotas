@@ -5,6 +5,7 @@ import {idiomas } from "../../redux/datos/idiomas"
 import {label} from "../css/label"
 import {modoPantalla} from "../../redux/actions/ui";
 import {recuperaClave} from "../componentes/recuperaclavecomponente"
+import {cabecera1Componente} from "../componentes/cabecera1Componente"
 export class pantallaRecuperaClave extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -36,54 +37,6 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
             width: 100%;
             background-color: var(--color-blanco);
          }
-        #titulo{
-            position: absolute;
-            display: flex;
-            top: .1rem;
-            left: 1.5rem;
-            height: 40%;
-            width: 90%;
-            background-color: transparent;
-            align-items:center; 
-            justify-content:left;           
-        }
-        #atras{
-            position: relative;
-            height: 100%;
-            width: 10%;
-            background-color: transparent;
-            background-image:var(--icon-flecha-izq);
-            background-repeat: no-repeat;
-            background-position: left center;
-            background-size: 100%;
-        }
-        #lblTitulo{
-            position: relative;
-            left: 0rem;
-            height: 100%;
-            width: 90%;
-            background-color: transparent;
-            display: flex;
-            align-items:center; 
-            justify-content:left;
-            text-align: left;
-            font-size: var(--font-header-h1-size);
-            font-weight: var(--font-header-h1-weight);
-        }
-        #lblLeyenda{
-            position: absolute;
-            bottom: .1rem;
-            left: 1.5rem;
-            height: 60%;
-            width: 80%;
-            background-color: transparent;
-            display: flex;
-            align-items:center; 
-            justify-content:left;
-            text-align: left;
-            font-size: var(--font-header-h2-size);
-            font-weight: var(--font-header-h2-weight);
-        }
         #cuerpo{
             position: absolute;
             top: 20%;
@@ -110,12 +63,12 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
     } 
     render() {
         return html `
-        <div id="header">
-            <div id="titulo">
-                <div id="atras" @click=${this.clickBoton1}></div>
-                <label id="lblTitulo">${idiomas[this.idioma].recuperaclave.titulo}</label>
-            </div>
-            <label id="lblLeyenda">${idiomas[this.idioma].recuperaclave.leyenda}</label>
+        <div id="header">        
+            <cabecera1-componente 
+            titulo="${idiomas[this.idioma].recuperaclave.titulo}" 
+            leyenda="${idiomas[this.idioma].recuperaclave.leyenda}"
+            .btn1=${function () {store.dispatch(modoPantalla("iniciosesion"))}}
+            ></cabecera1-componente>               
         </div>
         <div id="cuerpo">
             <recuperaclave-componente 
@@ -149,10 +102,7 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
             }
         }
     }
-    
-    clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
-    }
+
     stateChanged(state, name) {
     }
     firstUpdated() {

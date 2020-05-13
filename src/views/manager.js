@@ -14,6 +14,7 @@ import {splashScreen} from "../views/componentes/splashscreen";
 import {onboardingComponente} from "../views/componentes/onboardingcomponente";
 import {inicioSesionComponente} from "../views/componentes/iniciosesioncomponente";
 import {recuperaClaveComponente} from "../views/componentes/recuperaclavecomponente";
+import {cabecera1Componente} from "../views/componentes/cabecera1Componente";
 
 import { pantallaSplash } from "../views/formularios/splash";
 import { pantallaOnboarding } from "../views/formularios/onboarding";
@@ -25,6 +26,7 @@ import { pantallaCrearClaveMsg } from "../views/formularios/crearclavemsg";
 import { pantallaAccespPlan } from "../views/formularios/accesoplan";
 import { pantallaVErCobertuta } from "../views/formularios/vercobertura";
 import { pantallaUsuarioRegistro } from "../views/formularios/usuarioRegistro";
+import { pantallaPlanDetalle } from "../views/formularios/planDetalle";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -62,6 +64,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-accesoplan id="accesoplan"></pantalla-accesoplan>
         <pantalla-vercobertura id="vercobertura"></pantalla-vercobertura>
         <pantalla-usuarioregistro id="usuarioregistro"></pantalla-usuarioregistro>
+        <pantalla-plandetalle id="plandetalle"></pantalla-plandetalle>
         `;
     }
  
@@ -78,6 +81,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#accesoplan").hidden = state.ui.quePantalla != "accesoplan";
                 this.shadowRoot.querySelector("#vercobertura").hidden = state.ui.quePantalla != "vercobertura";
                 this.shadowRoot.querySelector("#usuarioregistro").hidden = state.ui.quePantalla != "usuarioregistro";
+                this.shadowRoot.querySelector("#plandetalle").hidden = state.ui.quePantalla != "plandetalle";
             }
         }
 

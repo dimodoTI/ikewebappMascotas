@@ -15,6 +15,7 @@ import {button} from "../css/button"
 import {input} from "../css/input"
 import {label} from "../css/label"
 import {miCheckbox} from "../componentes/checkbox"
+import {cabecera2Componente} from "../componentes/cabecera2Componente"
 export class inicioSesionComponente extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -101,8 +102,10 @@ export class inicioSesionComponente extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">
-            <label id="lblTitulo">${idiomas[this.idioma].iniciosession.titulo}</label>
-            <label id="lblLeyenda">${idiomas[this.idioma].iniciosession.leyenda}</label>
+            <cabecera2-componente 
+                titulo="${idiomas[this.idioma].iniciosession.titulo}" 
+                leyenda="${idiomas[this.idioma].iniciosession.leyenda}"
+            ></cabecera2-componente>            
         </div>
         <div id="cuerpo">
             <label id="lblMail">${idiomas[this.idioma].iniciosession.mail}</label>

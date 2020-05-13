@@ -45,19 +45,6 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
             align-items:center; 
             justify-content:left;  
         }
-        #lblTitulo{
-            position: relative;
-            top: 1.2rem;
-            background-color: transparent;
-            font-size: var(--font-header-h1-size);
-            font-weight: var(--font-header-h1-weight);
-        }
-        #lblLeyenda{
-            position: relative;
-            background-color: transparent;
-            font-size: var(--font-header-h2-size);
-            font-weight: var(--font-header-h2-weight);
-        }
         #cuerpo{
             position: absolute;
             display:grid;
@@ -84,8 +71,10 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">
-            <label id="lblTitulo">${idiomas[this.idioma].accesoplan.titulo}</label>
-            <label id="lblLeyenda">${idiomas[this.idioma].accesoplan.leyenda}</label>
+            <cabecera2-componente 
+            titulo="${idiomas[this.idioma].accesoplan.titulo}" 
+            leyenda="${idiomas[this.idioma].accesoplan.leyenda}"
+            ></cabecera2-componente>         
         </div>
         <div id="cuerpo">
             <label id="lblDocumento" style="top:1.5rem">${idiomas[this.idioma].accesoplan.documento}
@@ -138,7 +127,7 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
  
     }
     clickBoton2(){
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("usuarioregistro"))
     }
     clickBoton3(){
         store.dispatch(modoPantalla("iniciosesion"))

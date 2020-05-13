@@ -27,8 +27,6 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
             height:100%;
             width: 100%;
             background-color:var(--color-gris-claro);
-            overflow-y: hidden; 
-            overflow-y: auto; 
         }
         :host([hidden]){
             display: none; 
@@ -36,9 +34,9 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
         #header{
             position: absolute;
             display:grid;
+            padding-left:10%;
             grid-auto-flow:row;
             grid-gap:.5rem;
-            padding-left:1.5rem;
             top: 0px;
             left: 0px;
             height: 20%;
@@ -47,32 +45,24 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
             align-items:center; 
             justify-content:left;  
         }
-        #lblTitulo{
-            position: relative;
-            top: 1.2rem;
-            background-color: transparent;
-            font-size: var(--font-header-h1-size);
-            font-weight: var(--font-header-h1-weight);
-        }
-        #lblLeyenda{
-            position: relative;
-            background-color: transparent;
-            font-size: var(--font-header-h2-size);
-            font-weight: var(--font-header-h2-weight);
-        }
         #cuerpo{
             position: absolute;
+            padding-left:10%;
+            height: 80%;
             display:grid;
             grid-auto-flow:row;
             grid-gap: .7rem;
-            padding-left:1rem;
             top: 20%;
-            left: 0px;
-            width: 100%;
+            width: 80%;
             background-color: transparent;
-            justify-items:left;
-
+            align-items:center; 
+            justify-items:center;
+            overflow-y: auto; 
         }
+        #cuerpo::-webkit-scrollbar {
+            display: none;
+        }
+        
         label, input, button {
             position: relative;
             color: var(--color-negro);
@@ -87,8 +77,11 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">
-            <label id="lblTitulo">${idiomas[this.idioma].usuarioregistro.titulo}</label>
-            <label id="lblLeyenda">${idiomas[this.idioma].usuarioregistro.leyenda}</label>
+            <cabecera1-componente 
+            titulo="${idiomas[this.idioma].usuarioregistro.titulo}" 
+            leyenda="${idiomas[this.idioma].usuarioregistro.leyenda}"
+            .btn1=${function () {store.dispatch(modoPantalla("accesoplan"))}}
+            ></cabecera1-componente>   
         </div>
         <div id="cuerpo">
             <label id="lblNombre" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblNombre}
@@ -144,7 +137,6 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
     stateChanged(state, name) {
     }
     firstUpdated() {
-        this.shadowRoot.getElementById("cuerpo").scroll(1000.1000)
     }
     
 
@@ -167,7 +159,7 @@ export class pantallaUsuarioRegistro extends connect(store)(LitElement) {
  
     }
     clickBoton2(){
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("plandetalle"))
     }
     clickBoton3(){
         store.dispatch(modoPantalla("iniciosesion"))

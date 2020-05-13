@@ -24,7 +24,9 @@ export const idiomas = {
         usuarioregistro: { titulo: "Creá tu cuenta", leyenda: "Ahora completá tus datos para crear tu cuenta.", 
         lblNombre:"Tu nombre", lblMail:"Tu mail", lblCelu:"Tu celular", 
         lblClave1:"Creá tu contraseña", lblClave2:"Repeti tu contraseña",
-        btn1:"Crear cuenta", btn2:"¿Qué incluye mi cobertura?", btn3:"Ingresar sin registrarme"}
+        btn1:"Crear cuenta", btn2:"¿Qué incluye mi cobertura?", btn3:"Ingresar sin registrarme"},
+        plandetalle: { titulo: "Plan Mascotas 110", leyenda: "Este plan incluye las siguientes prestaciones:", 
+        btn1:"Descargar póliza", btn2:"Ver todos los planes"}
 
     }
 }

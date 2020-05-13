@@ -44,6 +44,7 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100%;
+            cursor:pointer;
         }
         #titulo{
             position:relative;
@@ -61,7 +62,7 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
     } 
     render() {
         return html `
-            <div id="x">
+            <div id="x" @click=${this.clickBoton1}>
             </div>               
             <label id="titulo">
             ${idiomas[this.idioma].recuperaclavemsg.titulo}
@@ -75,6 +76,7 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
     clickBoton1(){
         store.dispatch(modoPantalla("iniciosesion"))
     }
+
     stateChanged(state, name) {
 
     }
