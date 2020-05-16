@@ -5,7 +5,7 @@ import {idiomas } from "../../redux/datos/idiomas"
 import {label} from "../css/label"
 import {button} from "../css/button"
 import {modoPantalla} from "../../redux/actions/ui";
-import {REGALO,CARRITO,RELOJ,NOVEDADES1,NOVEDADES2,NOVEDADES3,HOME,MASCOTA,CONSULTA,VACUNA,FOTO} from "../../../assets/icons/icons"
+import {REGALO,CARRITO,RELOJ,NOVEDADES1,NOVEDADES2,NOVEDADES3,HOME,MASCOTA,CONSULTA,VACUNA,FOTO,MAS} from "../../../assets/icons/icons"
 import {cabecera1Componente} from "../componentes/cabecera1Componente"
 export class pantallaPrincipal extends connect(store)(LitElement) {
     constructor() {
@@ -99,22 +99,27 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             background-color:var(--color-amarillo-claro);
             border-radius:.5rem;          
             display: grid;
-            align-items:center; 
-            justify-content:left;
+            align-items:top; 
+            justify-content:flex-start;
             grid-template-columns:75%;
             grid-template-rows: 70% 30%;
             grid-gap:0rem;
             background-image:var(--imagen-fondo-agenda);
             background-repeat: no-repeat;
             background-position: top right;
-            background-size: 70%;
+            background-size: 120%;
         }
         #lbl-agenda{
+            width: 80%;
             color: var(--color-negro);
             position: relative;
             display:flex;
+            align-items:top; 
+            justify-content: flex-start;
             font-size: var(--font-header-h1-size);
             font-weight: var(--font-header-h1-weight);
+            padding-top:1rem;
+            padding-left:.6rem;
         }
         #btn-agenda{    
             position: relative;
@@ -162,7 +167,28 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             bottom:0;
             width:100%;
             height:8%;
-            background-color:red;
+            background-color:trasparent;
+        }
+        #mas{
+            position:absolute;
+            height: 2.5rem;
+            width: 2.5rem;
+            right: 2rem;
+            bottom:5rem;
+            background-color: var(--color-azul-oscuro); 
+            border-radius:50%;
+            display: grid;
+            align-items:center; 
+            justify-content:center;
+            box-shadow: var(--shadow-elevation-4-box);
+            cursor:pointer;
+       }
+        #mas svg{
+            display:flex;
+            stroke:var(--color-blanco);
+            fill:var(--color-celeste);    
+            height: 1.5rem;
+            width: 1.5rem;
         }
 
     `
@@ -200,8 +226,9 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
                 </marquesina-componente>
             </div>
         </div>        
-        <pie-componente id="pie">
+        <pie-componente id="pie" opcion="dos">
         </pie-componente>
+        <div id="mas">${MAS}</div>
         `
     }
     

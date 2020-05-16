@@ -3,10 +3,12 @@ import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {label} from "../css/label"
 import { HOME, MASCOTA, VACUNA, CONSULTA, FOTO } from "../../../assets/icons/icons";
+import {modoPantalla} from "../../redux/actions/ui";
+
 export class pieComponente extends connect(store)(LitElement) {
     constructor() {
         super();
-        this.btn1 = {}
+        this.opcion = ""
     }
 
     static get styles() {
@@ -34,6 +36,11 @@ export class pieComponente extends connect(store)(LitElement) {
             justify-content:center;
             height: 80%;
             width: 80%;
+            cursor:pointer;
+        }
+        .img + .select{
+            cursor: not-allowed;
+            pointer-events: none;  
         }
         .lbl{
             position:relative;
@@ -44,66 +51,80 @@ export class pieComponente extends connect(store)(LitElement) {
             width: 80%;
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
+            color:var(--color-gris-medio);
         }
-        #svg{
+        .lbl + .select{
             color:var(--color-negro);
         }
+
+        svg{
+            stroke:var(--color-gris);
+        }
+        .select svg{
+            stroke:var(--color-negro);
+            fill:var(--color-gris-claro);    
+        }
         `
-    } 
+    }   
+    attributeChangedCallback(name, oldVal, newVal) {
+        console.log('attribute change: ', name, newVal);
+        super.attributeChangedCallback(name, oldVal, newVal);
+    }
+    
     render() {
         return html `
-            <div id="img-home" class="img">
+            <div id="img-home"  @click="${this.clickBoton1}" class="img ${this.opcion=='uno'? 'select' : ''}">
                 ${HOME}
             </div>
-            <div id="img-mascota" class="img">
+            <div id="img-mascota"  @click="${this.clickBoton2}" class="img ${this.opcion=='dos'? 'select' : ''}">
                 ${MASCOTA}
             </div>  
-            <div id="img-consulta" class="img">
+            <div id="img-consulta"  @click="${this.clickBoton3}" class="img ${this.opcion=='tres'? 'select' : ''}">
                 ${CONSULTA}
             </div>
-            <div id="img-vacuna" class="img">
+            <div id="img-vacuna"  @click="${this.clickBoton4}" class="img ${this.opcion=='cuatro'? 'select' : ''}">
                 ${VACUNA}
             </div>  
-            <div id="img-foto" class="img">
+            <div id="img-foto"  @click="${this.clickBoton5}" class="img ${this.opcion=='cinco'? 'select' : ''}">
                 ${FOTO}
             </div>          
-            <div id="lbl-home" class="lbl">
+            <div id="lbl-home" select class="lbl ${this.opcion=='uno'? 'select' : ''}">
                 Inicio
             </div>
-            <div id="lbl-mascota" class="lbl">
+            <div id="lbl-mascota" class="lbl ${this.opcion=='dos'? 'select' : ''}">
                 Mascotas
             </div>
-            <div id="lbl-consulta" class="lbl">
+            <div id="lbl-consulta" class="lbl ${this.opcion=='tres'? 'select' : ''}">
                 Consultas
             </div>
-            <div id="lbl-vacuna" class="lbl">
+            <div id="lbl-vacuna" class="lbl ${this.opcion=='cuatro'? 'select' : ''}">
                 Vacunas
             </div>
-            <div id="lbl-foto" class="lbl">
+            <div id="lbl-foto" class="lbl ${this.opcion=='cinco'? 'select' : ''}">
                 Fotos
             </div>
         `
     }
-    stateChanged(state, name) {
-    }
-    firstUpdated() {
-    }
     clickBoton1() {
-        this.btn1();
+        store.dispatch(modoPantalla("vercobertura"))
     }
+    clickBoton2() {
+        store.dispatch(modoPantalla("vercobertura"))
+    }
+    clickBoton3() {
+        store.dispatch(modoPantalla("vercobertura"))
+    }
+    clickBoton4() {
+        store.dispatch(modoPantalla("vercobertura"))
+    }
+    clickBoton5() {
+        store.dispatch(modoPantalla("vercobertura"))
+    }
+
     static get properties() {
         return {
-            btn1: {
-                type: Object,
-                reflect: null
-            },
-            titulo: {
-                type: String,
-                reflect: ""
-            },
-            leyenda: {
-                type: String,
-                reflect: ""
+            opcion: {
+                type: String
             }
         }
     }
