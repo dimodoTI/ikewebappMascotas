@@ -26,7 +26,13 @@ export const idiomas = {
         lblClave1:"Creá tu contraseña", lblClave2:"Repeti tu contraseña",
         btn1:"Crear cuenta", btn2:"¿Qué incluye mi cobertura?", btn3:"Ingresar sin registrarme"},
         plandetalle: { titulo: "Plan Mascotas 110", leyenda: "Este plan incluye las siguientes prestaciones:", 
-        btn1:"Descargar póliza", btn2:"Ver todos los planes"}
+        btn1:"Descargar póliza", btn2:"Ver todos los planes"},
+        principal: { tituloCabecera: "Hola, Lucía", leyendaCabecera: "Bienvenida a Iké, tu asistencia de mascotas.", lblConsulta: "Tenés una consulta en 10 minutos", btnConsulta: "Ingresar", lblFlier: "Visitá al veterinario, sin moverte del sillón.",
+        btnFlier:"Ingresar", carro1: [{lbl:"Club Iké"},{lbl:"Ecommerce"},{lbl:"Agendar Alarma"}],
+        carro2: [{lbl:""},{lbl:""},{lbl:""}],lblNovedades:"Novedades Iké",
+        lblAyuda:"¿Necesitás ayuda?. Estamos para lo que necesites.",btnAyuda:"Solicitar asistencia"},
+        pie: { inicio: "Inicio", mascota: "Mascotas", consulta: "Consultas", vacuna: "Vacunas", foto: "Fotos"}
+
 
     }
 }

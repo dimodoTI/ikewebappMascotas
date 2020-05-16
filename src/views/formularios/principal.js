@@ -12,8 +12,8 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.marque1 = [{imagen:REGALO, texto:"Club Iké", color:"--color-celeste"},{imagen:CARRITO,texto:"Ecommerce", color:"--color-amarillo"},{imagen:RELOJ,texto:"Agendar Alarma", color:"--color-rosa"}]
-        this.marque2 = [{imagen:NOVEDADES1, texto:"", color:"--color-celeste"},{imagen:NOVEDADES2,texto:"", color:"--color-celeste"},{imagen:NOVEDADES3,texto:"", color:"--color-celeste"}]
+        this.marque1 = [{imagen:REGALO,texto:idiomas[this.idioma].principal.carro1[0].lbl, color:"--color-celeste"},{imagen:CARRITO,texto:idiomas[this.idioma].principal.carro1[1].lbl, color:"--color-amarillo"},{imagen:RELOJ,texto:idiomas[this.idioma].principal.carro1[2].lbl, color:"--color-rosa"}]
+        this.marque2 = [{imagen:NOVEDADES1, texto:idiomas[this.idioma].principal.carro2[0].lbl, color:"--color-celeste"},{imagen:NOVEDADES2,texto:idiomas[this.idioma].principal.carro2[1].lbl, color:"--color-celeste"},{imagen:NOVEDADES3,texto:idiomas[this.idioma].principal.carro2[2].lbl, color:"--color-celeste"}]
     }
 
     static get styles() {
@@ -161,6 +161,9 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             border-radius:.4rem;
             height:8rem;
         }
+        #carroNovedades::-webkit-scrollbar {
+            display: none;
+        }
         #pie{
             position:absolute;
             left:0;
@@ -190,26 +193,33 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             height: 1.5rem;
             width: 1.5rem;
         }
-
+        #lbl-ayuda{
+            position: relative;
+            display:flex;
+            font-size: var(--font-header-h2-size);
+            font-weight: var(--font-header-h2-weight);
+            align-items:center;
+            justify-content:center;
+        }
     `
     } 
     render() {
         return html `
         <div id="header">
             <cabecera3-componente 
-            titulo="Hola, Lucia" 
-            leyenda="${idiomas[this.idioma].plandetalle.leyenda}"
+            titulo="${idiomas[this.idioma].principal.tituloCabecera}" 
+            leyenda="${idiomas[this.idioma].principal.leyendaCabecera}"
             .btn1=${function () {store.dispatch(modoPantalla("usuarioregistro"))}}
             ></cabecera3-componente>
         </div>
         <div id="cuerpo">
             <div id="div-consultaNueva">
-                <label id="lbl-consultaNueva">Tenés una consulta en 10 minutos</label>
-                <button id="btn-consultaNueva" btn2>ingresar</button>
+                <label id="lbl-consultaNueva">${idiomas[this.idioma].principal.lblConsulta}</label>
+                <button id="btn-consultaNueva" btn2>${idiomas[this.idioma].principal.btnConsulta}</button>
             </div>  
             <div id="div-agenda" >
-               <label id="lbl-agenda">Visitá al veterinario, sin moverte del sillón.</label>
-               <button id="btn-agenda" btn2>Agendar una consulta</button>
+               <label id="lbl-agenda">${idiomas[this.idioma].principal.lblFlier}</label>
+               <button id="btn-agenda" btn2>${idiomas[this.idioma].principal.btnFlier}</button>
             </div>  
 
             <div id="carro">
@@ -218,13 +228,17 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
                 </marquesina-componente>
             </div>
 
-            <label id="lbl-novedades">Novedades Iké</label>
+            <label id="lbl-novedades">${idiomas[this.idioma].principal.lblNovedades}</label>
 
             <div id="carroNovedades">
                 <marquesina-componente id="marqNovedades" style="height:7.8rem;"
                 .item=${this.marque2}>
                 </marquesina-componente>
             </div>
+
+            <label id="lbl-ayuda">${idiomas[this.idioma].principal.lblAyuda}</label>
+            <button btn3 id="btn-ayuda">${idiomas[this.idioma].principal.btnAyuda}</button>
+
         </div>        
         <pie-componente id="pie" opcion="dos">
         </pie-componente>

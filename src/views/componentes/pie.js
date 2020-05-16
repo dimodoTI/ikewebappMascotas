@@ -4,11 +4,13 @@ import {connect} from "@brunomon/helpers";
 import {label} from "../css/label"
 import { HOME, MASCOTA, VACUNA, CONSULTA, FOTO } from "../../../assets/icons/icons";
 import {modoPantalla} from "../../redux/actions/ui";
+import {idiomas } from "../../redux/datos/idiomas"
 
 export class pieComponente extends connect(store)(LitElement) {
     constructor() {
         super();
         this.opcion = ""
+        this.idioma = "ES"
     }
 
     static get styles() {
@@ -89,19 +91,19 @@ export class pieComponente extends connect(store)(LitElement) {
                 ${FOTO}
             </div>          
             <div id="lbl-home" select class="lbl ${this.opcion=='uno'? 'select' : ''}">
-                Inicio
+                ${idiomas[this.idioma].pie.inicio}
             </div>
             <div id="lbl-mascota" class="lbl ${this.opcion=='dos'? 'select' : ''}">
-                Mascotas
+                ${idiomas[this.idioma].pie.mascota}
             </div>
             <div id="lbl-consulta" class="lbl ${this.opcion=='tres'? 'select' : ''}">
-                Consultas
+                ${idiomas[this.idioma].pie.consulta}
             </div>
             <div id="lbl-vacuna" class="lbl ${this.opcion=='cuatro'? 'select' : ''}">
-                Vacunas
+                ${idiomas[this.idioma].pie.vacuna}
             </div>
             <div id="lbl-foto" class="lbl ${this.opcion=='cinco'? 'select' : ''}">
-                Fotos
+                ${idiomas[this.idioma].pie.foto}
             </div>
         `
     }
