@@ -15,6 +15,9 @@ import {onboardingComponente} from "../views/componentes/onboardingcomponente";
 import {inicioSesionComponente} from "../views/componentes/iniciosesioncomponente";
 import {recuperaClaveComponente} from "../views/componentes/recuperaclavecomponente";
 import {cabecera1Componente} from "../views/componentes/cabecera1Componente";
+import {cabecera3Componente} from "../views/componentes/cabecera3Componente";
+import {marquesinaComponente} from "../views/componentes/marquesina";
+import {pieComponente} from "../views/componentes/pie";
 
 import { pantallaSplash } from "../views/formularios/splash";
 import { pantallaOnboarding } from "../views/formularios/onboarding";
@@ -27,6 +30,7 @@ import { pantallaAccespPlan } from "../views/formularios/accesoplan";
 import { pantallaVErCobertuta } from "../views/formularios/vercobertura";
 import { pantallaUsuarioRegistro } from "../views/formularios/usuarioRegistro";
 import { pantallaPlanDetalle } from "../views/formularios/planDetalle";
+import { pantallaPrincipal } from "../views/formularios/principal";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -65,6 +69,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-vercobertura id="vercobertura"></pantalla-vercobertura>
         <pantalla-usuarioregistro id="usuarioregistro"></pantalla-usuarioregistro>
         <pantalla-plandetalle id="plandetalle"></pantalla-plandetalle>
+        <pantalla-principal id="principal"></pantalla-principal>
         `;
     }
  
@@ -82,6 +87,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#vercobertura").hidden = state.ui.quePantalla != "vercobertura";
                 this.shadowRoot.querySelector("#usuarioregistro").hidden = state.ui.quePantalla != "usuarioregistro";
                 this.shadowRoot.querySelector("#plandetalle").hidden = state.ui.quePantalla != "plandetalle";
+                this.shadowRoot.querySelector("#principal").hidden = state.ui.quePantalla != "principal";
             }
         }
 

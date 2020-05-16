@@ -44,12 +44,12 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "splash") {
             store.dispatch(cancelarTimer())
-            store.dispatch(dispararTimer(3, "plandetalle", "splash"))
+            store.dispatch(dispararTimer(3, "principal", "splash"))
         }
     }
 
     pasar(e) {
-        store.dispatch(modoPantalla("plandetalle"))
+        store.dispatch(modoPantalla("principal"))
     }
 
     static get properties() {
