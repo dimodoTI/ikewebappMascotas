@@ -3,14 +3,34 @@ import {
     LitElement,
     css
 } from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {modoPantalla,cancelarTimer} from "../../redux/actions/ui";
-import {idiomas} from "../../redux/datos/idiomas"
-import {button} from "../css/button"
-import {ikeInput} from "../css/ikeInput"
-import {cabecera1} from "../css/cabecera1"
-import {miCheckbox} from "../componentes/checkbox"
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    modoPantalla,
+    cancelarTimer
+} from "../../redux/actions/ui";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    miCheckbox
+} from "../componentes/checkbox"
+import {
+    ATRAS
+} from "../../../assets/icons/icons";
 
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitElement) {
@@ -21,7 +41,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         ${ikeInput}
         ${cabecera1}
@@ -49,18 +69,18 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
-        ` 
+        `
     }
 
     render() {
         return html `
         <div id="header">
-            <div>
-                <div 
-                    id="lblTitulo">${idiomas[this.idioma].iniciosession.titulo}</div>
-                </div>
-                <label id="lblLeyenda">${idiomas[this.idioma].iniciosession.leyenda}</label>
+            <div id="bar">
+               <!--  <div>${ATRAS}</div> -->
+                <div id="lblTitulo">${idiomas[this.idioma].iniciosession.titulo}</div>
             </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].iniciosession.leyenda}</div>
+        </div>
         <div id="cuerpo">
             <div class="ikeInput">
                 <label id="lblMail">${idiomas[this.idioma].iniciosession.mail}</label>
@@ -125,25 +145,23 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
         return valido
     }
 
-    clickBoton1(){
+    clickBoton1() {
         if (this.activo) {
             if (this.valido()) {
                 store.dispatch(modoPantalla("principal"));
             }
         }
     }
-    
-    clickBoton2(){
+
+    clickBoton2() {
         this.clickBtn2();
     }
-    clickBoton3(){
+    clickBoton3() {
         this.clickBtn3();
     }
-    stateChanged(state, name) {
-    }
-    firstUpdated() {
-    }
- 
+    stateChanged(state, name) {}
+    firstUpdated() {}
+
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "iniciosesion") {
             store.dispatch(cancelarTimer())
