@@ -86,7 +86,8 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
             <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].accesoplan.btn2}
             </button>
             <button id="btnInvitado" btn2 @click=${this.clickBoton3}>${idiomas[this.idioma].accesoplan.btn3}</button>
-            <button id="btnTengoCuenta" btn2 style="margin-top:1.5rem" @click=${this.clickBoton4}>${idiomas[this.idioma].accesoplan.btn4}</button>
+            <button id="btnTengoCuenta" btn2 @click=${this.clickBoton4}>${idiomas[this.idioma].accesoplan.btn4}</button>
+            <button id="btnAyuda" btn2 style="margin-top:1rem" @click=${this.clickBotonAyuda}>${idiomas[this.idioma].accesoplan.btn5}</button>
 
         </div>
         `
@@ -122,20 +123,22 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
             }
         }
         if (ok){
-            store.dispatch(modoPantalla("vercobertura"))
+            store.dispatch(modoPantalla("plandetalle","accesoplan"))
         }
  
     }
     clickBoton2(){
-        store.dispatch(modoPantalla("usuarioregistro"))
+        store.dispatch(modoPantalla("usuarioregistro","accesoplan"))
     }
     clickBoton3(){
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("principal","accesoplan"))
     }
     clickBoton4(){
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("iniciosesion","accesoplan"))
     }
-
+    clickBotonAyuda(){
+        store.dispatch(modoPantalla("vercobertura"))
+    }
 
     static get properties() {
         return {

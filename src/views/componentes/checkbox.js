@@ -20,8 +20,8 @@ export class miCheckbox extends connect(store)(LitElement) {
                 background-color:transparent;
                 outline:none;
                 font-family:inherit;
-                font-size:inherit;
-                font-weight:inherit;
+                font-size: var(--font-label-size);
+                font-weight: var(--font-label-weight);
                 width:100%;
                 height: 2rem;
             }

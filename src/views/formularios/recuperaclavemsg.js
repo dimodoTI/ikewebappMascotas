@@ -74,7 +74,8 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
     }
     
     clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
+//        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("crearclave"))
     }
 
     stateChanged(state, name) {

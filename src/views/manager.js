@@ -12,7 +12,6 @@ import {
 
 import {splashScreen} from "../views/componentes/splashscreen";
 import {onboardingComponente} from "../views/componentes/onboardingcomponente";
-import {inicioSesionComponente} from "../views/componentes/iniciosesioncomponente";
 import {recuperaClaveComponente} from "../views/componentes/recuperaclavecomponente";
 import {cabecera1Componente} from "../views/componentes/cabecera1Componente";
 import {cabecera3Componente} from "../views/componentes/cabecera3Componente";
@@ -31,6 +30,7 @@ import { pantallaVErCobertuta } from "../views/formularios/vercobertura";
 import { pantallaUsuarioRegistro } from "../views/formularios/usuarioRegistro";
 import { pantallaPlanDetalle } from "../views/formularios/planDetalle";
 import { pantallaPrincipal } from "../views/formularios/principal";
+import { pantallaUsuarioDetalle } from "../views/formularios/usuarioDetalle";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -70,6 +70,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-usuarioregistro id="usuarioregistro"></pantalla-usuarioregistro>
         <pantalla-plandetalle id="plandetalle"></pantalla-plandetalle>
         <pantalla-principal id="principal"></pantalla-principal>
+        <pantalla-usuariodetalle id="usuariodetalle"></pantalla-usuariodetalle>
         `;
     }
  
@@ -88,6 +89,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#usuarioregistro").hidden = state.ui.quePantalla != "usuarioregistro";
                 this.shadowRoot.querySelector("#plandetalle").hidden = state.ui.quePantalla != "plandetalle";
                 this.shadowRoot.querySelector("#principal").hidden = state.ui.quePantalla != "principal";
+                this.shadowRoot.querySelector("#usuariodetalle").hidden = state.ui.quePantalla != "usuariodetalle";
             }
         }
 

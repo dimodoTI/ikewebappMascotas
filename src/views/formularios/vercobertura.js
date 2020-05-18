@@ -75,10 +75,10 @@ export class pantallaVerCobertura extends connect(store)(LitElement) {
     }
     
     clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
+        //store.dispatch(modoPantalla("iniciosesion"))
     }
     clickBoton2(){
-        store.dispatch(modoPantalla("iniciosesion"))
+        //store.dispatch(modoPantalla("iniciosesion"))
     }
     clickBoton3(){
         store.dispatch(modoPantalla("accesoplan"))

@@ -7,12 +7,14 @@ import {input} from "../css/input"
 import {button} from "../css/button"
 import {modoPantalla} from "../../redux/actions/ui";
 const MODO_PANTALLA = "ui.timeStampPantalla"
-export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitElement) {
+export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item={mail:"",clave:"",recordar:""}
+        this.item={foto: "--imagen-foto",nombre:"Lucia Lopez",plan:"Plan Iké 110",
+            creada:"Cuenta creada el 02/03/19", mascotas:"3", consultas:"12", vacunas:"14",
+            mail:"1141953476",mail:"lucia@gmail.com"}
         this.label = ""
     }
 
@@ -25,9 +27,11 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             position: absolute;
             top: 0rem;
             left: 0rem;  
-            height:100%;
-            width: 100%;
-            background-color:var(--color-gris-claro);
+            height:100vh;
+            width: 100vw;
+            background-color:var(--color-gris-fondo);
+            justify-content:stretch;
+            align-content:stretch; 
         }
         :host([hidden]){
             display: none; 
@@ -40,7 +44,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             height: 20%;
             width: 100%;
             background-color: var(--color-blanco);
-            align-items:center; 
+            align-content:center; 
             justify-content:center;  
         }
         #cabeceraTit{
@@ -49,17 +53,18 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             width: 80%;
         }
         #cuerpo{
-            position: absolute;
-            padding-left:10%;
-            height: 80%;
-            display:grid;
-            grid-auto-flow:row;
-            grid-gap: .7rem;
             top: 20%;
-            width: 80%;
+            position: absolute;
+            display:grid;
+            height: 80%;
+            width: 100%;
+            grid-auto-flow:row;
             background-color: transparent;
-            align-items:center; 
             justify-items:center;
+            align-items:center; 
+            justify-content:stretch;
+            align-content:stretch; 
+             
             overflow-y: auto; 
         }
         #cuerpo::-webkit-scrollbar {
@@ -75,18 +80,72 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
         }
+        #marco{
+            position: relative;
+            display:grid;
+            grid-auto-flow:row;
+            width: 95%;
+            height: 14rem;
+            background-color: red;
+            box-shadow: var(--shadow-elevation-2-box);
+            border-radius:1rem;
+            z-index:5;
+            justify-items:center;
+            align-items:center; 
+            justify-content:stretch;
+            align-content:stretch; 
+        }
+        #foto{
+            position: absolute;
+            top:-15vw;
+            width: 30vw;
+            height: 30vw;
+            border-radius:50%;              
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+            z-index:10;
+        }
+        #fotoEdit{
+            position: absolute;
+            bottom: .5rem;
+            left: 50%;
+            width: 1.5rem;
+            height: 1.5rem;
+            transform: translate(-50%);
+            background-image:var(--icon-foto-edit);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+            z-index:10;
+        }
+        #lblNombre{
+            position: relative;
+            align-items:center; 
+            justify-content:center;
+            font-size: var(--font-header-h1-size);
+            font-weight: var(--font-header-h1-weight);
+        }
         `
     } 
     render() {
         return html `
         <div id="header">
             <cabecera1-componente id="cabeceraTit"
-            titulo="${idiomas[this.idioma].usuarioregistro.titulo}" 
-            leyenda="${idiomas[this.idioma].usuarioregistro.leyenda}"
+            titulo="${idiomas[this.idioma].usuariodetalle.titulo}" 
+            leyenda="${idiomas[this.idioma].usuariodetalle.leyenda}"
             .btn1=${function () {store.dispatch(modoPantalla("accesoplan","usuarioregistro"))}}
             ></cabecera1-componente>   
         </div>
         <div id="cuerpo">
+            <div style="height:3rem;width:100%"></div>
+            <div id="marco">
+                <div id="foto" style="background-image:var(${this.item.foto});">
+                    <div id="fotoEdit"></div>
+                </div>
+                <div id="lblNombre">${this.item.nombre}</div>
+            </div>
+
             <label id="lblNombre" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblNombre}
             </label>
             <input id="txtNombre" style="margin-top:1.5rem" @input=${this.activaIngreso}>
@@ -189,4 +248,4 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
     }
 }
 
-window.customElements.define("pantalla-usuarioregistro", pantallaUsuarioRegistro);
+window.customElements.define("pantalla-usuariodetalle", pantallaUsuarioDetalle);

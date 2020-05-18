@@ -2,7 +2,7 @@ export const idiomas = {
     ES: {
         onboarding: { btn1: "Siguiente", btn2: "Ya tengo cuenta.", btn3: "Comenzar"},
         iniciosession: { titulo: "Iniciá sesión", leyenda: "Completá tus datos para ingresar a tu cuenta", 
-        mail: "Ingresá tu mail", clave: "Ingresá tu contraseña", datos:"Recordar mis datos", btn1:"Iniciar sesión", 
+        mail: "Ingresá tu mail",mail_ph: "jose@gmail.com", clave: "Ingresá tu contraseña", datos:"Recordar mis datos", btn1:"Iniciar sesión", 
         btn2:"Olvidé mi contraseña", btn3:"Ingresar sin registrarme", errorMail: {err1:"Mail incorrecto", err2:"wer"}, 
         errorClave: {err1:"Tu contraseña debe tener 4 caraceres", err2:"wer"}},
         recuperaclave: { titulo: "Recuperá tu contraseña", leyenda: "Completá tus datos para recuperar tu contraseña", 
@@ -17,7 +17,7 @@ export const idiomas = {
         crearclavemsg: { titulo: "¡Genial!", leyenda: "Tu contraseña fue creada con éxito.", btn1:"Ingresar a mi cuenta"},
         accesoplan: { titulo: "Accedé a tu Plan Iké", leyenda: "Ingresá el DNI del titular para acceder a tu cobertura.", 
         documento:"Ingresá el DNI del titular", btn1:"Ingresar a mi cobertura", 
-        btn2:"Quiero contratar un Plan Iké", btn3:"Ingresar sin registrarme", btn4:"Ya tengo cuenta", 
+        btn2:"Quiero contratar un Plan Iké", btn3:"Ingresar sin registrarme", btn4:"Ya tengo cuenta",  btn5:"Ayuda", 
         errorDocumento: {err1:"Documento incorrecto", err2:"wer"}},
         vercobertura: { titulo: "¿Necesitás ayuda con tu cobertura Iké Mascotas?", leyenda: "Contacta a un asesor para hacer consultas o contratar un plan.", 
         btn1:"Ver planes disponibles", btn2:"Contactar a un asesor de Iké", btn3:"Volver"},
@@ -31,8 +31,8 @@ export const idiomas = {
         btnFlier:"Ingresar", carro1: [{lbl:"Club Iké"},{lbl:"Ecommerce"},{lbl:"Agendar Alarma"}],
         carro2: [{lbl:""},{lbl:""},{lbl:""}],lblNovedades:"Novedades Iké",
         lblAyuda:"¿Necesitás ayuda?. Estamos para lo que necesites.",btnAyuda:"Solicitar asistencia"},
-        pie: { inicio: "Inicio", mascota: "Mascotas", consulta: "Consultas", vacuna: "Vacunas", foto: "Fotos"}
-
+        pie: { inicio: "Inicio", mascota: "Mascotas", consulta: "Consultas", vacuna: "Vacunas", foto: "Fotos"},
+        usuariodetalle: {titulo:"Tu perfil", leyenda:"Bienvenida a tu cuenta, encontrarás tu info personal y detalle de plan."}
 
     }
 }

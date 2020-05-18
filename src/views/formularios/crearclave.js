@@ -30,12 +30,20 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
         } 
         #header{
             position: absolute;
+            display: flex;;
             top: 0px;
             left: 0px;
             height: 20%;
             width: 100%;
             background-color: var(--color-blanco);
-         }
+            align-items:center; 
+            justify-content:center;  
+        }
+        #cabeceraTit{
+            position:relative;
+            display:grid;
+            width: 80%;
+        }
         #cuerpo{
             position: absolute;
             top: 20%;
@@ -63,7 +71,7 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">            
-            <cabecera1-componente 
+            <cabecera1-componente id="cabeceraTit"
             titulo="${idiomas[this.idioma].crearclave.titulo}" 
             leyenda="${idiomas[this.idioma].crearclave.leyenda}"
             .btn1=${function () {store.dispatch(modoPantalla("iniciosesion"))}}

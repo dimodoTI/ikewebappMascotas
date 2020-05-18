@@ -48,9 +48,9 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             txtBtn3=${idiomas[this.idioma].onboarding.btn3}
             .clickBtn1=${function () {this.adelante()
             }}
-            .clickBtn2=${function () {store.dispatch(modoPantalla("iniciosesion"))
+            .clickBtn2=${function () {store.dispatch(modoPantalla("iniciosesion","onboarding"))
             }}
-            .clickBtn3=${function () {store.dispatch(modoPantalla("accesoplan"))
+            .clickBtn3=${function () {store.dispatch(modoPantalla("accesoplan","onboarding"))
             }}
             ></onboarding-componente>
         </div>

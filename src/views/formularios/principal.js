@@ -209,7 +209,7 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             <cabecera3-componente 
             titulo="${idiomas[this.idioma].principal.tituloCabecera}" 
             leyenda="${idiomas[this.idioma].principal.leyendaCabecera}"
-            .btn1=${function () {store.dispatch(modoPantalla("usuarioregistro"))}}
+            .btn1=${function () {store.dispatch(modoPantalla("usuariodetalle"))}}
             ></cabecera3-componente>
         </div>
         <div id="cuerpo">

@@ -15,7 +15,8 @@ export class cabecera1Componente extends connect(store)(LitElement) {
         ${label}
         :host{
             position: absolute;
-            display: grid;
+            display: flex;
+            justify-content:left;
             top: 0rem;
             left: 0rem;  
             height:100%;
@@ -24,7 +25,6 @@ export class cabecera1Componente extends connect(store)(LitElement) {
             grid-template-columns:100%;
             grid-template-rows: 45% auto;
             grid-gap:.3rem;
-            padding-left:1.5rem;
         }
         :host([hidden]){
             display: none; 
@@ -32,8 +32,9 @@ export class cabecera1Componente extends connect(store)(LitElement) {
         #titulo{
             position: relative;
             display: grid;
+            align-items:center; 
+            justify-content:center;
             height: 100%;
-            width: 100%;
             grid-template-columns:5% 95%;
             grid-template-rows: 100%;
             background-color: transparent;    
@@ -41,7 +42,6 @@ export class cabecera1Componente extends connect(store)(LitElement) {
         }
         #atras{
             height: 100%;
-            width: 100%;
             background-image: var(--icon-flecha-izq-sin-borde);
             background-color: transparent;
             background-repeat: no-repeat;
@@ -50,7 +50,6 @@ export class cabecera1Componente extends connect(store)(LitElement) {
         }
         #lblTitulo{
             height: 100%;
-            width: 100%;
             background-color: transparent;
             display: flex;
             align-items:flex-end; 
@@ -60,7 +59,8 @@ export class cabecera1Componente extends connect(store)(LitElement) {
         }
         #lblLeyenda{
             position: relative;
-            width: 100%;
+            display:flex;
+            width:100%;
             background-color: transparent;
             align-items:flex-start; 
             justify-content:left;
@@ -69,7 +69,6 @@ export class cabecera1Componente extends connect(store)(LitElement) {
         }
         label {
             position: relative;
-            width: 80%;
             color: var(--color-negro);
             background-color:transparent;
             border-radius:0;

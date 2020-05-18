@@ -66,6 +66,7 @@ export const reducer = (state = initialState, action) => {
         case MODO_PANTALLA:
             newState.timeStampPantalla = (new Date()).getTime()
             newState.quePantalla = action.quePantalla
+            newState.pantallaQueLLamo = action.pantallaQueLLamo
             break;
         case SET_TIMER:
             if (newState.timer) clearTimeout(newState.timer)

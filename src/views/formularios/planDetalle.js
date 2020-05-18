@@ -4,7 +4,7 @@ import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
 import {label} from "../css/label"
 import {button} from "../css/button"
-import {modoPantalla} from "../../redux/actions/ui";
+import {modoPantalla,pantallaQueLLamo} from "../../redux/actions/ui";
 import { repeat } from 'lit-html/directives/repeat.js';
 import {cabecera1Componente} from "../componentes/cabecera1Componente"
 export class pantallaPlanDetalle extends connect(store)(LitElement) {
@@ -36,17 +36,20 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
         } 
         #header{
             position: absolute;
-            display: grid;
-            grid-template-columns:100%;
-            grid-template-rows: 45% auto;
+            display: flex;;
             top: 0px;
             left: 0px;
             height: 20%;
             width: 100%;
             background-color: var(--color-blanco);
-            grid-gap:.3rem;
-            padding-left:1.5rem;
-         }
+            align-items:center; 
+            justify-content:center;  
+        }
+        #cabeceraTit{
+            position:relative;
+            display:grid;
+            width: 80%;
+        }
         #cuerpo{
             position: absolute;
             top: 20%;
@@ -108,10 +111,10 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">
-            <cabecera1-componente 
+            <cabecera1-componente id="cabeceraTit"
             titulo="${idiomas[this.idioma].plandetalle.titulo}" 
             leyenda="${idiomas[this.idioma].plandetalle.leyenda}"
-            .btn1=${function () {store.dispatch(modoPantalla("usuarioregistro"))}}
+            .btn1=${function () {store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo,"plandetalle"))}}
             ></cabecera1-componente>
         </div>
         <div id="cuerpo">
@@ -140,10 +143,10 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
     }
     
     clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
+        //store.dispatch(modoPantalla("iniciosesion","plandetalle"))
     }
     clickBoton2(){
-        store.dispatch(modoPantalla("iniciosesion"))
+        //store.dispatch(modoPantalla("iniciosesion","plandetalle"))
     }
     stateChanged(state, name) {
     }

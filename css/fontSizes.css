@@ -10,4 +10,12 @@ html {
     --font-bajada-family:inherit;
     --font-bajada-size: 0.7rem;
     --font-bajada-weight:normal;
+
+    --font-label-family:inherit;
+    --font-label-size: 0.6rem;
+    --font-label-weight:normal;
+
+    --font-error-family:inherit;
+    --font-error-size: 0.5rem;
+    --font-error-weight:normal;
 }

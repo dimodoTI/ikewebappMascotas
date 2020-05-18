@@ -39,9 +39,10 @@ export const setMedia = (size) => ({
 export const toggleMenu = () => ({
   type: TOGGLE_MENU
 });
-export const modoPantalla = (quePantalla) => ({
+export const modoPantalla = (quePantalla, pantallaQueLLamo) => ({
   type: MODO_PANTALLA,
-  quePantalla: quePantalla
+  quePantalla: quePantalla,
+  pantallaQueLLamo: pantallaQueLLamo
 });
 export const dispararTimer = (tiempo, target, pantallaQueLLamo) => ({
   type: DISPARAR_TIMER,
