@@ -45,7 +45,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
         ${button}
         ${ikeInput}
         ${cabecera1}
-        :host{
+        :host{ 
             position: absolute;
             top: 0rem;
             left: 0rem;  
@@ -154,10 +154,10 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     }
 
     clickBoton2() {
-        this.clickBtn2();
+        store.dispatch(modoPantalla("recuperaclave"));
     }
     clickBoton3() {
-        this.clickBtn3();
+        store.dispatch(modoPantalla("principal"));
     }
     stateChanged(state, name) {}
     firstUpdated() {}

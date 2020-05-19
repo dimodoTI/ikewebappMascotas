@@ -10,9 +10,6 @@ import {
     store
 } from "../redux/store";
 
-import {splashScreen} from "../views/componentes/splashscreen";
-import {onboardingComponente} from "../views/componentes/onboardingcomponente";
-import {recuperaClaveComponente} from "../views/componentes/recuperaclavecomponente";
 import {cabecera1Componente} from "../views/componentes/cabecera1Componente";
 import {cabecera3Componente} from "../views/componentes/cabecera3Componente";
 import {marquesinaComponente} from "../views/componentes/marquesina";

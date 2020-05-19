@@ -6,7 +6,7 @@ export const idiomas = {
         btn2:"Olvidé mi contraseña", btn3:"Ingresar sin registrarme", errorMail: {err1:"Mail incorrecto", err2:"wer"}, 
         errorClave: {err1:"Tu contraseña debe tener 4 caraceres", err2:"wer"}},
         recuperaclave: { titulo: "Recuperá tu contraseña", leyenda: "Completá tus datos para recuperar tu contraseña", 
-        mail: "Ingresá tu mail", documento: "Ingresá el DNI del titular", btn1:"Recuperar contraseña", 
+        mail: "Ingresá tu mail",mail_ph: "jose@gmail.com", documento: "Ingresá el DNI del titular",documento_ph: "99999999", btn1:"Recuperar contraseña", 
         errorMail: {err1:"Mail incorrecto", err2:"wer"}, 
         errorDocumento: {err1:"Documento incorrecto", err2:"wer"}},
         recuperaclavemsg: { titulo: "¡Todo listo para recuperar tu contraseña!", leyenda: "Ingresá a tu casilla de mail y seguí los pasos para recuperar tu contraseña."},

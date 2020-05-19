@@ -2,10 +2,11 @@ import {html,LitElement,css} from "lit-element";
 import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
+import {button} from "../css/button"
+import {ikeInput} from "../css/ikeInput"
+import {cabecera1} from "../css/cabecera1"
 import {modoPantalla} from "../../redux/actions/ui";
-import {recuperaClave} from "../componentes/recuperaclavecomponente"
-import {cabecera1Componente} from "../componentes/cabecera1Componente"
+import {ATRAS} from "../../../assets/icons/icons"
 export class pantallaRecuperaClave extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -17,99 +18,108 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
 
     static get styles() {
         return css`
-        ${label}
+        ${button}
+        ${ikeInput}
+        ${cabecera1}
         :host{
             position: absolute;
             top: 0rem;
             left: 0rem;  
             height:100%;
             width: 100%;
-            background-color:var(--color-gris-claro);
+            background-color:var(--color-gris-fondo);
+            display:grid;
+            grid-template-rows:2fr 8fr
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display: flex;;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100%;
-            background-color: var(--color-blanco);
-            align-items:center; 
-            justify-content:center;  
-
-         }
-         #cabeceraTit{
-            position:relative;
-            display:grid;
-            width: 80%;
-        }
         #cuerpo{
-            position: absolute;
-            top: 20%;
-            left: 0px;
-            height: 45%;
-            width: 100%;
             background-color: transparent;
             display:grid;
+            padding:2rem;
             grid-auto-flow:row;
-            grid-gap:0rem;
-            align-items:center;
-            justify-items:center;
+            grid-gap:.8rem;
+            align-content:start
         }
-        label,input,button,mi-checkbox {
-            position: relative;
-            width: 80%;
-            color: var(--color-negro);
-            background-color:transparent;
-            border-radius:0;
-            font-size: var(--font-bajada-size);
-            font-weight: var(--font-bajada-weight);
+        #cuerpo::-webkit-scrollbar {
+            display: none;
         }
         `
     } 
     render() {
         return html `
         <div id="header">        
-            <cabecera1-componente id="cabeceraTit"
-            titulo="${idiomas[this.idioma].recuperaclave.titulo}" 
-            leyenda="${idiomas[this.idioma].recuperaclave.leyenda}"
-            .btn1=${function () {store.dispatch(modoPantalla("iniciosesion"))}}
-            ></cabecera1-componente>               
+            <div id="bar">
+                <div @click=${this.clickBoton1}>${ATRAS}</div>
+                <div id="lblTitulo">${idiomas[this.idioma].recuperaclave.titulo}</div>
+            </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].recuperaclave.leyenda}</div>
         </div>
         <div id="cuerpo">
-            <recuperaclave-componente 
-            .clickBtn1=${function () {store.dispatch(modoPantalla("recuperaclavemsg"))
-            }}>
-            </recuperaclave-componente>
+            <div class="ikeInput">
+                <label id="lblMail">${idiomas[this.idioma].recuperaclave.mail}</label>
+                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].recuperaclave.mail_ph}>
+                <label id="lblErrorMail" error oculto>${idiomas[this.idioma].recuperaclave.errorMail.err1}</label>
+            </div>
+
+            <div class="ikeInput">
+                <label id="lblDocumento">${idiomas[this.idioma].recuperaclave.documento}</label>
+                <input id="txtDocumento" @input=${this.activar} type="number" placeholder=${idiomas[this.idioma].recuperaclave.documento_ph}>
+                <label id="lblErrorDocumento" error oculto>${idiomas[this.idioma].recuperaclave.errorDocumento.err1}</label>
+            </div>
+            <button id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
+                ${idiomas[this.idioma].recuperaclave.btn1}
+            </button>
         </div>
         `
     }
-
+    activar() {
+        this.activo = true
+        const email = this.shadowRoot.querySelector("#txtMail")
+        const documento = this.shadowRoot.querySelector("#txtDocumento")
+        if (documento.value.length < 4) {
+            this.activo = false
+        }
+        if (email.value.length < 4) {
+            this.activo = false
+        }
+        if (this.activo) {
+            this.shadowRoot.querySelector("#btn-recuperar").removeAttribute("apagado")
+        } else {
+            this.shadowRoot.querySelector("#btn-recuperar").setAttribute("apagado", "")
+        }
+        this.update()
+    }
+    valido() {
+        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+            element.setAttribute("oculto", "")
+        })
+        let valido = true
+        const documento = this.shadowRoot.querySelector("#txtDocumento")
+        const email = this.shadowRoot.querySelector("#txtMail")
+        if (documento.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorDocumento").removeAttribute("oculto");
+        }
+        if (email.value.indexOf("@") == -1) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
+        }
+        this.update()
+        return valido
+    }
+    clickBoton1(){
+        store.dispatch(modoPantalla("iniciosesion"))
+    }
 
     clickBoton2(){
-        if(this.shadowRoot.getElementById("txtClave").value.length < 4){
-            if (this.shadowRoot.getElementById("lblErrorClave").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorClave").removeAttribute("oculto","");
-                this.shadowRoot.getElementById("lblErrorClave").innerHTML=idiomas[this.idioma].iniciosession.errorClave.err1 ;
-            }
-        }else{
-            if (!this.shadowRoot.getElementById("lblErrorClave").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorClave").setAttribute("oculto","");
+        if (this.activo) {
+            if (this.valido()) {
+                store.dispatch(modoPantalla("recuperaclavemsg"));
             }
         }
-        if(this.shadowRoot.getElementById("txtMail").value.length < 4){
-            if (this.shadowRoot.getElementById("lblErrorMail").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorMail").removeAttribute("oculto","");
-                this.shadowRoot.getElementById("lblErrorMail").innerHTML=idiomas[this.idioma].iniciosession.errorMail.err1 ;
-            }
-        }else{
-            if (!this.shadowRoot.getElementById("lblErrorMail").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorMail").setAttribute("oculto","");
-            }
-        }
+
     }
 
     stateChanged(state, name) {

@@ -26,17 +26,27 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
             background-color: trasparent;
             height: 100vh;
             width: 100vw;   
+            background-color:var(--color-celeste);
+            background-image:var(--imagen-logo-splash);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80%;
         }
         :host([hidden]){
             display: none; 
         }
+        #fondo{
+            height: 100%;
+            width: 100%;
+            background-color:transparent;            
+        }
+
         `
     }
     render() {
         return html`
         <div id="fondo" @click="${this.pasar}">
-            <splash-screen></splash-screen>
-         </div>
+        </div>
         `
 
     }
@@ -44,12 +54,12 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "splash") {
             store.dispatch(cancelarTimer())
-            store.dispatch(dispararTimer(3, "iniciosesion", "splash"))
+            store.dispatch(dispararTimer(3, "recuperaclavemsg", "splash"))
         }
     }
 
     pasar(e) {
-        store.dispatch(modoPantalla("iniciosesion","splash"))
+        store.dispatch(modoPantalla("recuperaclavemsg","splash"))
     }
 
     static get properties() {
