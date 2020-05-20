@@ -202,7 +202,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].mensaje
             if (this.lienaActual+1 == this.lineas.length){
                 this.shadowRoot.querySelector("#flecha-der").hidden = true
-                 this.shadowRoot.querySelector("#btn-siguiente").innerText = this.txtBtn3
+                 this.shadowRoot.querySelector("#btn-siguiente").innerText = idiomas[this.idioma].onboarding.btn3
             }  
         }
     }

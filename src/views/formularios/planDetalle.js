@@ -92,7 +92,7 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
 
         <div id="header">
             <div id="bar">
-                <div @click=${this.clickBoton1}>${ATRAS}</div>
+                <div @click=${this.clickBoton3}>${ATRAS}</div>
                 <div id="lblTitulo">${idiomas[this.idioma].plandetalle.titulo}</div>
             </div>
             <div id="lblLeyenda">${idiomas[this.idioma].plandetalle.leyenda}</div>
