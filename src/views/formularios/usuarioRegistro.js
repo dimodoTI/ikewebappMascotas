@@ -2,10 +2,11 @@ import {html,LitElement,css} from "lit-element";
 import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {input} from "../css/input"
+import {ikeInput} from "../css/ikeInput"
+import {cabecera1} from "../css/cabecera1"
 import {button} from "../css/button"
 import {modoPantalla} from "../../redux/actions/ui";
+import {ATRAS} from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -18,8 +19,8 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
 
     static get styles() {
         return css`
-        ${label}
-        ${input}
+        ${cabecera1}
+        ${ikeInput}
         ${button}
         :host{
             position: absolute;
@@ -28,89 +29,69 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             height:100%;
             width: 100%;
             background-color:var(--color-gris-claro);
+            display:grid;
+            grid-template-rows:2fr 8fr;
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display: flex;;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100%;
-            background-color: var(--color-blanco);
-            align-items:center; 
-            justify-content:center;  
-        }
-        #cabeceraTit{
-            position:relative;
-            display:grid;
-            width: 80%;
-        }
         #cuerpo{
-            position: absolute;
-            padding-left:10%;
-            height: 80%;
-            display:grid;
-            grid-auto-flow:row;
-            grid-gap: .7rem;
-            top: 20%;
-            width: 80%;
             background-color: transparent;
-            align-items:center; 
-            justify-items:center;
+            display:grid;
+            padding:2rem;
+            grid-auto-flow:row;
+            grid-gap:.8rem;
+            align-content:start;
             overflow-y: auto; 
+            overflow-x: hidden; 
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
-        
-        label, input, button {
+        button {
             position: relative;
-            color: var(--color-negro);
-            background-color:transparent;
-            border-radius:0;
-            width: 80%;
-            font-size: var(--font-bajada-size);
-            font-weight: var(--font-bajada-weight);
         }
         `
     } 
     render() {
         return html `
         <div id="header">
-            <cabecera1-componente id="cabeceraTit"
-            titulo="${idiomas[this.idioma].usuarioregistro.titulo}" 
-            leyenda="${idiomas[this.idioma].usuarioregistro.leyenda}"
-            .btn1=${function () {store.dispatch(modoPantalla("accesoplan","usuarioregistro"))}}
-            ></cabecera1-componente>   
+            <div id="bar">
+                <div @click=${this.clickBoton4}>${ATRAS}</div>
+                <div id="lblTitulo">${idiomas[this.idioma].usuarioregistro.titulo}</div>
+            </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].usuarioregistro.leyenda}</div>
         </div>
         <div id="cuerpo">
-            <label id="lblNombre" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblNombre}
-            </label>
-            <input id="txtNombre" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorNombre" error oculto></label>
- 
-            <label id="lblMail" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblMail}
-            </label>
-            <input id="txtMail" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorMail" error oculto></label>
- 
-            <label id="lblCelular" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblCelu}
-            </label>
-            <input id="txtCelular" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorCelular" error oculto></label>
+            <div class="ikeInput">
+                <label id="lblNombre">${idiomas[this.idioma].usuarioregistro.lblNombre}</label>
+                <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuarioregistro.lblNombre_ph}>
+                <label id="lblErrorNombre" error oculto>Nombre Incorrecto</label>
+            </div>
 
-            <label id="lblClave1" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblClave1}
-            </label>
-            <input id="txtClave1" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorClave1" error oculto></label>
+            <div class="ikeInput">
+                <label id="lblMail">${idiomas[this.idioma].usuarioregistro.lblMail}</label>
+                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].usuarioregistro.lblMail_ph}>
+                <label id="lblErrorMail" error oculto>Mail Incorrecto</label>
+            </div>
 
-            <label id="lblClave2" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblClave2}
-            </label>
-            <input id="txtClave2" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorClave2" error oculto></label>
+            <div class="ikeInput">
+                <label id="lblCelular">${idiomas[this.idioma].usuarioregistro.lblCelu}</label>
+                <input id="txtCelular"  @input=${this.activar} type="phone" placeholder=${idiomas[this.idioma].usuarioregistro.lblCelu_ph}>
+                <label id="lblErrorCelular" error oculto>Celular Incorrecto</label>
+            </div> 
+
+            <div class="ikeInput">
+                <label id="lblClave1">${idiomas[this.idioma].usuarioregistro.lblClave1}</label>
+                <input id="txtClave1"  @input=${this.activar} type="password"}>
+                <label id="lblErrorClave1" error oculto>Clave1 Incorrecta</label>
+            </div>
+
+            <div class="ikeInput">
+                <label id="lblClave2">${idiomas[this.idioma].usuarioregistro.lblClave2}</label>
+                <input id="txtClave2" @input=${this.activar} type="password"}>
+                <label id="lblErrorClave2" error oculto>Clave2 Incorrecta</label>
+            </div>
 
             <button id="btnIngresar" btn1 apagado style="margin-top:1.5rem" @click=${this.clickBoton1}>
             ${idiomas[this.idioma].usuarioregistro.btn1}</button>
@@ -120,7 +101,68 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
         </div>
         `
     }
-
+    activar() {
+        this.activo = true
+        const nombre = this.shadowRoot.getElementById("txtNombre");
+        const mail = this.shadowRoot.getElementById("txtMail");
+        const celular =this.shadowRoot.getElementById("txtCelular");
+        const clave1 = this.shadowRoot.querySelector("#txtClave1")
+        const clave2 = this.shadowRoot.querySelector("#txtClave2")
+        if (nombre.value.length < 4) {
+            this.activo = false
+        }
+        if (mail.value.length < 4) {
+            this.activo = false
+        }
+        if (celular.value.length < 4) {
+            this.activo = false
+        }
+        if (clave1.value.length < 4) {
+            this.activo = false
+        }
+        if (clave2.value.length < 4) {
+            this.activo = false
+        }
+        if (this.activo) {
+            this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado")
+        } else {
+            this.shadowRoot.querySelector("#btnIngresar").setAttribute("apagado", "")
+        }
+        this.update()
+    }
+    valido() {
+        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+            element.setAttribute("oculto", "")
+        })
+        let valido = true
+        const nombre = this.shadowRoot.getElementById("txtNombre");
+        const mail = this.shadowRoot.getElementById("txtMail");
+        const celular =this.shadowRoot.getElementById("txtCelular");
+        const clave1 = this.shadowRoot.querySelector("#txtClave1")
+        const clave2 = this.shadowRoot.querySelector("#txtClave2")
+        if (nombre.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorNombre").removeAttribute("oculto");
+        }
+        if (mail.value.indexOf("@") == -1) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
+        }
+        if (celular.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorCelular").removeAttribute("oculto");
+        }
+        if (clave1.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorClave1").removeAttribute("oculto");
+        }
+        if (clave2.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorClave2").removeAttribute("oculto");
+        }
+        this.update()
+        return valido
+    }
     activaIngreso(){
         let nom = this.shadowRoot.getElementById("txtNombre");
         let mail = this.shadowRoot.getElementById("txtMail");
@@ -143,26 +185,12 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
     }
     firstUpdated() {
     }
-    
-
     clickBoton1(){
-        let ok=false
-        if(this.shadowRoot.getElementById("txtNombre").value.length < 4){
-            if (this.shadowRoot.getElementById("lblErrorNombre").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorNombre").removeAttribute("oculto","");
-                this.shadowRoot.getElementById("lblErrorNombre").innerHTML=idiomas[this.idioma].accesoplan.errorDocumento.err1 ;
-            }
-        }else{
-            ok=true
-            if (!this.shadowRoot.getElementById("lblErrorNombre").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorNombre").setAttribute("oculto","");
+        if (this.activo) {
+            if (this.valido()) {
+                store.dispatch(modoPantalla("principal","usuarioregistro"))
             }
         }
-        if (ok){
-            store.dispatch(modoPantalla("principal","usuarioregistro"))
-
-        }
- 
     }
     clickBoton2(){
         store.dispatch(modoPantalla("plandetalle","usuarioregistro"))
@@ -171,7 +199,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
         store.dispatch(modoPantalla("principal","usuarioregistro"))
     }
     clickBoton4(){
-        store.dispatch(modoPantalla("iniciosesion","usuarioregistro"))
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo,"usuarioregistro"))
     }
 
 

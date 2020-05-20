@@ -3,8 +3,9 @@ import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
 import {label} from "../css/label"
-import {input} from "../css/input"
 import {button} from "../css/button"
+import {ikeInput} from "../css/ikeInput"
+import {cabecera1} from "../css/cabecera1"
 import {modoPantalla} from "../../redux/actions/ui";
 export class pantallaAccesoPlan extends connect(store)(LitElement) {
     constructor() {
@@ -12,14 +13,13 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
         this.hidden = true
         this.idioma = "ES"
         this.item={mail:"",clave:"",recordar:""}
-        this.label = ""
     }
 
     static get styles() {
         return css`
-        ${label}
-        ${input}
+        ${ikeInput}
         ${button}
+        ${cabecera1}
         :host{
             position: absolute;
             top: 0rem;
@@ -27,105 +27,86 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
             height:100%;
             width: 100%;
             background-color:var(--color-gris-claro);
+            display:grid;
+            grid-template-rows:2fr 8fr
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display:grid;
-            grid-auto-flow:row;
-            grid-gap:.5rem;
-            padding-left:1.5rem;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100%;
-            background-color: var(--color-blanco);
-            align-items:center; 
-            justify-content:left;  
-        }
         #cuerpo{
-            position: absolute;
-            display:grid;
-            grid-auto-flow:row;
-            grid-gap: 1rem;
-            padding-left:1rem;
-            top: 20%;
-            left: 0px;
-            width: 100%;
             background-color: transparent;
-            justify-items:left;
+            display:grid;
+            padding:2rem;
+            grid-auto-flow:row;
+            grid-gap:.8rem;
+            align-content:start
         }
-        label, input, button {
-            position: relative;
-            color: var(--color-negro);
-            background-color:transparent;
-            border-radius:0;
-            width: 80%;
-            font-size: var(--font-bajada-size);
-            font-weight: var(--font-bajada-weight);
+        #cuerpo::-webkit-scrollbar {
+            display: none;
         }
         `
     } 
     render() {
         return html `
-        <div id="header">
-            <cabecera2-componente 
-            titulo="${idiomas[this.idioma].accesoplan.titulo}" 
-            leyenda="${idiomas[this.idioma].accesoplan.leyenda}"
-            ></cabecera2-componente>         
+        <div id="header">        
+            <div id="bar">
+                <div id="lblTitulo">${idiomas[this.idioma].crearclave.titulo}</div>
+            </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].crearclave.leyenda}</div>
         </div>
         <div id="cuerpo">
-            <label id="lblDocumento" style="top:1.5rem">${idiomas[this.idioma].accesoplan.documento}
-            </label>
-            <input id="txtDocumento" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorDocumento" error oculto></label>
-            <button id="btnIngresar" btn1 apagado style="margin-top:1.5rem" @click=${this.clickBoton1}>
+            <div class="ikeInput">
+                <label id="lblDocumento">${idiomas[this.idioma].accesoplan.documento}</label>
+                <input id="txtDocumento" @input=${this.activar} type="number" placeholder=${idiomas[this.idioma].accesoplan.documento_ph}>
+                <label id="lblErrorDocumento" error oculto>${idiomas[this.idioma].accesoplan.errorDocumento.err1}</label>
+            </div> 
+            <button id="btnIngresar" btn1 apagado  @click=${this.clickBoton1}>
             ${idiomas[this.idioma].accesoplan.btn1}</button>
             <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].accesoplan.btn2}
             </button>
             <button id="btnInvitado" btn2 @click=${this.clickBoton3}>${idiomas[this.idioma].accesoplan.btn3}</button>
             <button id="btnTengoCuenta" btn2 @click=${this.clickBoton4}>${idiomas[this.idioma].accesoplan.btn4}</button>
             <button id="btnAyuda" btn2 style="margin-top:1rem" @click=${this.clickBotonAyuda}>${idiomas[this.idioma].accesoplan.btn5}</button>
-
         </div>
         `
     }
 
-    activaIngreso(){
-        if (this.shadowRoot.getElementById("txtDocumento").value != ""){
-            if(this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado","");
-            }
-        }else{
-            if(!this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnIngresar").setAttribute("apagado","");
-            }
+    activar() {
+        this.activo = true
+        const documento = this.shadowRoot.querySelector("#txtDocumento")
+        if (documento.value.length < 6) {
+            this.activo = false
         }
+        if (this.activo) {
+            this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado")
+        } else {
+            this.shadowRoot.querySelector("#btnIngresar").setAttribute("apagado", "")
+        }
+        this.update()
     }
     stateChanged(state, name) {
     }
     firstUpdated() {
     }
-
+    valido() {
+        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+            element.setAttribute("oculto", "")
+        })
+        let valido = true
+        const documento = this.shadowRoot.querySelector("#txtDocumento")
+        if (documento.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorDocumento").removeAttribute("oculto");
+        }
+        this.update()
+        return valido
+    }
     clickBoton1(){
-        let ok=false
-        if(this.shadowRoot.getElementById("txtDocumento").value.length < 4){
-            if (this.shadowRoot.getElementById("lblErrorDocumento").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorDocumento").removeAttribute("oculto","");
-                this.shadowRoot.getElementById("lblErrorDocumento").innerHTML=idiomas[this.idioma].accesoplan.errorDocumento.err1 ;
-            }
-        }else{
-            ok=true
-            if (!this.shadowRoot.getElementById("lblErrorDocumento").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorDocumento").setAttribute("oculto","");
+        if (this.activo) {
+            if (this.valido()) {
+                store.dispatch(modoPantalla("principal"));
             }
         }
-        if (ok){
-            store.dispatch(modoPantalla("plandetalle","accesoplan"))
-        }
- 
     }
     clickBoton2(){
         store.dispatch(modoPantalla("usuarioregistro","accesoplan"))
@@ -145,10 +126,6 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
             hidden: {
                 type: Boolean,
                 reflect: true
-            },
-            label: {
-                type: String,
-                reflect: ""
             }
         }
     }

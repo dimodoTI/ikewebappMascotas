@@ -2,11 +2,11 @@ import {html,LitElement,css} from "lit-element";
 import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
 import {button} from "../css/button"
+import {cabecera1} from "../css/cabecera1"
 import {modoPantalla,pantallaQueLLamo} from "../../redux/actions/ui";
-import { repeat } from 'lit-html/directives/repeat.js';
-import {cabecera1Componente} from "../componentes/cabecera1Componente"
+import {repeat} from 'lit-html/directives/repeat.js';
+import {ATRAS} from "../../../assets/icons/icons"
 export class pantallaPlanDetalle extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -20,8 +20,8 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
 
     static get styles() {
         return css`
-        ${label}
         ${button}
+        ${cabecera1}
         :host{
             position: absolute;
             top: 0rem;
@@ -29,46 +29,26 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
             height:100%;
             width: 100%;
             background-color:var(--color-gris-claro);
-
+            display:grid;
+            grid-template-rows:2fr 8fr;
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display: flex;;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100%;
-            background-color: var(--color-blanco);
-            align-items:center; 
-            justify-content:center;  
-        }
-        #cabeceraTit{
-            position:relative;
-            display:grid;
-            width: 80%;
-        }
         #cuerpo{
-            position: absolute;
-            top: 20%;
-            left: 0px;
-            height: 80%;
-            width: 100%;
             background-color: transparent;
             display:grid;
+            padding:2rem;
             grid-auto-flow:row;
-            grid-gap:0rem;
-            align-items:center;
-            justify-items:center;
+            grid-gap:.8rem;
+            align-content:start;
             overflow-y: auto; 
+            overflow-x: hidden; 
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
-    
-        label,button {
+        button {
             position: relative;
             width: 80%;
             color: var(--color-negro);
@@ -85,8 +65,7 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
             grid-gap: .8rem;
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
-            padding-top:1rem;
-            padding-bottom:2rem;
+            padding-bottom:1rem;
         }
         #planImg{
             height: auto;
@@ -110,12 +89,13 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
     } 
     render() {
         return html `
+
         <div id="header">
-            <cabecera1-componente id="cabeceraTit"
-            titulo="${idiomas[this.idioma].plandetalle.titulo}" 
-            leyenda="${idiomas[this.idioma].plandetalle.leyenda}"
-            .btn1=${function () {store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo,"plandetalle"))}}
-            ></cabecera1-componente>
+            <div id="bar">
+                <div @click=${this.clickBoton1}>${ATRAS}</div>
+                <div id="lblTitulo">${idiomas[this.idioma].plandetalle.titulo}</div>
+            </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].plandetalle.leyenda}</div>
         </div>
         <div id="cuerpo">
             <div id="planes">
@@ -126,7 +106,6 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
                         ${item}
                     </div>
                 `)}
-
                 <button id="btn-poliza" btn1 @click=${this.clickBoton1}
                 style="grid-column-start:1;grid-column-end:3;width:100%;margin-top:1rem">
                 ${idiomas[this.idioma].plandetalle.btn1}
@@ -148,6 +127,9 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
     clickBoton2(){
         //store.dispatch(modoPantalla("iniciosesion","plandetalle"))
     }
+    clickBoton3(){
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo,"plandetalle"))
+    }
     stateChanged(state, name) {
     }
     firstUpdated() {
@@ -158,10 +140,6 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
             hidden: {
                 type: Boolean,
                 reflect: true
-            },
-            label: {
-                type: String,
-                reflect: ""
             }
         }
     }

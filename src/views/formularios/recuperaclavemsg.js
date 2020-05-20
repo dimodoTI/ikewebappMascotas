@@ -19,11 +19,12 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
             display:grid;
             top: 0rem;
             left: 0rem;  
-            height:100%;
-            width: 100%;
+            height:100vh;
+            width: 100vw;
             background-color:var(--color-gris-fondo);
             grid-template-rows:5fr 5fr;
             grid-gap:.4rem;
+            justify-items:center;
         }
         :host([hidden]){
             display: none; 
@@ -80,7 +81,7 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
     clickBoton1(){
 //        store.dispatch(modoPantalla("iniciosesion"))
         store.dispatch(modoPantalla("crearclave"))
-    }
+    } 
 
     stateChanged(state, name) {
 

@@ -2,9 +2,11 @@ import {html,LitElement,css} from "lit-element";
 import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
+import {button} from "../css/button"
+import {ikeInput} from "../css/ikeInput"
+import {cabecera1} from "../css/cabecera1"
 import {modoPantalla} from "../../redux/actions/ui";
-import {crearClave} from "../componentes/crearclavecomponente"
+import {ATRAS} from "../../../assets/icons/icons"
 export class pantallaCrearClave extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -16,7 +18,9 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
 
     static get styles() {
         return css`
-        ${label}
+        ${ikeInput}
+        ${button}
+        ${cabecera1}
         :host{
             position: absolute;
             top: 0rem;
@@ -24,38 +28,19 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
             height:100%;
             width: 100%;
             background-color:var(--color-gris-claro);
+            display:grid;
+            grid-template-rows:2fr 8fr
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display: flex;;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100%;
-            background-color: var(--color-blanco);
-            align-items:center; 
-            justify-content:center;  
-        }
-        #cabeceraTit{
-            position:relative;
-            display:grid;
-            width: 80%;
-        }
         #cuerpo{
-            position: absolute;
-            top: 20%;
-            left: 0px;
-            height: 45%;
-            width: 100%;
             background-color: transparent;
             display:grid;
+            padding:2rem;
             grid-auto-flow:row;
-            grid-gap:0rem;
-            align-items:center;
-            justify-items:center;
+            grid-gap:.8rem;
+            align-content:start
         }
         label {
             position: relative;
@@ -70,25 +55,75 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
     } 
     render() {
         return html `
-        <div id="header">            
-            <cabecera1-componente id="cabeceraTit"
-            titulo="${idiomas[this.idioma].crearclave.titulo}" 
-            leyenda="${idiomas[this.idioma].crearclave.leyenda}"
-            .btn1=${function () {store.dispatch(modoPantalla("iniciosesion"))}}
-            ></cabecera1-componente>   
-
+        <div id="header">        
+            <div id="bar">
+                <div @click=${this.clickBoton1}>${ATRAS}</div>
+                <div id="lblTitulo">${idiomas[this.idioma].crearclave.titulo}</div>
+            </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].crearclave.leyenda}</div>
         </div>
         <div id="cuerpo">
-            <crearclave-componente 
-            .clickBtn1=${function () {store.dispatch(modoPantalla("crearclavemsg"))
-            }}>
-            </crearclave-componente>
+            <div class="ikeInput">
+                <label id="lblClave1">${idiomas[this.idioma].crearclave.clave1}</label>
+                <input id="txtClave1"  @input=${this.activar} type="password"}>
+                <label id="lblErrorClave1" error oculto>${idiomas[this.idioma].crearclave.errorClave1.err1}</label>
+            </div>
+
+            <div class="ikeInput">
+                <label id="lblClave2">${idiomas[this.idioma].crearclave.clave2}</label>
+                <input id="txtClave2" @input=${this.activar} type="password"}>
+                <label id="lblErrorClave2" error oculto>${idiomas[this.idioma].crearclave.errorClave2.err1}</label>
+            </div>
+            <button id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
+            ${idiomas[this.idioma].crearclave.btn1}
+            </button>
         </div>
         `
     }
-    
+    activar() {
+        this.activo = true
+        const clave1 = this.shadowRoot.querySelector("#txtClave1")
+        const clave2 = this.shadowRoot.querySelector("#txtClave2")
+        if (clave1.value.length < 4) {
+            this.activo = false
+        }
+        if (clave2.value.length < 4) {
+            this.activo = false
+        }
+        if (this.activo) {
+            this.shadowRoot.querySelector("#btn-recuperar").removeAttribute("apagado")
+        } else {
+            this.shadowRoot.querySelector("#btn-recuperar").setAttribute("apagado", "")
+        }
+        this.update()
+    }
+    valido() {
+        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+            element.setAttribute("oculto", "")
+        })
+        let valido = true
+        const clave1 = this.shadowRoot.querySelector("#txtClave1")
+        const clave2 = this.shadowRoot.querySelector("#txtClave2")
+        if (clave1.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorClave1").removeAttribute("oculto");
+        }
+        if (clave2.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorClave2").removeAttribute("oculto");
+        }
+        this.update()
+        return valido
+    }
     clickBoton1(){
         store.dispatch(modoPantalla("iniciosesion"))
+    }
+    clickBoton2(){
+        if (this.activo) {
+            if (this.valido()) {
+                store.dispatch(modoPantalla("crearclavemsg"));
+            }
+        }
     }
     stateChanged(state, name) {
     }

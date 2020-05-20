@@ -47,7 +47,7 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
         }
         `
     } 
-    render() {
+    render() { 
         return html `
         <div id="header">        
             <div id="bar">
@@ -119,7 +119,6 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
                 store.dispatch(modoPantalla("recuperaclavemsg"));
             }
         }
-
     }
 
     stateChanged(state, name) {

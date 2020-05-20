@@ -3,8 +3,8 @@ import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
 import {label} from "../css/label"
+import {button} from "../css/button"
 import {modoPantalla} from "../../redux/actions/ui";
-import { button } from "../css/button"
 export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -19,16 +19,14 @@ export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
         :host{
             position: absolute;
             display:grid;
-            grid-template-columns: auto;
-            grid-template-rows: auto auto auto;
-            grid-gap:0.5rem;
-            top: 35%;
+            top: 0rem;
             left: 0rem;  
-            height:auto;
-            width: 100vw;
-            background-color:var(--color-gris-claro);
-            justify-content:center;
-            align-items:center; 
+            height:100%;
+            width: 100%;
+            background-color:var(--color-gris-fondo);
+            grid-template-rows:5fr 1.5fr 3.5fr;
+            grid-gap:.4rem;
+            justify-items:center;
         }
         :host([hidden]){
             display: none; 
@@ -40,40 +38,52 @@ export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
             width: 1.5rem;
             height: 1.5rem;
             background-color: transparent;
-            justify-content:center;
-            align-items:center; 
             background-image:var(--icon-cerrar);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100%;
-            cursor:pointer;
+            cursor: pointer;
+            z-index:10;
         }
         #titulo{
             position:relative;
+            display:flex;
+            width:90%;
+            align-items: flex-end;
+            justify-content:center;
             text-align:center;
             font-size: var(--font-header-h1-size);
             font-weight: var(--font-header-h1-weight);
         }
         #leyenda{
             position:relative;
+            display:flex;
+            width:90%;
+            align-items: flex-start;
+            justify-content:center;
             text-align:center;
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
         }
         #btn-ingresar {
+            position:relative;
+            display:flex;
             width:80vw;
+            height: 2rem;
+            align-items: flex-start;
+            justify-content:center;
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
-       }
-        `
+        }
+    `
     } 
     render() {
         return html `
             <div id="x" @click=${this.clickBoton1}>
             </div>               
-            <label id="titulo">
+            <div id="titulo">
             ${idiomas[this.idioma].crearclavemsg.titulo}
-            </label>
+            </div>
             <label id="leyenda">
             ${idiomas[this.idioma].crearclavemsg.leyenda}
             </label>
