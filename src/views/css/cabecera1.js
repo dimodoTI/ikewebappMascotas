@@ -18,7 +18,7 @@ export const cabecera1 = css `
     grid-gap:.3rem;
     align-items:center;
     grid-template-columns:auto 1fr;
- }
+}
  
 #lblTitulo{
     font-size: var(--font-header-h1-size);

@@ -165,7 +165,6 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "iniciosesion") {
             store.dispatch(cancelarTimer())
-
         }
     }
 

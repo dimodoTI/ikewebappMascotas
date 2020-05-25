@@ -4,9 +4,11 @@ import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
 import {label} from "../css/label"
 import {button} from "../css/button"
+import {cabecera1} from "../css/cabecera1"
+import {btnFlotanteRedondo} from "../css/btnFlotanteRedondo"
+import {btnConsultaNueva} from "../css/btnConsultaNueva"
 import {modoPantalla} from "../../redux/actions/ui";
 import {REGALO,CARRITO,RELOJ,NOVEDADES1,NOVEDADES2,NOVEDADES3,HOME,MASCOTA,CONSULTA,VACUNA,FOTO,MAS} from "../../../assets/icons/icons"
-import {cabecera1Componente} from "../componentes/cabecera1Componente"
 export class pantallaPrincipal extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -20,6 +22,9 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         return css`
         ${label}
         ${button}
+        ${cabecera1}
+        ${btnFlotanteRedondo}
+        ${btnConsultaNueva}
         :host{
             position: absolute;
             top: 0rem;
@@ -27,28 +32,33 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             height:100%;
             width: 100%;
             background-color:var(--color-gris-fondo);
+            display:grid;
+            grid-template-rows:20% 70% 10%;
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display: grid;
-            grid-template-columns:100%;
-            grid-template-rows: 45% auto;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100vw;
-            background-color: var(--color-blanco);
-            border-radius:0rem 0rem 1rem 1rem;
+        #detalle{
+            height: 90%;
+            width: 2rem;
+            background-image: var(--icon-flecha-abajo-sin-bordes);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            background-size: 1rem 1rem;
+            opacity:.4;
+        }
+        #campana{
+            position:relative;
+            background-image: var(--icon-campana-con-marca);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 1rem 1rem;
         }
         #cuerpo{
-            position: absolute;
-            top: 20%;
-            left: 0px;
+            position: relative;
             width: 100vw;
-            height: 72%;
             background-color: transparent;
             display: grid;
             grid-auto-flow: row;
@@ -57,11 +67,10 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             justify-items: center;
             overflow-y: auto; 
             overflow-x: hidden; 
-       }
+        }
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
-
         label,button {
             position: relative;
             width: 95%;
@@ -71,27 +80,6 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
         }      
-        #div-consultaNueva{
-            position: relative;
-            width: 95%;
-            height: 2.5rem;
-            background-color:var(--color-azul-oscuro);
-            border-radius:.5rem;          
-            display: grid;
-            align-items:center;
-            justify-items:center;
-            grid-template-columns:75% auto;
-            grid-template-rows: 100%;
-            grid-gap:0rem;
-        }
-        #lbl-consultaNueva{
-            color: var(--color-blanco);
-            position: relative;
-            display:flex;
-        }
-        #btn-consultaNueva:hover {    
-            color: var(--color-blanco);
-        }
         #div-agenda{
             position: relative;
             width: 95%;
@@ -126,20 +114,13 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             display:flex;
             width:8rem;
         }
-        #btn-poliza{
-            position: relative;
-        }
-        #btn-planes{
-            position: relative;
-        }
         #carro{
             position: relative;
-            display:flex;
-            flow:left;
+            display:grid;
             overflow-x: scroll; 
-            width: 95%;
             border-radius:.4rem;
-            height:8rem;
+            height:25.5vh;
+            width: 95vw;
         }
         #carro::-webkit-scrollbar {
             display: none;
@@ -157,41 +138,15 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             display:grid;
             flow:left;
             overflow-x: scroll; 
-            width: 95%;
             border-radius:.4rem;
             height:8rem;
+            width: 95vw;
         }
         #carroNovedades::-webkit-scrollbar {
             display: none;
         }
         #pie{
-            position:absolute;
-            left:0;
-            bottom:0;
-            width:100%;
-            height:8%;
-            background-color:trasparent;
-        }
-        #mas{
-            position:absolute;
-            height: 2.5rem;
-            width: 2.5rem;
-            right: 2rem;
-            bottom:5rem;
-            background-color: var(--color-azul-oscuro); 
-            border-radius:50%;
-            display: grid;
-            align-items:center; 
-            justify-content:center;
-            box-shadow: var(--shadow-elevation-4-box);
-            cursor:pointer;
-       }
-        #mas svg{
-            display:flex;
-            stroke:var(--color-blanco);
-            fill:var(--color-celeste);    
-            height: 1.5rem;
-            width: 1.5rem;
+            position:relative;
         }
         #lbl-ayuda{
             position: relative;
@@ -206,13 +161,19 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
     render() {
         return html `
         <div id="header">
-            <cabecera3-componente 
-            titulo="${idiomas[this.idioma].principal.tituloCabecera}" 
-            leyenda="${idiomas[this.idioma].principal.leyendaCabecera}"
-            .btn1=${function () {store.dispatch(modoPantalla("usuariodetalle"))}}
-            ></cabecera3-componente>
+            <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
+                <div id="bar">
+                    <div id="lblTitulo">${idiomas[this.idioma].principal.tituloCabecera}</div>
+                    <div id="detalle" 
+                        @click=${this.clickBotonUsuario}>
+                    </div>
+                </div>
+                <div id="campana"></div>
+            </div>    
+            <div id="lblLeyenda">${idiomas[this.idioma].principal.leyendaCabecera}</div>
         </div>
         <div id="cuerpo">
+            <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
             <div id="div-consultaNueva">
                 <label id="lbl-consultaNueva">${idiomas[this.idioma].principal.lblConsulta}</label>
                 <button id="btn-consultaNueva" btn2>${idiomas[this.idioma].principal.btnConsulta}</button>
@@ -223,7 +184,7 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             </div>  
 
             <div id="carro">
-                <marquesina-componente id="marq" style="height:7.8rem;"
+                <marquesina-componente id="marq" style="height:7.8rem"
                 .item=${this.marque1}>
                 </marquesina-componente>
             </div>
@@ -238,14 +199,18 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
 
             <label id="lbl-ayuda">${idiomas[this.idioma].principal.lblAyuda}</label>
             <button btn3 id="btn-ayuda">${idiomas[this.idioma].principal.btnAyuda}</button>
+            <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
 
         </div>        
-        <pie-componente id="pie" opcion="dos">
+        <pie-componente id="pie" opcion="uno">
         </pie-componente>
-        <div id="mas">${MAS}</div>
+        <div id="bfrDivMas">${MAS}</div>
         `
     }
-    
+
+    clickBotonUsuario(){
+        store.dispatch(modoPantalla("usuariodetalle"))
+    }
     clickBoton1(){
         store.dispatch(modoPantalla("iniciosesion"))
     }

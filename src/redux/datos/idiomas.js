@@ -32,8 +32,15 @@ export const idiomas = {
         carro2: [{lbl:""},{lbl:""},{lbl:""}],lblNovedades:"Novedades Iké",
         lblAyuda:"¿Necesitás ayuda?. Estamos para lo que necesites.",btnAyuda:"Solicitar asistencia"},
         pie: { inicio: "Inicio", mascota: "Mascotas", consulta: "Consultas", vacuna: "Vacunas", foto: "Fotos"},
-        usuariodetalle: {titulo:"Tu perfil", leyenda:"Bienvenida a tu cuenta, encontrarás tu info personal y detalle de plan."}
-
+        usuariodetalle: {titulo:"Tu perfil", leyenda:"Bienvenida a tu cuenta, encontrarás tu info personal y detalle de plan."},
+        mascota:{titulo:"Mis mascotas",leyenda:"Creá el perfil de tus mascotas y accedé a su historia clínica.",label:"Mis mascotas",btn:"Agregar mascota",raza:"Raza: ", edad:"Edad: ", consultas:" Consulta/s"},
+        misconsultas:{titulo:"Mis consultas",leyenda:"Creá el perfil de tus mascotas y accedé a su historia clínica.",label:"Mis consultas",btn:"Agendar consulta",verDetalle:"Ver detalle: "},
+        calendario:{titulo:"Calendario de Vacunas",leyenda:"Consultá el calendario y registrá las vacunas de tus mascotas.",btn:"Registrar vacuna",perro:"Perros",gato:"Gatos",verDetalle:"Ver detalle: "},
+        fotogaleria:{titulo:"Mis fotos",leyenda:"Creá tu galería de fotos en Iké."},
+        video: {conectando: "Conectando ..."},
+        videocalificacion: {titulo: "Calificá la consulta",leyenda:"Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
+        calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",comentarioLbl:"Dejanos un comentario (opcional)",
+        btn1:"Guardar calificación",btn2:"Ahora no"}
     }
 }
 

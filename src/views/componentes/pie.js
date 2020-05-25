@@ -17,18 +17,15 @@ export class pieComponente extends connect(store)(LitElement) {
         return css`
         ${label}
         :host{
-            position: absolute;
             display: grid;
-            bottom: 0rem;
-            left: 0rem;  
             height:100%;
-            width: 100vw;
+            width: 100%;
             display:grid;
             align-items:center; 
             justify-content:center;
-            background-color: transparent;;
-            grid-template-columns:20% 20% 20% 20% 20%;
-            grid-template-rows: 50% 50%;
+            background-color: var(--color-blanco);;
+            grid-template-columns:2fr 2fr 2fr 2fr 2fr;
+            grid-template-rows: 60% 40%;
             grid-gap:0rem;
         }
         .img{
@@ -108,19 +105,19 @@ export class pieComponente extends connect(store)(LitElement) {
         `
     }
     clickBoton1() {
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("principal"))
     }
     clickBoton2() {
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("mascota"))
     }
     clickBoton3() {
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("misconsultas"))
     }
     clickBoton4() {
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("calendario"))
     }
     clickBoton5() {
-        store.dispatch(modoPantalla("vercobertura"))
+        store.dispatch(modoPantalla("fotogaleria"))
     }
 
     static get properties() {

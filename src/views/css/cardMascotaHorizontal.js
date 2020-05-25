@@ -1,0 +1,55 @@
+import {
+    css
+} from "lit-element"
+
+export const cardMascotaHorizontal = css `
+#cmhDivEtiqueta{
+    display: grid; 
+    height:22vw;
+    width:90%;
+    background-color:var(--color-blanco);
+    grid-template-columns: 25% 55% 20%;
+    grid-template-rows: 25% 45% 30%;
+    grid-gap:0rem;
+    border-radius:.4rem ;           
+    align-items: center;
+    box-shadow: var(--shadow-elevation-4-box);
+} 
+#cmhDivImagen{
+    height:22vw;
+    width:22vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius:.4rem 0 0 .4rem;   
+}
+#cmhDivNombre{
+    font-size: var(--font-bajada-size);
+    font-weight: var(--font-bajada-weight);            
+    padding-left: .2rem;
+    color: var(--color-gris);
+}         
+#cmhDivFecha{
+    font-size: var(--font-label-size);
+    font-weight: var(--font-label-weight);            
+    color: var(--color-gris);
+    text-align: right;
+    padding-right:.3rem;
+} 
+#cmhDivDiagnostico{
+    font-weight: bold;   
+    font-size: .8rem;         
+    padding-bottom: .8rem;
+    padding-left: .2rem;
+    grid-column-start: 2;
+	grid-column-end: 4;
+} 
+#cmhDivVerDetalle{
+    padding-left: .2rem;
+} 
+#cmhDivChat{
+    height:1rem;
+    width:100%;
+    justify-items:center;
+} 
+`

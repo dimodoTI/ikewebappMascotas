@@ -10,7 +10,6 @@ import {
     store
 } from "../redux/store";
 
-import {cabecera1Componente} from "../views/componentes/cabecera1Componente";
 import {cabecera3Componente} from "../views/componentes/cabecera3Componente";
 import {marquesinaComponente} from "../views/componentes/marquesina";
 import {pieComponente} from "../views/componentes/pie";
@@ -28,6 +27,13 @@ import { pantallaUsuarioRegistro } from "../views/formularios/usuarioRegistro";
 import { pantallaPlanDetalle } from "../views/formularios/planDetalle";
 import { pantallaPrincipal } from "../views/formularios/principal";
 import { pantallaUsuarioDetalle } from "../views/formularios/usuarioDetalle";
+import { pantallaMascota } from "../views/formularios/mascota";
+import { pantallaMisConsultas } from "../views/formularios/misConsultas";
+import { pantallaCalendario } from "../views/formularios/calendario";
+import { pantallaFotoGaleria } from "../views/formularios/fotoGaleria";
+import { pantallaFotoVer } from "../views/formularios/fotoVer";
+import { pantallaVideo } from "../views/formularios/video";
+import { pantallaVideoCalificacion} from "../views/formularios/videoCalificacion";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -68,6 +74,13 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-plandetalle id="plandetalle"></pantalla-plandetalle>
         <pantalla-principal id="principal"></pantalla-principal>
         <pantalla-usuariodetalle id="usuariodetalle"></pantalla-usuariodetalle>
+        <pantalla-mascota id="mascota"></pantalla-mascota>
+        <pantalla-misconsultas id="misconsultas"></pantalla-misconsultas>
+        <pantalla-calendario id="calendario"></pantalla-calendario>
+        <pantalla-fotogaleria id="fotogaleria"></pantalla-fotogaleria>
+        <pantalla-fotover id="fotover"></pantalla-fotover>
+        <pantalla-video id="video"></pantalla-video>
+        <pantalla-videocalificacion id="videocalificacion"></pantalla-videocalificacion>
         `;
     }
  
@@ -87,6 +100,13 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#plandetalle").hidden = state.ui.quePantalla != "plandetalle";
                 this.shadowRoot.querySelector("#principal").hidden = state.ui.quePantalla != "principal";
                 this.shadowRoot.querySelector("#usuariodetalle").hidden = state.ui.quePantalla != "usuariodetalle";
+                this.shadowRoot.querySelector("#mascota").hidden = state.ui.quePantalla != "mascota";
+                this.shadowRoot.querySelector("#misconsultas").hidden = state.ui.quePantalla != "misconsultas";
+                this.shadowRoot.querySelector("#calendario").hidden = state.ui.quePantalla != "calendario";
+                this.shadowRoot.querySelector("#fotogaleria").hidden = state.ui.quePantalla != "fotogaleria";
+                this.shadowRoot.querySelector("#fotover").hidden = state.ui.quePantalla != "fotover";
+                this.shadowRoot.querySelector("#video").hidden = state.ui.quePantalla != "video";
+                this.shadowRoot.querySelector("#videocalificacion").hidden = state.ui.quePantalla != "videocalificacion";
             }
         }
 

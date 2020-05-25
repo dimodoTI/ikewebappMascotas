@@ -29,7 +29,7 @@ export class marquesinaComponente extends connect(store)(LitElement) {
             position: relative;
             display: grid;
             height: 100%;
-            width: 7rem;
+            width: 38vw;
             background-color: var(--color-celeste);
             align-items:center; 
             justify-content:center;
