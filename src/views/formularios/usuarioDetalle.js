@@ -2,10 +2,11 @@ import {html,LitElement,css} from "lit-element";
 import {store} from "../../redux/store";
 import {connect} from "@brunomon/helpers";
 import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {input} from "../css/input"
+import {ikeInput} from "../css/ikeInput"
 import {button} from "../css/button"
 import {modoPantalla} from "../../redux/actions/ui";
+import {cabecera1} from "../css/cabecera1"
+import {ATRAS} from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -20,9 +21,9 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
 
     static get styles() {
         return css`
-        ${label}
-        ${input}
+        ${ikeInput}
         ${button}
+        ${cabecera1}
         :host{
             position: absolute;
             top: 0rem;
@@ -32,207 +33,246 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             background-color:var(--color-gris-fondo);
             justify-content:stretch;
             align-content:stretch; 
+            display:grid;
+            grid-template-rows:2fr 8fr
         }
         :host([hidden]){
             display: none; 
         } 
-        #header{
-            position: absolute;
-            display: flex;;
-            top: 0px;
-            left: 0px;
-            height: 20%;
-            width: 100%;
-            background-color: var(--color-blanco);
-            align-content:center; 
-            justify-content:center;  
-        }
         #cabeceraTit{
             position:relative;
             display:grid;
             width: 80%;
         }
         #cuerpo{
-            top: 20%;
-            position: absolute;
+            position: relative;
             display:grid;
-            height: 80%;
-            width: 100%;
+            padding:1rem;
             grid-auto-flow:row;
-            background-color: transparent;
-            justify-items:center;
-            align-items:center; 
-            justify-content:stretch;
-            align-content:stretch; 
-             
+            grid-gap:.8rem;
+            align-content:start;
             overflow-y: auto; 
+            overflow-x: hidden; 
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
-        }
-        
-        label, input, button {
-            position: relative;
-            color: var(--color-negro);
-            background-color:transparent;
-            border-radius:0;
-            width: 80%;
-            font-size: var(--font-bajada-size);
-            font-weight: var(--font-bajada-weight);
         }
         #marco{
             position: relative;
             display:grid;
             grid-auto-flow:row;
-            width: 95%;
-            height: 14rem;
-            background-color: red;
+            grid-gap:.5rem;
+            background-color: var(--color-blanco);
             box-shadow: var(--shadow-elevation-2-box);
             border-radius:1rem;
-            z-index:5;
             justify-items:center;
-            align-items:center; 
-            justify-content:stretch;
-            align-content:stretch; 
         }
         #foto{
             position: absolute;
-            top:-15vw;
-            width: 30vw;
-            height: 30vw;
+            top:-2.5rem;
+            width: 5rem;
+            height: 5rem;
             border-radius:50%;              
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100%;
+            display: grid;
+            align-content: end;
+            justify-content: center;
+            padding-bottom: 1rem;
             z-index:10;
         }
-        #fotoEdit{
-            position: absolute;
-            bottom: .5rem;
-            left: 50%;
+        #fotoEdit{ 
+            position: relative;
             width: 1.5rem;
             height: 1.5rem;
-            transform: translate(-50%);
             background-image:var(--icon-foto-edit);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100%;
             z-index:10;
         }
-        #lblNombre{
-            position: relative;
-            align-items:center; 
-            justify-content:center;
+        #lblTitNombre{
+            padding-top: 3rem;
             font-size: var(--font-header-h1-size);
             font-weight: var(--font-header-h1-weight);
         }
+        #lblPlan,#lblCreada{
+            font-size: var(--font-header-h1-menos-size);
+            font-weight: var(--font-header-h1-menos-weight);
+        }
+        #lblPlan{
+            align-self: end;
+        }
+        #divLinea{
+            width:90%;
+            height:.1rem;
+            background-color:var(--color-gris);
+            align-self: start;
+        }
+        #divDatos{
+            display:grid;
+            width:90%;
+            grid-template-columns:30% 40% 30%;
+            grid-template-rows:50% 50%;
+            justify-items: center;
+            grid-gap:.5rem;
+            padding-bottom:1rem;           
+        }
+        #divMascotaTitulo,#divConsultaTitulo,#divVacunaTitulo{
+            font-size: var(--font-header-h1-menos-size);
+            font-weight: var(--font-header-h1-menos-weight);
+        }
+        #divMascotaCan,#divConsultaCan,#divVacunaCan{
+            font-size: var(--font-header-h1-size);
+            font-weight: var(--font-header-h1-weight);      
+        }
+        #divInformacion{
+            font-size: var(--font-header-h1-menos-size);
+            font-weight: var(--font-header-h1-weight);
+            justify-self: start;
+        }
+        button {
+            font-size: var(--font-bajada-size);
+            font-weight: var(--font-bajada-weight);
+        }
+        #divAyuda{
+            font-size: var(--font-header-h1-menos-size);
+            font-weight: var(--font-header-h1-weight);
+            text-align:center;
+        }        
         `
     } 
     render() {
         return html `
-        <div id="header">
-            <cabecera1-componente id="cabeceraTit"
-            titulo="${idiomas[this.idioma].usuariodetalle.titulo}" 
-            leyenda="${idiomas[this.idioma].usuariodetalle.leyenda}"
-            .btn1=${function () {store.dispatch(modoPantalla("accesoplan","usuarioregistro"))}}
-            ></cabecera1-componente>   
+        <div id="header">        
+            <div id="bar">
+                <div @click=${this.clickAtras}>${ATRAS}</div>
+                <div id="lblTitulo">${idiomas[this.idioma].usuariodetalle.titulo}</div>
+            </div>
+            <div id="lblLeyenda">${idiomas[this.idioma].usuariodetalle.leyenda}</div>
         </div>
         <div id="cuerpo">
-            <div style="height:3rem;width:100%"></div>
+            <div style="height:1rem;width:100%"></div>
             <div id="marco">
                 <div id="foto" style="background-image:var(${this.item.foto});">
                     <div id="fotoEdit"></div>
                 </div>
-                <div id="lblNombre">${this.item.nombre}</div>
+                <div id="lblTitNombre">${this.item.nombre}</div>
+                <div id="lblPlan">${this.item.plan}</div>
+                <div id="lblCreada">${this.item.creada}</div>
+                <div id="divLinea"></div>
+                <div id="divDatos">
+                    <div id="divMascotaCan">${this.item.mascotas}</div>
+                    <div id="divConsultaCan">${this.item.consultas}</div>
+                    <div id="divVacunaCan">${this.item.vacunas}</div>
+                    <div id="divMascotaTitulo">${idiomas[this.idioma].usuariodetalle.mascota}</div>
+                    <div id="divConsultaTitulo">${idiomas[this.idioma].usuariodetalle.consulta}</div>
+                    <div id="divVacunaTitulo">${idiomas[this.idioma].usuariodetalle.vacuna}</div>
+                </div>
+            </div>
+            <div id="divInformacion">${idiomas[this.idioma].usuariodetalle.informacion}</div>
+
+            <div class="ikeInput">
+                <label id="lblNombre">${idiomas[this.idioma].usuariodetalle.lblNombre}</label>
+                <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuariodetalle.lblNombre_ph}>
+                <label id="lblErrorNombre" error oculto>Nombre Incorrecto</label>
             </div>
 
-            <label id="lblNombre" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblNombre}
-            </label>
-            <input id="txtNombre" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorNombre" error oculto></label>
- 
-            <label id="lblMail" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblMail}
-            </label>
-            <input id="txtMail" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorMail" error oculto></label>
- 
-            <label id="lblCelular" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblCelu}
-            </label>
-            <input id="txtCelular" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorCelular" error oculto></label>
+            <div class="ikeInput">
+                <label id="lblMail">${idiomas[this.idioma].usuariodetalle.lblMail}</label>
+                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].usuariodetalle.lblMail_ph}>
+                <label id="lblErrorMail" error oculto>Mail Incorrecto</label>
+            </div>
 
-            <label id="lblClave1" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblClave1}
-            </label>
-            <input id="txtClave1" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorClave1" error oculto></label>
+            <div class="ikeInput">
+                <label id="lblCelular">${idiomas[this.idioma].usuariodetalle.lblCelu}</label>
+                <input id="txtCelular"  @input=${this.activar} type="phone" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph}>
+                <label id="lblErrorCelular" error oculto>Celular Incorrecto</label>
+            </div> 
 
-            <label id="lblClave2" style="top:1.5rem">${idiomas[this.idioma].usuarioregistro.lblClave2}
-            </label>
-            <input id="txtClave2" style="margin-top:1.5rem" @input=${this.activaIngreso}>
-            <label id="lblErrorClave2" error oculto></label>
+            <button id="btnClave" btn2 style="justify-self:end" @click=${this.clickClave}>
+            ${idiomas[this.idioma].usuariodetalle.btnClave}</button>
+            <button id="btnEdit" btn1 apagado @click=${this.clickEdit}>
+            ${idiomas[this.idioma].usuariodetalle.btnEdit}</button>
+            <button id="btnCobertura" btn3 @click=${this.clickCobertura}>
+            ${idiomas[this.idioma].usuariodetalle.btnCobertura}</button>
+            <button id="btnDelete" btn2 @click=${this.clickDelete}>
+            ${idiomas[this.idioma].usuariodetalle.btnDelete}</button>
 
-            <button id="btnIngresar" btn1 apagado style="margin-top:1.5rem" @click=${this.clickBoton1}>
-            ${idiomas[this.idioma].usuarioregistro.btn1}</button>
-            <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].usuarioregistro.btn2}
-            </button>
-            <button id="btnInvitado" btn2 @click=${this.clickBoton3} style="padding-bottom:1rem;">${idiomas[this.idioma].usuarioregistro.btn3}</button>
+            <div id="divAyuda">${idiomas[this.idioma].usuariodetalle.lblAyuda}</div>
+
+            <button id="btnAsistencia" btn3 @click=${this.clickAsistencia}>
+            ${idiomas[this.idioma].usuariodetalle.btnAsistencia}</button>
+            <div style="height:1rem;width:100%"></div>
+
         </div>
         `
     }
-
-    activaIngreso(){
+    valido() {
+        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+            element.setAttribute("oculto", "")
+        })
+        let valido = true
+        const nombre = this.shadowRoot.getElementById("txtNombre");
+        const mail = this.shadowRoot.getElementById("txtMail");
+        const celular =this.shadowRoot.getElementById("txtCelular");
+        if (nombre.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorNombre").removeAttribute("oculto");
+        }
+        if (mail.value.indexOf("@") == -1) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
+        }
+        if (celular.value.length < 8) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorCelular").removeAttribute("oculto");
+        }
+        this.update()
+        return valido
+    }
+    activar(){
         let nom = this.shadowRoot.getElementById("txtNombre");
         let mail = this.shadowRoot.getElementById("txtMail");
         let cel =this.shadowRoot.getElementById("txtCelular");
-        let c1 =this.shadowRoot.getElementById("txtClave1");
-        let c2 =this.shadowRoot.getElementById("txtClave2");
-        if (nom.value != "" && mail.value != "" && cel.value != "" && c1.value != "" && c2.value != ""){
-            if(this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado","");
+        if (nom.value != "" && mail.value != "" && cel.value != ""){
+            if(this.shadowRoot.getElementById("btnEdit").hasAttribute("apagado")){
+                this.shadowRoot.querySelector("#btnEdit").removeAttribute("apagado","");
             }
         }else{
-            if(!this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnIngresar").setAttribute("apagado","");
+            if(!this.shadowRoot.getElementById("btnEdit").hasAttribute("apagado")){
+                this.shadowRoot.querySelector("#btnEdit").setAttribute("apagado","");
             }
         }
     }
     stateChanged(state, name) {
-        if (name == MODO_PANTALLA && state.ui.quePantalla == "usuarioregistro") {
+        if (name == MODO_PANTALLA && state.ui.quePantalla == "usuariodetalle") {
         }
     }
     firstUpdated() {
     }
-    
 
-    clickBoton1(){
-        let ok=false
-        if(this.shadowRoot.getElementById("txtNombre").value.length < 4){
-            if (this.shadowRoot.getElementById("lblErrorNombre").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorNombre").removeAttribute("oculto","");
-                this.shadowRoot.getElementById("lblErrorNombre").innerHTML=idiomas[this.idioma].accesoplan.errorDocumento.err1 ;
-            }
-        }else{
-            ok=true
-            if (!this.shadowRoot.getElementById("lblErrorNombre").hasAttribute("oculto")){
-                this.shadowRoot.getElementById("lblErrorNombre").setAttribute("oculto","");
+    clickAtras(){
+    }    
+    clickClave(){
+    }
+    clickEdit(){
+        if (this.activar) {
+            if (this.valido()) {
+                store.dispatch(modoPantalla("principal","usuarioregistro"))
             }
         }
-        if (ok){
-            store.dispatch(modoPantalla("principal","usuarioregistro"))
-
-        }
- 
     }
-    clickBoton2(){
-        store.dispatch(modoPantalla("plandetalle","usuarioregistro"))
-    }
-    clickBoton3(){
+    clickCobertura(){
         store.dispatch(modoPantalla("principal","usuarioregistro"))
     }
-    clickBoton4(){
+    clickDelete(){
         store.dispatch(modoPantalla("iniciosesion","usuarioregistro"))
     }
-
+    clickAsistencia(){
+        store.dispatch(modoPantalla("iniciosesion","usuarioregistro"))
+    }
 
     static get properties() {
         return {

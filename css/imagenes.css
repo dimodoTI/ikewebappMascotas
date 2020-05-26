@@ -11,6 +11,7 @@ html {
     --imagen-perro1: url("../assets/images/perro1.svg");
     --imagen-video-activo: url("../assets/images/video_fondo_a.svg");
     --imagen-video-inactivo: url("../assets/images/video_fondo_i.svg");
+    --imagen-clave-mod: url("../assets/images/clave-mod.svg");
     --icon-flecha-izq: url("../assets/images/icon/flecha-izq.svg");
     --icon-flecha-izq-sin-borde: url("../assets/images/icon/flecha-izq-sin-borde.svg");
     --icon-flecha-der: url("../assets/images/icon/flecha-der.svg"); 

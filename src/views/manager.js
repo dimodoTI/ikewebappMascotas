@@ -34,6 +34,11 @@ import { pantallaFotoGaleria } from "../views/formularios/fotoGaleria";
 import { pantallaFotoVer } from "../views/formularios/fotoVer";
 import { pantallaVideo } from "../views/formularios/video";
 import { pantallaVideoCalificacion} from "../views/formularios/videoCalificacion";
+import { pantallaVideoDetalle} from "../views/formularios/videoDetalle";
+import { pantallarClaveModificar} from "../views/formularios/claveModificar";
+import { pantallarClaveModificarMsg} from "./formularios/claveModificarMsg";
+import { pantallaPlanContrata} from "./formularios/planContrata";
+import { pantallaNotificacion} from "./formularios/notificacion";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -81,6 +86,11 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-fotover id="fotover"></pantalla-fotover>
         <pantalla-video id="video"></pantalla-video>
         <pantalla-videocalificacion id="videocalificacion"></pantalla-videocalificacion>
+        <pantalla-videodetalle id="videodetalle"></pantalla-videodetalle>
+        <pantalla-clavemodificar id="clavemodificar"></pantalla-clavemodificar>
+        <pantalla-clavemodificarmsg id="clavemodificarmsg"></pantalla-clavemodificarmsg>
+        <pantalla-plancontrata id="plancontrata"></pantalla-plancontrata>
+        <pantalla-notificacion id="notificacion"></pantalla-notificacion>
         `;
     }
  
@@ -107,6 +117,11 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#fotover").hidden = state.ui.quePantalla != "fotover";
                 this.shadowRoot.querySelector("#video").hidden = state.ui.quePantalla != "video";
                 this.shadowRoot.querySelector("#videocalificacion").hidden = state.ui.quePantalla != "videocalificacion";
+                this.shadowRoot.querySelector("#videodetalle").hidden = state.ui.quePantalla != "videodetalle";
+                this.shadowRoot.querySelector("#clavemodificar").hidden = state.ui.quePantalla != "clavemodificar";
+                this.shadowRoot.querySelector("#clavemodificarmsg").hidden = state.ui.quePantalla != "clavemodificarmsg";
+                this.shadowRoot.querySelector("#plancontrata").hidden = state.ui.quePantalla != "plancontrata";
+                this.shadowRoot.querySelector("#notificacion").hidden = state.ui.quePantalla != "notificacion";
             }
         }
 

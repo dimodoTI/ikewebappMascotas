@@ -15,7 +15,7 @@ import {COLGAR,MICROFONO,VIDEO, ESTRELLA, ESTRELLABORDE} from "../../../assets/i
 import {idiomas} from "../../redux/datos/idiomas"
 import {ikeInput} from "../css/ikeInput"
 import {button} from "../css/button"
-export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(LitElement) {
+export class pantallaVideoDetalle extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
         this.idioma = "ES"
@@ -91,7 +91,7 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
     render() {
         return html`
             <div id="cerrar" @click="${this.cerrar}">X</div>
-            <div id="titulo">${idiomas[this.idioma].videocalificacion.titulo}</div>
+            <div id="titulo">${idiomas[this.idioma].videodetalle.titulo}</div>
             <div id="leyenda">${idiomas[this.idioma].videocalificacion.leyenda}</div>
             <div id="calificaLbl">${idiomas[this.idioma].videocalificacion.calificaLbl}</div>
             <div id="calificaImg">
@@ -129,7 +129,7 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
     ahoraNo(){
     }
     stateChanged(state, name) {
-        if (name == MODO_PANTALLA && state.ui.quePantalla == "videocalificacion") {
+        if (name == MODO_PANTALLA && state.ui.quePantalla == "videodetalle") {
         }
     }
 
@@ -143,4 +143,4 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
     }
 
 }
-window.customElements.define("pantalla-videocalificacion", pantallaVideoCalificacion);
+window.customElements.define("pantalla-videodetalle", pantallaVideoDetalle);

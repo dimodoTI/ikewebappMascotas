@@ -32,7 +32,10 @@ export const idiomas = {
         carro2: [{lbl:""},{lbl:""},{lbl:""}],lblNovedades:"Novedades Iké",
         lblAyuda:"¿Necesitás ayuda?. Estamos para lo que necesites.",btnAyuda:"Solicitar asistencia"},
         pie: { inicio: "Inicio", mascota: "Mascotas", consulta: "Consultas", vacuna: "Vacunas", foto: "Fotos"},
-        usuariodetalle: {titulo:"Tu perfil", leyenda:"Bienvenida a tu cuenta, encontrarás tu info personal y detalle de plan."},
+        usuariodetalle: {titulo:"Tu perfil", leyenda:"Bienvenida/o a tu cuenta, encontrarás tu info personal y detalle de plan.",
+        mascota:"Mascotas", consulta:"Consultas", vacuna:"Vacunas", informacion:"Tu información personal",
+        lblNombre:"Tu nombre", lblNombre_ph:"Jose Perez", lblMail:"Tu mail", lblMail_ph:"Jose@gmail.com", lblCelu:"Tu celular", lblCelu_ph:"1142334586",btnClave:"Cambiar contraseña",btnEdit:"Guardar mis datos",
+        btnCobertura:"¿Qué incluye mi cobertura?",btnDelete:"Eliminar esta cuenta",btnAsistencia:"Solicitar asistencia",lblAyuda:"¿Necesitás ayuda?. Estamos para lo que necesites."},
         mascota:{titulo:"Mis mascotas",leyenda:"Creá el perfil de tus mascotas y accedé a su historia clínica.",label:"Mis mascotas",btn:"Agregar mascota",raza:"Raza: ", edad:"Edad: ", consultas:" Consulta/s"},
         misconsultas:{titulo:"Mis consultas",leyenda:"Creá el perfil de tus mascotas y accedé a su historia clínica.",label:"Mis consultas",btn:"Agendar consulta",verDetalle:"Ver detalle: "},
         calendario:{titulo:"Calendario de Vacunas",leyenda:"Consultá el calendario y registrá las vacunas de tus mascotas.",btn:"Registrar vacuna",perro:"Perros",gato:"Gatos",verDetalle:"Ver detalle: "},
@@ -40,7 +43,18 @@ export const idiomas = {
         video: {conectando: "Conectando ..."},
         videocalificacion: {titulo: "Calificá la consulta",leyenda:"Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
         calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",comentarioLbl:"Dejanos un comentario (opcional)",
-        btn1:"Guardar calificación",btn2:"Ahora no"}
+        btn1:"Guardar calificación",btn2:"Ahora no"},
+        videodetalle: {titulo: "Detalle de tu consulta",leyenda:"Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
+        calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",comentarioLbl:"Dejanos un comentario (opcional)",
+        btn1:"Guardar calificación",btn2:"Ahora no"},
+        clavemodificar: { titulo: "Cambiá tu contraseña", leyenda: "Modificá tu contraseña completando los siguientes campos..", 
+        clave1: "Ingresá tu nueva contraseña", clave2: "Repetí tu nueva contraseña", btn1:"Crear nueva contraseña", 
+        errorClave1: {err1:"Clave1 incorrecto", err2:"wer"}, 
+        errorClave2: {err1:"Clave2 incorrecto", err2:"wer"}}, 
+        clavemodificarmsg: { titulo: "¡Listo!", leyenda: "Tu contraseña ya fue modificada.", btn1:"Volver a mi perfil"},
+        plancontrata: { titulo: "¡Contratá tu Plan Iké Mascotas!", leyenda: "Accedé a esta y otras funcionalidades contratando tu plan.", btn1:"Volver a mi perfilVer planes disponibles", btn2:"Contactar a un asesor de Iké", btn3:"Volver al inicio"},
+        notificacion: { titulo: "Notificaciones"}
+        
     }
 }
 
