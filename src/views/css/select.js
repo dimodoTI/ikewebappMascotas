@@ -2,7 +2,7 @@ import {
   css
 } from "lit-element"
 
-export const select = css `
+export const select = css`
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -11,10 +11,9 @@ select {
     outline: 0;
     box-shadow: none;
     border:none;
-    border-bottom: 1px solid rgb(90, 88, 86);
-    background-color:rgb(0,0,0,.3);
+    border: 1px solid var(--color-gris-claro);
     background-image: none;
-    font-size:1rem
+    background-color: var(--color-blanco);
   }
   
   select::-ms-expand {
@@ -23,50 +22,48 @@ select {
  
   .select {
     position: relative;
-    display: flex;
-    line-height: 3;
+    display: grid;
+    grid-gap: 0;
+    grid-template-rows:26% 74%;
+    line-height: 1;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: 2px;
   }
   select {
-    padding-top:1rem;
-    padding-left:.5rem;
-    color: #fff;
+    padding-top:.3rem;
+    padding-left:.4rem;
+    color:var(--color-negro);
     cursor: pointer;
+    font-size: var(--font-bajada-size);
+    font-weight: var(--font-bajada-weight);
   }
   option{
-      color:gray;
-      background-color:white;
-      padding:.2rem
+      color:var(--color-blanco);
+      padding:0rem;
   }
-  select:focus {
-    border-bottom: 2px solid  var(--primary-color);
-  }
-  
   .select::after {
     content: "\\25BC";
     position: absolute;
-    top: 0;
+    top: 1.3rem;
     right: 0;
-    padding: 0 1em;
+    padding: 0 .4em;
     background: transparent;
-    cursor: pointer;
     pointer-events: none;
     -webkit-transition: .25s all ease;
     -o-transition: .25s all ease;
     transition: .25s all ease;
-    color:var(--primary-color)
+    color:var(--color-gris-oscuro)
   }
   
   .select:hover::after {
-    color: var(--primary-color);
+    color: var(--color-celeste);
   }
+  
   .select label{
-      position:absolute;
-      top:-.6rem;
-      left:.4rem;
-      color:var(--primary-color);
-      font-size:.8rem
-
+      position:relative;
+      top:.1rem;
+      left:0rem;
+      font-size: var(--font-label-size);
+      font-weight: var(--font-label-weight);
   }
   `

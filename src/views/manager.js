@@ -10,9 +10,9 @@ import {
     store
 } from "../redux/store";
 
-import {cabecera3Componente} from "../views/componentes/cabecera3Componente";
-import {marquesinaComponente} from "../views/componentes/marquesina";
-import {pieComponente} from "../views/componentes/pie";
+import { cabecera3Componente } from "../views/componentes/cabecera3Componente";
+import { marquesinaComponente } from "../views/componentes/marquesina";
+import { pieComponente } from "../views/componentes/pie";
 
 import { pantallaSplash } from "../views/formularios/splash";
 import { pantallaOnboarding } from "../views/formularios/onboarding";
@@ -33,12 +33,16 @@ import { pantallaCalendario } from "../views/formularios/calendario";
 import { pantallaFotoGaleria } from "../views/formularios/fotoGaleria";
 import { pantallaFotoVer } from "../views/formularios/fotoVer";
 import { pantallaVideo } from "../views/formularios/video";
-import { pantallaVideoCalificacion} from "../views/formularios/videoCalificacion";
-import { pantallaVideoDetalle} from "../views/formularios/videoDetalle";
-import { pantallarClaveModificar} from "../views/formularios/claveModificar";
-import { pantallarClaveModificarMsg} from "./formularios/claveModificarMsg";
-import { pantallaPlanContrata} from "./formularios/planContrata";
-import { pantallaNotificacion} from "./formularios/notificacion";
+import { pantallaVideoCalificacion } from "../views/formularios/videoCalificacion";
+import { pantallaVideoDetalle } from "../views/formularios/videoDetalle";
+import { pantallarClaveModificar } from "../views/formularios/claveModificar";
+import { pantallarClaveModificarMsg } from "./formularios/claveModificarMsg";
+import { pantallaPlanContrata } from "./formularios/planContrata";
+import { pantallaNotificacion } from "./formularios/notificacion";
+import { pantallaVacuna } from "./formularios/vacuna";
+import { pantallaVacunaMsg } from "./formularios/vacunaMsg";
+import { pantallaMascotaAlta } from "./formularios/mascotaAlta";
+import { pantallaMascotaAltaMsg } from "./formularios/mascotaAltaMsg";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -48,7 +52,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
     }
 
     static get styles() {
-        return css `
+        return css`
         :host{
             display: grid;                 
             grid-gap:1rem;
@@ -65,7 +69,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         `;
     }
     render() {
-        return html `
+        return html`
         <pantalla-splash id='splash'></pantalla-splash>
         <pantalla-onboarding id="onboarding"></pantalla-onboarding>
         <pantalla-iniciosesion id="iniciosesion"></pantalla-iniciosesion>
@@ -91,11 +95,16 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-clavemodificarmsg id="clavemodificarmsg"></pantalla-clavemodificarmsg>
         <pantalla-plancontrata id="plancontrata"></pantalla-plancontrata>
         <pantalla-notificacion id="notificacion"></pantalla-notificacion>
-        `;
+        <pantalla-vacuna id="vacuna"></pantalla-vacuna>
+        <pantalla-vacunamsg id="vacunamsg"></pantalla-vacunamsg>
+        <pantalla-mascotaalta id="mascotaalta"></pantalla-mascotaalta>
+        <pantalla-mascotaaltamsg id="mascotaaltamsg"></pantalla-mascotaaltamsg>
+        `
+            ;
     }
- 
+
     stateChanged(state, name) {
-        if (name == QUEPANTALLA ) {
+        if (name == QUEPANTALLA) {
             if (this.shadowRoot.children.length > 0) {
                 this.shadowRoot.querySelector("#splash").hidden = state.ui.quePantalla != "splash";
                 this.shadowRoot.querySelector("#onboarding").hidden = state.ui.quePantalla != "onboarding";
@@ -122,6 +131,10 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#clavemodificarmsg").hidden = state.ui.quePantalla != "clavemodificarmsg";
                 this.shadowRoot.querySelector("#plancontrata").hidden = state.ui.quePantalla != "plancontrata";
                 this.shadowRoot.querySelector("#notificacion").hidden = state.ui.quePantalla != "notificacion";
+                this.shadowRoot.querySelector("#vacuna").hidden = state.ui.quePantalla != "vacuna";
+                this.shadowRoot.querySelector("#vacunamsg").hidden = state.ui.quePantalla != "vacunamsg";
+                this.shadowRoot.querySelector("#mascotaalta").hidden = state.ui.quePantalla != "mascotaalta";
+                this.shadowRoot.querySelector("#mascotaaltamsg").hidden = state.ui.quePantalla != "mascotaaltamsg";
             }
         }
 

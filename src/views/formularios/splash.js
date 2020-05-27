@@ -9,7 +9,7 @@ import {
 import {
     connect
 } from "@brunomon/helpers";
-import {modoPantalla,dispararTimer,cancelarTimer} from "../../redux/actions/ui";
+import { modoPantalla, dispararTimer, cancelarTimer } from "../../redux/actions/ui";
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -51,11 +51,11 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "splash") {
             store.dispatch(cancelarTimer())
-            store.dispatch(dispararTimer(3, "notificacion", "splash"))
+            store.dispatch(dispararTimer(3, "mascotaalta", "splash"))
         }
     }
     pasar(e) {
-        store.dispatch(modoPantalla("notificacion","splash"))
+        store.dispatch(modoPantalla("mascotaalta", "splash"))
     }
     static get properties() {
         return {

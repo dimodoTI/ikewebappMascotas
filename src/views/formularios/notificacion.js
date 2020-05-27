@@ -1,11 +1,11 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {button} from "../css/button"
-import {modoPantalla} from "../../redux/actions/ui";
-import {ATRAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { button } from "../css/button"
+import { modoPantalla } from "../../redux/actions/ui";
+import { ATRAS } from "../../../assets/icons/icons"
 export class pantallaNotificacion extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -52,15 +52,15 @@ export class pantallaNotificacion extends connect(store)(LitElement) {
             display:grid;
             grid-auto-flow:row;
             grid-gap:.8rem;
-            align-content:start
+            align-content:start;
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
             <div id="cabecera">
                 <div id="atras" @click=${this.clickBoton1}>${ATRAS}</div>
                 <div id="lblTitulo">${idiomas[this.idioma].notificacion.titulo}</div>
@@ -70,8 +70,8 @@ export class pantallaNotificacion extends connect(store)(LitElement) {
             </div>
         `
     }
-    
-    clickBoton1(){
+
+    clickBoton1() {
         store.dispatch(modoPantalla("iniciosesion"))
     }
     stateChanged(state, name) {

@@ -41,7 +41,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     }
 
     static get styles() {
-        return css `
+        return css`
         ${button}
         ${ikeInput}
         ${cabecera1}
@@ -64,7 +64,9 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
             padding:2rem;
             grid-auto-flow:row;
             grid-gap:.8rem;
-            align-content:start
+            align-content:start;
+            overflow-y: auto; 
+            overflow-x: hidden; 
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
@@ -73,7 +75,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     }
 
     render() {
-        return html `
+        return html`
         <div id="header">
             <div id="bar">
                <!--  <div>${ATRAS}</div> -->
@@ -159,8 +161,8 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     clickBoton3() {
         store.dispatch(modoPantalla("principal"));
     }
-    stateChanged(state, name) {}
-    firstUpdated() {}
+    stateChanged(state, name) { }
+    firstUpdated() { }
 
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "iniciosesion") {
