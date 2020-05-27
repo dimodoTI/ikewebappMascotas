@@ -2,11 +2,11 @@ import {
     css
 } from "lit-element"
 
-export const cardMascotaHorizontal = css `
+export const cardMascotaHorizontal = css`
 #cmhDivEtiqueta{
     display: grid; 
     height:22vw;
-    width:90%;
+    width:100%;
     background-color:var(--color-blanco);
     grid-template-columns: 25% 55% 20%;
     grid-template-rows: 25% 45% 30%;

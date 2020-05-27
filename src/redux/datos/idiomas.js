@@ -89,6 +89,11 @@ export const idiomas = {
             btnCamara: "Camara", btnImagen: "Libreria de Fotos", btnCancelar: "Cancelar"
         },
         mascotaaltamsg: { titulo: "¡Listo!", leyenda: "Tu mascota fue agregada con éxito", btn1: "Ver perfil", btn2: "Volver al inicio" },
+        mascotaedit: {
+            leyenda: "Ingresá al perfil de tus mascotas y accedé a su historia clínica.", informacion: "Información",
+            tipo: "Tipo de mascota: ", nombre: "Coquito", edad: "Edad: ", raza: "Raza: ", btn1: "Editar información", consulta: "Consultas",
+            btn2: "Agendar nueva consulta", vacuna: "Vacunas registradas", btn3: "Registrar nueva vacuna"
+        }
 
     }
 }

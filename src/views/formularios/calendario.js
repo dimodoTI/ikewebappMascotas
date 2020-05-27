@@ -1,15 +1,15 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {cabecera1} from "../css/cabecera1"
-import {btnCalendario} from "../css/btnCalendario"
-import {cardCalendario} from "../css/cardCalendario"
-import {btnFlotanteAlargado} from "../css/btnFlotanteAlargado"
-import {btnConsultaNueva} from "../css/btnConsultaNueva"
-import {modoPantalla} from "../../redux/actions/ui";
-import {VACUNA,CONSULTA} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { cabecera1 } from "../css/cabecera1"
+import { btnCalendario } from "../css/btnCalendario"
+import { cardCalendario } from "../css/cardCalendario"
+import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
+import { btnConsultaNueva } from "../css/btnConsultaNueva"
+import { modoPantalla } from "../../redux/actions/ui";
+import { VACUNA, CONSULTA } from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -17,14 +17,14 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         this.hidden = true
         this.idioma = "ES"
         this.animal = "perro"
-        this.item = [{animal:"perro",vacuna: "Perro Quíntuple Refuerzo", para:"Tos de las perreras - Hepatitis - Moquillo - Parvovirus",edad:"Cachorros",Obligatoria:"Obligatoria"},
-        {animal:"perro",vacuna: "Rabia", para:"Rabia",edad:"Cachorros",obligatoria:"Obligatoria"},
-        {animal:"perro",vacuna: "Quíntuple", para:"Tos de las perreras - Hepatitis - Moquillo - Parvovirus",edad:"Cachorros",Obligatoria:"Obligatoria"},
-        {animal:"perro",vacuna: "Tetano", para:"Tetano",edad:"Cachorros",obligatoria:"Obligatoria"},
-        {animal:"gato",vacuna: " Gato Quíntuple Refuerzo", para:"Tos de las perreras - Hepatitis - Moquillo - Parvovirus",edad:"Cachorros",Obligatoria:"Obligatoria"},
-        {animal:"gato",vacuna: "Rabia", para:"Rabia",edad:"Cachorros",obligatoria:"Obligatoria"},
-        {animal:"gato",vacuna: "Quíntuple", para:"Tos de las perreras - Hepatitis - Moquillo - Parvovirus",edad:"Cachorros",Obligatoria:"Obligatoria"},
-        {animal:"gato",vacuna: "Tetano", para:"Tetano",edad:"Cachorros",obligatoria:"Obligatoria"}
+        this.itemVacunas = [{ animal: "perro", vacuna: "Perro Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        { animal: "perro", vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
+        { animal: "perro", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        { animal: "perro", vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" },
+        { animal: "gato", vacuna: " Gato Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        { animal: "gato", vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
+        { animal: "gato", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        { animal: "gato", vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" }
         ]
     }
 
@@ -57,7 +57,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             background-position: right center;
             background-size: 1rem 1rem;
         }
-        #cuerpo{
+        #cuerpoVacuna{
             background-color: transparent;
             display: grid;
             width: 100%;
@@ -67,7 +67,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             overflow-x: hidden; 
             grid-gap:1rem;
         }
-        #cuerpo::-webkit-scrollbar {
+        #cuerpoVacuna::-webkit-scrollbar {
             display: none;
         }
         label {
@@ -90,9 +90,9 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             align-items:top;
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">
             <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
                 <div id="bar">
@@ -110,7 +110,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
                 ${idiomas[this.idioma].calendario.gato}
             </div>
         </div>
-        <div id="cuerpo">
+        <div id="cuerpoVacuna" style="width:95%;justify-self: center;">
 
         </div>        
         <pie-componente id="pie" opcion="cuatro">
@@ -121,28 +121,28 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         </div>
         `
     }
-    perro(){
-        this.shadowRoot.getElementById("btnPerro").setAttribute("pres","") 
-        this.shadowRoot.getElementById("btnPerro").removeAttribute("nopres") 
-        this.shadowRoot.getElementById("btnGato").setAttribute("nopres","") 
-        this.shadowRoot.getElementById("btnGato").removeAttribute("pres") 
+    perro() {
+        this.shadowRoot.getElementById("btnPerro").setAttribute("pres", "")
+        this.shadowRoot.getElementById("btnPerro").removeAttribute("nopres")
+        this.shadowRoot.getElementById("btnGato").setAttribute("nopres", "")
+        this.shadowRoot.getElementById("btnGato").removeAttribute("pres")
         this.animal = "perro"
         this.llenar();
     }
-    gato(){
-        this.shadowRoot.getElementById("btnPerro").setAttribute("nopres","") 
-        this.shadowRoot.getElementById("btnPerro").removeAttribute("pres") 
-        this.shadowRoot.getElementById("btnGato").setAttribute("pres","") 
-        this.shadowRoot.getElementById("btnGato").removeAttribute("nopres") 
+    gato() {
+        this.shadowRoot.getElementById("btnPerro").setAttribute("nopres", "")
+        this.shadowRoot.getElementById("btnPerro").removeAttribute("pres")
+        this.shadowRoot.getElementById("btnGato").setAttribute("pres", "")
+        this.shadowRoot.getElementById("btnGato").removeAttribute("nopres")
         this.animal = "gato"
         this.llenar();
     }
-    llenar(){
-        let cuerpo = this.shadowRoot.getElementById("cuerpo")
-        cuerpo.innerHTML=""
+    llenar() {
+        let cuerpo = this.shadowRoot.getElementById("cuerpoVacuna")
+        cuerpo.innerHTML = ""
         let filtro = this.animal;
-        this.item.forEach(function(entry) {
-            if (entry.animal == filtro){
+        this.itemVacunas.forEach(function (entry) {
+            if (entry.animal == filtro) {
                 let animal = document.createElement("div");
                 animal.id = "ccDivEtiqueta";
                 let divVacuna = document.createElement("div");
@@ -162,7 +162,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
                 animal.appendChild(divPara);
                 animal.appendChild(divCachorro);
                 animal.appendChild(divObligatorio);
-                
+
                 cuerpo.appendChild(animal);
             }
         });

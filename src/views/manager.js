@@ -43,6 +43,7 @@ import { pantallaVacuna } from "./formularios/vacuna";
 import { pantallaVacunaMsg } from "./formularios/vacunaMsg";
 import { pantallaMascotaAlta } from "./formularios/mascotaAlta";
 import { pantallaMascotaAltaMsg } from "./formularios/mascotaAltaMsg";
+import { pantallaMascotaEdit } from "./formularios/mascotaEdit";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -99,8 +100,8 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-vacunamsg id="vacunamsg"></pantalla-vacunamsg>
         <pantalla-mascotaalta id="mascotaalta"></pantalla-mascotaalta>
         <pantalla-mascotaaltamsg id="mascotaaltamsg"></pantalla-mascotaaltamsg>
+        <pantalla-mascotaedit id="mascotaedit"></pantalla-mascotaedit>
         `
-            ;
     }
 
     stateChanged(state, name) {
@@ -135,6 +136,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#vacunamsg").hidden = state.ui.quePantalla != "vacunamsg";
                 this.shadowRoot.querySelector("#mascotaalta").hidden = state.ui.quePantalla != "mascotaalta";
                 this.shadowRoot.querySelector("#mascotaaltamsg").hidden = state.ui.quePantalla != "mascotaaltamsg";
+                this.shadowRoot.querySelector("#mascotaedit").hidden = state.ui.quePantalla != "mascotaedit";
             }
         }
 

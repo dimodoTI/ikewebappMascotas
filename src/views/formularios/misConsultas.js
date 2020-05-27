@@ -1,26 +1,26 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {button} from "../css/button"
-import {cabecera1} from "../css/cabecera1"
-import {cardMascotaHorizontal} from "../css/cardMascotaHorizontal"
-import {btnFlotanteAlargado} from "../css/btnFlotanteAlargado"
-import {btnConsultaNueva} from "../css/btnConsultaNueva"
-import {modoPantalla} from "../../redux/actions/ui";
-import {CHAT,CONSULTA} from "../../../assets/icons/icons" 
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { button } from "../css/button"
+import { cabecera1 } from "../css/cabecera1"
+import { cardMascotaHorizontal } from "../css/cardMascotaHorizontal"
+import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
+import { btnConsultaNueva } from "../css/btnConsultaNueva"
+import { modoPantalla } from "../../redux/actions/ui";
+import { CHAT, CONSULTA } from "../../../assets/icons/icons"
 export class pantallaMisConsultas extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = [{imagen: "--imagen-perro1", nombre:"Coqui",fecha:"Hoy",diagnostico:"Tos con mocos"},
-        {imagen: "--imagen-perro1", nombre:"Collie",fecha:"Ayer",diagnostico:"Tos con mocos"},
-        {imagen: "--imagen-perro1", nombre:"Poquito",fecha:"11/2/2020",diagnostico:"Tos con mocos"},
-        {imagen: "--imagen-perro1", nombre:"Mafalda",fecha:"11/1/2020",diagnostico:"Tos con mocos"},
-        {imagen: "--imagen-perro1", nombre:"Mafalda",fecha:"11/1/2020",diagnostico:"Tos con mocos"},
-        {imagen: "--imagen-perro1", nombre:"Mafalda",fecha:"11/1/2020",diagnostico:"Tos con mocos"}
+        this.item = [{ imagen: "--imagen-perro1", nombre: "Coqui", fecha: "Hoy", diagnostico: "Tos con mocos" },
+        { imagen: "--imagen-perro1", nombre: "Collie", fecha: "Ayer", diagnostico: "Tos con mocos" },
+        { imagen: "--imagen-perro1", nombre: "Poquito", fecha: "11/2/2020", diagnostico: "Tos con mocos" },
+        { imagen: "--imagen-perro1", nombre: "Mafalda", fecha: "11/1/2020", diagnostico: "Tos con mocos" },
+        { imagen: "--imagen-perro1", nombre: "Mafalda", fecha: "11/1/2020", diagnostico: "Tos con mocos" },
+        { imagen: "--imagen-perro1", nombre: "Mafalda", fecha: "11/1/2020", diagnostico: "Tos con mocos" }
         ]
     }
 
@@ -56,9 +56,9 @@ export class pantallaMisConsultas extends connect(store)(LitElement) {
         #cuerpo{
             background-color: transparent;
             display: grid;
-            width: 100%;
+            width: 95%;
             grid-template-columns: 100%;
-            justify-items: center;
+            justify-self: center;
             overflow-y: auto; 
             overflow-x: hidden; 
             grid-gap:1rem;
@@ -80,9 +80,9 @@ export class pantallaMisConsultas extends connect(store)(LitElement) {
             position:relative;
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">
             <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
                 <div id="bar">
@@ -115,13 +115,13 @@ export class pantallaMisConsultas extends connect(store)(LitElement) {
         `
     }
 
-    clickBotonUsuario(){
+    clickBotonUsuario() {
         store.dispatch(modoPantalla("usuariodetalle"))
     }
-    clickBoton1(){
+    clickBoton1() {
         store.dispatch(modoPantalla("iniciosesion"))
     }
-    clickBoton2(){
+    clickBoton2() {
         store.dispatch(modoPantalla("iniciosesion"))
     }
     stateChanged(state, name) {

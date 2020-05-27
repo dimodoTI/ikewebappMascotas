@@ -2,11 +2,11 @@ import {
     css
 } from "lit-element"
 
-export const cardCalendario = css `
+export const cardCalendario = css`
 #ccDivEtiqueta{
     display: grid; 
     height:22vw;
-    width:90%;
+    width:100%;
     background-color:var(--color-blanco);
     grid-template-columns: 30% 30% auto;
     grid-template-rows: 30% auto 30%;

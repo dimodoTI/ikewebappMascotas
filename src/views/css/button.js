@@ -2,7 +2,7 @@ import {
    css
 } from "lit-element"
 
-export const button = css `         
+export const button = css`         
    button[btn1]{
       display:grid;            
       grid-auto-flow:column;
@@ -80,7 +80,7 @@ export const button = css `
       grid-gap:.3rem;
       cursor:pointer;
       color:var(--color-celeste);
-      background-color:var(--color-gris-claro);
+      background-color:transparent;
       font-size: var(--font-bajada-size);
       font-weight: var(--font-bajada-weight);
       border-radius:.4rem;
