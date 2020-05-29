@@ -42,7 +42,12 @@ export class pantallaVacuna extends connect(store)(LitElement) {
             padding:2rem;
             grid-auto-flow:row;
             grid-gap:.8rem;
-            align-content:start
+            align-content:start;
+            overflow-y: auto; 
+            overflow-x: hidden; 
+        }
+        #cuerpo::-webkit-scrollbar {
+            display: none;
         }
         #selectMascota{
             font-size: var(--font-label-size);

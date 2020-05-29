@@ -43,7 +43,11 @@ import { pantallaVacuna } from "./formularios/vacuna";
 import { pantallaVacunaMsg } from "./formularios/vacunaMsg";
 import { pantallaMascotaAlta } from "./formularios/mascotaAlta";
 import { pantallaMascotaAltaMsg } from "./formularios/mascotaAltaMsg";
-import { pantallaMascotaEdit } from "./formularios/mascotaEdit";
+import { pantallaMascotaVer } from "./formularios/mascotaVer";
+import { pantallaConsulta } from "./formularios/consulta";
+import { pantallaConsultaTurnos } from "./formularios/consultaTurnos";
+import { pantallaConsultaDetalle } from "./formularios/consultaDetalle";
+import { pantallaConsultaDetalleMsg } from "./formularios/consultaDetalleMsg";
 
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
@@ -98,9 +102,14 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-notificacion id="notificacion"></pantalla-notificacion>
         <pantalla-vacuna id="vacuna"></pantalla-vacuna>
         <pantalla-vacunamsg id="vacunamsg"></pantalla-vacunamsg>
-        <pantalla-mascotaalta id="mascotaalta"></pantalla-mascotaalta>
+        <pantalla-mascotaalta accion="ALTA" id="mascotaalta"></pantalla-mascotaalta>
+        <pantalla-mascotaalta accion="UPDATE" id="mascotaedit"></pantalla-mascotaalta>
         <pantalla-mascotaaltamsg id="mascotaaltamsg"></pantalla-mascotaaltamsg>
-        <pantalla-mascotaedit id="mascotaedit"></pantalla-mascotaedit>
+        <pantalla-mascotaver id="mascotaver"></pantalla-mascotaver>
+        <pantalla-consulta id="consulta"></pantalla-consulta>
+        <pantalla-consultaturnos id="consultaturnos"></pantalla-consultaturnos>
+        <pantalla-consultadetalle id="consultadetalle"></pantalla-consultadetalle>
+        <pantalla-consultadetallemsg id="consultadetallemsg"></pantalla-consultadetallemsg>
         `
     }
 
@@ -136,7 +145,12 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#vacunamsg").hidden = state.ui.quePantalla != "vacunamsg";
                 this.shadowRoot.querySelector("#mascotaalta").hidden = state.ui.quePantalla != "mascotaalta";
                 this.shadowRoot.querySelector("#mascotaaltamsg").hidden = state.ui.quePantalla != "mascotaaltamsg";
+                this.shadowRoot.querySelector("#mascotaver").hidden = state.ui.quePantalla != "mascotaver";
                 this.shadowRoot.querySelector("#mascotaedit").hidden = state.ui.quePantalla != "mascotaedit";
+                this.shadowRoot.querySelector("#consulta").hidden = state.ui.quePantalla != "consulta";
+                this.shadowRoot.querySelector("#consultaturnos").hidden = state.ui.quePantalla != "consultaturnos";
+                this.shadowRoot.querySelector("#consultadetalle").hidden = state.ui.quePantalla != "consultadetalle";
+                this.shadowRoot.querySelector("#consultadetallemsg").hidden = state.ui.quePantalla != "consultadetallemsg";
             }
         }
 

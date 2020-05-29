@@ -8,7 +8,7 @@ import { cardMascotaHorizontal } from "../css/cardMascotaHorizontal"
 import { cardCalendario } from "../css/cardCalendario"
 import { modoPantalla } from "../../redux/actions/ui";
 import { ATRAS, CHAT } from "../../../assets/icons/icons"
-export class pantallaMascotaEdit extends connect(store)(LitElement) {
+export class pantallaMascotaVer extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -21,11 +21,11 @@ export class pantallaMascotaEdit extends connect(store)(LitElement) {
         { imagen: "--imagen-perro1", nombre: "Mafalda", fecha: "11/1/2020", diagnostico: "Tos con mocos" },
         { imagen: "--imagen-perro1", nombre: "Mafalda", fecha: "11/1/2020", diagnostico: "Tos con mocos" }
         ]
-        this.itemVacunas = [{ vacuna: "Perro Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        this.itemVacunas = [{ vacuna: "Perro Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
         { vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        { vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
         { vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { vacuna: " Gato Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
+        { vacuna: " Gato Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
         { vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" }
         ]
     }
@@ -96,39 +96,49 @@ export class pantallaMascotaEdit extends connect(store)(LitElement) {
                 <div @click=${this.clickAtras}>${ATRAS}</div>
                 <div id="lblTitulo">${this.mascota.nombre}</div>
             </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].mascotaedit.leyenda}</div>
+            <div id="lblLeyenda">${idiomas[this.idioma].mascotaver.leyenda}</div>
         </div>
         <div id="cuerpo">
             <div id="foto" style="background-image:var(--imagen-perro1)">
             </div>
-            <label class="subTitulo">${idiomas[this.idioma].mascotaedit.informacion}</label>
-            <label class="informacion">${idiomas[this.idioma].mascotaedit.tipo + this.mascota.tipo}</label>
-            <label class="informacion">${idiomas[this.idioma].mascotaedit.raza + this.mascota.raza}</label>
-            <label class="informacion">${idiomas[this.idioma].mascotaedit.edad + this.mascota.edad}</label>
+            <label class="subTitulo">${idiomas[this.idioma].mascotaver.informacion}</label>
+            <label class="informacion">${idiomas[this.idioma].mascotaver.tipo + this.mascota.tipo}</label>
+            <label class="informacion">${idiomas[this.idioma].mascotaver.raza + this.mascota.raza}</label>
+            <label class="informacion">${idiomas[this.idioma].mascotaver.edad + this.mascota.edad}</label>
             <button id="btn-edit" btn1 @click=${ this.clickEdit}>
-                ${ idiomas[this.idioma].mascotaedit.btn1}
+                ${ idiomas[this.idioma].mascotaver.btn1}
             </button >
-            <label class="subTitulo">${idiomas[this.idioma].mascotaedit.consulta}</label>
-            ${this.consulta.map(dato => html`
-                <div id="cmhDivEtiqueta">
-                    <div id="cmhDivImagen" style="background-image:var(${dato.imagen});grid-row-start:1;grid-row-end:4;"></div>
-                    <div id="cmhDivNombre">${dato.nombre}</div>
-                    <div id="cmhDivFecha">${dato.fecha}</div>
-                    <div id="cmhDivDiagnostico">${dato.diagnostico}</div>
-                    <div id="cmhDivVerDetalle">
-                        <button btn2 style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
+            <label class="subTitulo">${idiomas[this.idioma].mascotaver.consulta}</label>
+            <div style="display:grid;grid-gap:.8rem;justify-self: center;">
+                ${this.consulta.map(dato => html`
+                    <div id="cmhDivEtiqueta">
+                        <div id="cmhDivImagen" style="background-image:var(${dato.imagen});grid-row-start:1;grid-row-end:4;"></div>
+                        <div id="cmhDivNombre">${dato.nombre}</div>
+                        <div id="cmhDivFecha">${dato.fecha}</div>
+                        <div id="cmhDivDiagnostico">${dato.diagnostico}</div>
+                        <div id="cmhDivVerDetalle">
+                            <button btn2 style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
+                        </div>
+                        <div id="cmhDivChat">${CHAT}</div>              
                     </div>
-                    <div id="cmhDivChat">${CHAT}</div>              
-                </div>
-            `)
-            }
+                `)}
+            </div>
             <button id="btn-edit" btn3 @click=${ this.clickConsultas}>
-                ${ idiomas[this.idioma].mascotaedit.btn2}
+                ${ idiomas[this.idioma].mascotaver.btn2}
             </button >
-            <label class="subTitulo">${idiomas[this.idioma].mascotaedit.vacuna}</label>
-            <div id="cuerpoVacuna" style="display:grid;grid-gap:.8rem;justify-self: center;"></div>
+            <label class="subTitulo">${idiomas[this.idioma].mascotaver.vacuna}</label>
+            <div style="display:grid;grid-gap:.8rem;justify-self: center;">
+                ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
+                    <div id="ccDivEtiqueta">
+                        <div id="ccDivVacuna">${dato.vacuna}</div>
+                        <div id="ccDivPara">${dato.para}</div>
+                        <div id="ccDivCachorro">${dato.edad}</div>
+                        <div id="ccDivObligatorio">${dato.obligatoria}</div>
+                    </div>
+                `)}       
+            </div>
             <button id="btn-edit" btn3 @click=${ this.clickVacunas}>
-                ${ idiomas[this.idioma].mascotaedit.btn3}
+                ${ idiomas[this.idioma].mascotaver.btn3}
             </button >
 
             <div style="height:1rem"></div>
@@ -152,39 +162,8 @@ export class pantallaMascotaEdit extends connect(store)(LitElement) {
     stateChanged(state, name) {
     }
     firstUpdated() {
-        this.llenar()
     }
-    llenar() {
-        let cuerpo = this.shadowRoot.getElementById("cuerpoVacuna")
-        cuerpo.innerHTML = ""
-        let filtro = this.animal;
-        this.itemVacunas.forEach(function (entry) {
-            if (entry.animal == filtro) {
-                let animal = document.createElement("div");
-                animal.id = "ccDivEtiqueta";
-                let divVacuna = document.createElement("div");
-                divVacuna.id = "ccDivVacuna";
-                divVacuna.innerHTML = entry.vacuna
-                animal.appendChild(divVacuna)
-                let divPara = document.createElement("div");
-                divPara.id = "ccDivPara";
-                divPara.innerHTML = entry.para
-                let divCachorro = document.createElement("div");
-                divCachorro.id = "ccDivCachorro";
-                divCachorro.innerHTML = entry.edad
-                let divObligatorio = document.createElement("div");
-                divObligatorio.id = "ccDivObligatorio";
-                divObligatorio.innerHTML = entry.obligatorio
-                animal.appendChild(divVacuna);
-                animal.appendChild(divPara);
-                animal.appendChild(divCachorro);
-                animal.appendChild(divObligatorio);
 
-                cuerpo.appendChild(animal);
-            }
-        });
-
-    }
     static get properties() {
         return {
             hidden: {
@@ -199,4 +178,4 @@ export class pantallaMascotaEdit extends connect(store)(LitElement) {
     }
 }
 
-window.customElements.define("pantalla-mascotaedit", pantallaMascotaEdit);
+window.customElements.define("pantalla-mascotaver", pantallaMascotaVer);

@@ -14,7 +14,7 @@ export const cardMascotaHorizontal = css`
     border-radius:.4rem ;           
     align-items: center;
     box-shadow: var(--shadow-elevation-4-box);
-} 
+}  
 #cmhDivImagen{
     height:22vw;
     width:22vw;

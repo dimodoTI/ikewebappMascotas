@@ -17,13 +17,13 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         this.hidden = true
         this.idioma = "ES"
         this.animal = "perro"
-        this.itemVacunas = [{ animal: "perro", vacuna: "Perro Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
+        this.itemVacunas = [{ animal: "perro", vacuna: "Perro Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
         { animal: "perro", vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "perro", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
+        { animal: "perro", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
         { animal: "perro", vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "gato", vacuna: " Gato Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
+        { animal: "gato", vacuna: " Gato Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
         { animal: "gato", vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "gato", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
+        { animal: "gato", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", Obligatoria: "Obligatoria" },
         { animal: "gato", vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" }
         ]
     }
@@ -111,14 +111,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             </div>
         </div>
         <div id="cuerpoVacuna" style="width:95%;justify-self: center;">
-            ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
-                <div id="ccDivEtiqueta">
-                    <div id="ccDivVacuna">${dato.vacuna}</div>
-                    <div id="ccDivPara">${dato.para}</div>
-                    <div id="ccDivCachorro">${dato.edad}</div>
-                    <div id="ccDivObligatorio">${dato.obligatoria}</div>
-                </div>
-            `)}
+
         </div>        
         <pie-componente id="pie" opcion="cuatro">
         </pie-componente>
@@ -134,7 +127,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         this.shadowRoot.getElementById("btnGato").setAttribute("nopres", "")
         this.shadowRoot.getElementById("btnGato").removeAttribute("pres")
         this.animal = "perro"
-        this.update();
+        this.llenar();
     }
     gato() {
         this.shadowRoot.getElementById("btnPerro").setAttribute("nopres", "")
@@ -142,7 +135,38 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         this.shadowRoot.getElementById("btnGato").setAttribute("pres", "")
         this.shadowRoot.getElementById("btnGato").removeAttribute("nopres")
         this.animal = "gato"
-        this.update();
+        this.llenar();
+    }
+    llenar() {
+        let cuerpo = this.shadowRoot.getElementById("cuerpoVacuna")
+        cuerpo.innerHTML = ""
+        let filtro = this.animal;
+        this.itemVacunas.forEach(function (entry) {
+            if (entry.animal == filtro) {
+                let animal = document.createElement("div");
+                animal.id = "ccDivEtiqueta";
+                let divVacuna = document.createElement("div");
+                divVacuna.id = "ccDivVacuna";
+                divVacuna.innerHTML = entry.vacuna
+                animal.appendChild(divVacuna)
+                let divPara = document.createElement("div");
+                divPara.id = "ccDivPara";
+                divPara.innerHTML = entry.para
+                let divCachorro = document.createElement("div");
+                divCachorro.id = "ccDivCachorro";
+                divCachorro.innerHTML = entry.edad
+                let divObligatorio = document.createElement("div");
+                divObligatorio.id = "ccDivObligatorio";
+                divObligatorio.innerHTML = entry.obligatorio
+                animal.appendChild(divVacuna);
+                animal.appendChild(divPara);
+                animal.appendChild(divCachorro);
+                animal.appendChild(divObligatorio);
+
+                cuerpo.appendChild(animal);
+            }
+        });
+
     }
 
     stateChanged(state, name) {
@@ -151,7 +175,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
 
     }
     firstUpdated() {
-        // this.llenar()
+        this.llenar()
     }
 
     static get properties() {

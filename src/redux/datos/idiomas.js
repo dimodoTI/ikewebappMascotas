@@ -1,5 +1,7 @@
 export const idiomas = {
     ES: {
+        diasCortos: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+        mesCortos: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
         onboarding: { btn1: "Siguiente", btn2: "Ya tengo cuenta.", btn3: "Comenzar" },
         iniciosession: {
             titulo: "Iniciá sesión", leyenda: "Completá tus datos para ingresar a tu cuenta",
@@ -65,9 +67,9 @@ export const idiomas = {
             btn1: "Guardar calificación", btn2: "Ahora no"
         },
         videodetalle: {
-            titulo: "Detalle de tu consulta", leyenda: "Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
-            calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?", comentarioLbl: "Dejanos un comentario (opcional)",
-            btn1: "Guardar calificación", btn2: "Ahora no"
+            titulo: "Detalle de tu consulta", leyenda: "Acá vas a encontrar el expediente generado por el profesional.", expediente: "Expediente ",
+            calificar: "¿Cómo estuvo tu consulta?", btn1: "Calificar", conclusion: "Conclusión", recomienda: "Se recomienda", detalle: "Detalle de consulta",
+            paciente: "Paciente: ", motivo: "Motivo: ", fecha: "Fecha: ", hora: "Hora: ", sintoma: "Sintoma: "
         },
         clavemodificar: {
             titulo: "Cambiá tu contraseña", leyenda: "Modificá tu contraseña completando los siguientes campos..",
@@ -88,13 +90,32 @@ export const idiomas = {
             nombre: "¿Cómo se llama?", nombre_ph: "Coquito", fecha: "¿Cuándo nació?", raza: "¿De qué raza es?", btn1: "Agregar foto", btn2: "Agregar mascota",
             btnCamara: "Camara", btnImagen: "Libreria de Fotos", btnCancelar: "Cancelar"
         },
-        mascotaaltamsg: { titulo: "¡Listo!", leyenda: "Tu mascota fue agregada con éxito", btn1: "Ver perfil", btn2: "Volver al inicio" },
         mascotaedit: {
+            titulo: "Editar perfil", leyenda: "Editá al perfil de tus mascotas y mantené sus datos actualizados.", mascota: "¿Qué animal es?",
+            nombre: "¿Cómo se llama?", nombre_ph: "Coquito", fecha: "¿Cuándo nació?", raza: "¿De qué raza es?", btn1: "Editar foto", btn2: "Actualizar perfil",
+            btnCamara: "Camara", btnImagen: "Libreria de Fotos", btnCancelar: "Cancelar"
+        },
+        mascotaaltamsg: { titulo: "¡Listo!", leyenda: "Tu mascota fue agregada con éxito", btn1: "Ver perfil", btn2: "Volver al inicio" },
+        mascotaver: {
             leyenda: "Ingresá al perfil de tus mascotas y accedé a su historia clínica.", informacion: "Información",
             tipo: "Tipo de mascota: ", nombre: "Coquito", edad: "Edad: ", raza: "Raza: ", btn1: "Editar información", consulta: "Consultas",
             btn2: "Agendar nueva consulta", vacuna: "Vacunas registradas", btn3: "Registrar nueva vacuna"
-        }
-
+        },
+        consulta: {
+            titulo: "Agendá una consulta", leyenda: "Completá los datos de tu mascota y sus síntomas.", btn1: "Adjuntar un archivo", btn2: "Seleccionar fecha y hora",
+            para: "¿Para qué mascota es la consulta?", motivo: "¿Cuál es el motivo de la consulta?",
+            sintoma: "¿Qué síntomas tiene? (opcional)"
+        },
+        consultaturnos: {
+            titulo: "Agendá una consulta", leyenda: "Ahora seleccioná un día y horario para la consulta.",
+            proximo: "Próximos turnos disponibles", btn1: "Confirmar turno"
+        },
+        consultadetalle: {
+            titulo: "Agendá una consulta", leyenda: "Confirmá los datos para agendar tu consulta.", detalle: "Detalle de consulta",
+            expediente: "Expediente ", paciente: "Paciente: ", motivo: "Motivo: ", fecha: "Fecha: ", hora: "Hora: ",
+            sintoma: "Sintoma: ", btn1: "Confirmar consulta"
+        },
+        consultadetallemsg: { titulo: "¡Listo!", leyenda: "Tu consulta fue agendada con éxito", btn1: "Ir a Mis Consultas", btn2: "Volver al inicio" },
     }
 }
 

@@ -14,7 +14,7 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         this.hidden = true
         this.idioma = "ES"
         this.item = { tipo: "", nombre: "", fecha: "", raza: "" }
-        this.label = ""
+        this.accion = ""  // ALTA o UPDATE
     }
 
     static get styles() {
@@ -154,13 +154,19 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         <div id="header">        
             <div id="bar">
                 <div @click=${this.clickAtras}>${ATRAS}</div>
-                <div id="lblTitulo">${idiomas[this.idioma].mascotaalta.titulo}</div>
+                <div id="lblTitulo">${this.accion == "ALTA"
+                ? idiomas[this.idioma].mascotaalta.titulo : idiomas[this.idioma].mascotaedit.titulo}
+                </div>
             </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].mascotaalta.leyenda}</div>
+            <div id="lblLeyenda">${this.accion == "ALTA"
+                ? idiomas[this.idioma].mascotaalta.leyenda : idiomas[this.idioma].mascotaedit.leyenda}
+            </div>
         </div>
         <div id="cuerpo">
             <div id="foto">
-                <button id="fotoBoton" btn3 @click=${this.clickFoto}>${idiomas[this.idioma].mascotaalta.btn1}</button>
+                <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.accion == "ALTA"
+                ? idiomas[this.idioma].mascotaalta.btn1 : idiomas[this.idioma].mascotaedit.btn1}
+                </button>
             </div>
             <div id="selectMascota" class="select" style="width:100%;height:3.4rem"> 
                 <label >${idiomas[this.idioma].mascotaalta.mascota}</label>
@@ -192,7 +198,8 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
                 </select>
             </div>  
             <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 apagado @click=${this.clickGrabar}>
-                ${idiomas[this.idioma].vacuna.btn1}
+                ${this.accion == "ALTA"
+                ? idiomas[this.idioma].mascotaalta.btn2 : idiomas[this.idioma].mascotaedit.btn2}
             </button>
             <div style="height:1rem"></div>
         </div>
@@ -285,9 +292,9 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
                 type: Boolean,
                 reflect: true
             },
-            label: {
+            accion: {
                 type: String,
-                reflect: ""
+                reflect: true
             }
         }
     }

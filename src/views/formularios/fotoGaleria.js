@@ -1,26 +1,26 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {cabecera1} from "../css/cabecera1"
-import {btnFlotanteRedondo} from "../css/btnFlotanteRedondo"
-import {modoPantalla} from "../../redux/actions/ui";
-import {CAMARA,MAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { cabecera1 } from "../css/cabecera1"
+import { btnFlotanteRedondo } from "../css/btnFlotanteRedondo"
+import { modoPantalla } from "../../redux/actions/ui";
+import { CAMARA, MAS } from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaFotoGaleria extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = [{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},
-        {img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"},{img: "--imagen-perro1"}
+        this.item = [{ img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" },
+        { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }, { img: "--imagen-perro1" }
         ]
     }
 
@@ -88,9 +88,9 @@ export class pantallaFotoGaleria extends connect(store, MODO_PANTALLA)(LitElemen
 
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">
             <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
                 <div id="bar">
@@ -119,8 +119,8 @@ export class pantallaFotoGaleria extends connect(store, MODO_PANTALLA)(LitElemen
     }
     firstUpdated() {
     }
-    verFoto(){
-        store.dispatch(modoPantalla("fotover","fotogaleria"))
+    verFoto() {
+        store.dispatch(modoPantalla("fotover", "fotogaleria"))
     }
     static get properties() {
         return {

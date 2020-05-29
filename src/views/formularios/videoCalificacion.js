@@ -9,12 +9,12 @@ import {
 import {
     connect
 } from "@brunomon/helpers";
-import {modoPantalla,dispararTimer,cancelarTimer} from "../../redux/actions/ui";
+import { modoPantalla, dispararTimer, cancelarTimer } from "../../redux/actions/ui";
 const MODO_PANTALLA = "ui.timeStampPantalla"
-import {COLGAR,MICROFONO,VIDEO, ESTRELLA, ESTRELLABORDE} from "../../../assets/icons/icons"
-import {idiomas} from "../../redux/datos/idiomas"
-import {ikeInput} from "../css/ikeInput"
-import {button} from "../css/button"
+import { COLGAR, MICROFONO, VIDEO, ESTRELLA, ESTRELLABORDE } from "../../../assets/icons/icons"
+import { idiomas } from "../../redux/datos/idiomas"
+import { ikeInput } from "../css/ikeInput"
+import { button } from "../css/button"
 export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
@@ -95,11 +95,11 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
             <div id="leyenda">${idiomas[this.idioma].videocalificacion.leyenda}</div>
             <div id="calificaLbl">${idiomas[this.idioma].videocalificacion.calificaLbl}</div>
             <div id="calificaImg">
-                <div class="estrella" cal="1" @click="${this.califica}">${this.calificacion==0 ? ESTRELLABORDE : ESTRELLA}</div>
-                <div class="estrella" cal="2" @click="${this.califica}">${this.calificacion <2 ? ESTRELLABORDE : ESTRELLA}</div>
-                <div class="estrella" cal="3" @click="${this.califica}">${this.calificacion <3 ? ESTRELLABORDE : ESTRELLA}</div>
-                <div class="estrella" cal="4" @click="${this.califica}">${this.calificacion <4 ? ESTRELLABORDE : ESTRELLA}</div>
-                <div class="estrella" cal="5" @click="${this.califica}">${this.calificacion <5 ? ESTRELLABORDE : ESTRELLA}</div>
+                <div class="estrella" cal="1" @click="${this.califica}">${this.calificacion == 0 ? ESTRELLABORDE : ESTRELLA}</div>
+                <div class="estrella" cal="2" @click="${this.califica}">${this.calificacion < 2 ? ESTRELLABORDE : ESTRELLA}</div>
+                <div class="estrella" cal="3" @click="${this.califica}">${this.calificacion < 3 ? ESTRELLABORDE : ESTRELLA}</div>
+                <div class="estrella" cal="4" @click="${this.califica}">${this.calificacion < 4 ? ESTRELLABORDE : ESTRELLA}</div>
+                <div class="estrella" cal="5" @click="${this.califica}">${this.calificacion < 5 ? ESTRELLABORDE : ESTRELLA}</div>
             </div>
             <div id="comentarioLbl">${idiomas[this.idioma].videocalificacion.comentarioLbl}</div>
             <div id="comentarioTxt" style="width:90%;height:5rem;">
@@ -113,20 +113,20 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
             </div>
         `
     }
-    califica(e){
+    califica(e) {
         let valor = e.currentTarget.getAttribute("cal")
-        if (valor==1 && valor== this.calificacion){
+        if (valor == 1 && valor == this.calificacion) {
             this.calificacion = 0;
-        }else{
+        } else {
             this.calificacion = valor;
         }
         this.update();
     }
-    cerrar(){
+    cerrar() {
     }
-    guardar(){
+    guardar() {
     }
-    ahoraNo(){
+    ahoraNo() {
     }
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "videocalificacion") {
