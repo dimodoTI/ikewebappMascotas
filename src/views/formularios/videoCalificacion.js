@@ -123,10 +123,13 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
         this.update();
     }
     cerrar() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "videocalificacion"))
     }
     guardar() {
+        store.dispatch(modoPantalla("videodetalle", "videocalificacion"))
     }
     ahoraNo() {
+        store.dispatch(modoPantalla("principal", "videocalificacion"))
     }
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "videocalificacion") {

@@ -1,10 +1,11 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {modoPantalla} from "../../redux/actions/ui";
-import {button} from "../css/button"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { media02 } from "../css/media02"
+import { modoPantalla } from "../../redux/actions/ui";
+import { button } from "../css/button"
 export class pantallaPlanContrata extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -16,6 +17,7 @@ export class pantallaPlanContrata extends connect(store)(LitElement) {
         return css`
         ${label}
         ${button}
+        ${media02}
         :host{
             position: absolute;
             display:grid;
@@ -65,9 +67,9 @@ export class pantallaPlanContrata extends connect(store)(LitElement) {
             font-weight: var(--font-bajada-weight);
        }
         `
-    } 
+    }
     render() {
-        return html `   
+        return html`   
             <div id="x" @click=${this.clickBoton1}>
             </div>           
             <label id="titulo">
@@ -89,18 +91,18 @@ export class pantallaPlanContrata extends connect(store)(LitElement) {
 
         `
     }
-    
-    clickBoton1(){
+
+    clickBoton1() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "plancontrata"))
+    }
+    clickBoton2() {
         //store.dispatch(modoPantalla("iniciosesion"))
     }
-    clickBoton2(){
-        //store.dispatch(modoPantalla("iniciosesion"))
+    clickBoton3() {
+        store.dispatch(modoPantalla("vercobertura", "principal"))
     }
-    clickBoton3(){
-        store.dispatch(modoPantalla("accesoplan"))
-    }
-    clickBoton4(){
-        store.dispatch(modoPantalla("accesoplan"))
+    clickBoton4() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "plancontrata"))
     }
 
     stateChanged(state, name) {

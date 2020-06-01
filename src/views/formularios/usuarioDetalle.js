@@ -1,21 +1,24 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {ikeInput} from "../css/ikeInput"
-import {button} from "../css/button"
-import {modoPantalla} from "../../redux/actions/ui";
-import {cabecera1} from "../css/cabecera1"
-import {ATRAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { ikeInput } from "../css/ikeInput"
+import { button } from "../css/button"
+import { modoPantalla } from "../../redux/actions/ui";
+import { cabecera1 } from "../css/cabecera1"
+import { media01 } from "../css/media01"
+import { ATRAS } from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item={foto: "--imagen-foto",nombre:"Lucia Lopez",plan:"Plan Iké 110",
-            creada:"Cuenta creada el 02/03/19", mascotas:"3", consultas:"12", vacunas:"14",
-            mail:"1141953476",mail:"lucia@gmail.com"}
+        this.item = {
+            foto: "--imagen-foto", nombre: "Lucia Lopez", plan: "Plan Iké 110",
+            creada: "Cuenta creada el 02/03/19", mascotas: "3", consultas: "12", vacunas: "14",
+            mail: "1141953476", mail: "lucia@gmail.com"
+        }
         this.label = ""
     }
 
@@ -24,6 +27,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
         ${ikeInput}
         ${button}
         ${cabecera1}
+        ${media01}
         :host{
             position: absolute;
             top: 0rem;
@@ -53,6 +57,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             align-content:start;
             overflow-y: auto; 
             overflow-x: hidden; 
+            height:90%;
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
@@ -142,9 +147,9 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             text-align:center;
         }        
         `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">        
             <div id="bar">
                 <div @click=${this.clickAtras}>${ATRAS}</div>
@@ -216,7 +221,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
         let valido = true
         const nombre = this.shadowRoot.getElementById("txtNombre");
         const mail = this.shadowRoot.getElementById("txtMail");
-        const celular =this.shadowRoot.getElementById("txtCelular");
+        const celular = this.shadowRoot.getElementById("txtCelular");
         if (nombre.value.length < 8) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorNombre").removeAttribute("oculto");
@@ -232,17 +237,17 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
         this.update()
         return valido
     }
-    activar(){
+    activar() {
         let nom = this.shadowRoot.getElementById("txtNombre");
         let mail = this.shadowRoot.getElementById("txtMail");
-        let cel =this.shadowRoot.getElementById("txtCelular");
-        if (nom.value != "" && mail.value != "" && cel.value != ""){
-            if(this.shadowRoot.getElementById("btnEdit").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnEdit").removeAttribute("apagado","");
+        let cel = this.shadowRoot.getElementById("txtCelular");
+        if (nom.value != "" && mail.value != "" && cel.value != "") {
+            if (this.shadowRoot.getElementById("btnEdit").hasAttribute("apagado")) {
+                this.shadowRoot.querySelector("#btnEdit").removeAttribute("apagado", "");
             }
-        }else{
-            if(!this.shadowRoot.getElementById("btnEdit").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnEdit").setAttribute("apagado","");
+        } else {
+            if (!this.shadowRoot.getElementById("btnEdit").hasAttribute("apagado")) {
+                this.shadowRoot.querySelector("#btnEdit").setAttribute("apagado", "");
             }
         }
     }
@@ -253,25 +258,25 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
     firstUpdated() {
     }
 
-    clickAtras(){
-    }    
-    clickClave(){
+    clickAtras() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
     }
-    clickEdit(){
+    clickClave() {
+        store.dispatch(modoPantalla("clavemodificar", "usuariodetalle"))
+    }
+    clickEdit() {
         if (this.activar) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("principal","usuarioregistro"))
+                store.dispatch(modoPantalla("principal", "usuariodetalle"))
             }
         }
     }
-    clickCobertura(){
-        store.dispatch(modoPantalla("principal","usuarioregistro"))
+    clickCobertura() {
+        store.dispatch(modoPantalla("plandetalle", "usuariodetalle"))
     }
-    clickDelete(){
-        store.dispatch(modoPantalla("iniciosesion","usuarioregistro"))
+    clickDelete() {
     }
-    clickAsistencia(){
-        store.dispatch(modoPantalla("iniciosesion","usuarioregistro"))
+    clickAsistencia() {
     }
 
     static get properties() {

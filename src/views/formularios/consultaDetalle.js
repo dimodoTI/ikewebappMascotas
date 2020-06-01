@@ -2,6 +2,7 @@ import { html, LitElement, css } from "lit-element";
 import { store } from "../../redux/store";
 import { connect } from "@brunomon/helpers";
 import { idiomas } from "../../redux/datos/idiomas"
+import { media01 } from "../css/media01"
 import { button } from "../css/button"
 import { cabecera1 } from "../css/cabecera1"
 import { cardArchivoSolo } from "../css/cardArchivoSolo"
@@ -23,6 +24,7 @@ export class pantallaConsultaDetalle extends connect(store)(LitElement) {
         ${button}
         ${cabecera1}
         ${cardArchivoSolo}
+        ${media01}
         :host{
             position: absolute;
             top: 0rem;
@@ -112,15 +114,16 @@ export class pantallaConsultaDetalle extends connect(store)(LitElement) {
                 <div style="height:.5rem"></div>
             </div>
             <div style="height:.5rem"></div>
-            <button id="btnConfirmar" btn1>${idiomas[this.idioma].consultadetalle.btn1}</button>
+            <button id="btnConfirmar" btn1  @click=${this.clickConfirmar}>${idiomas[this.idioma].consultadetalle.btn1}</button>
             <div style="height:1rem"></div>
         </div >
     `
     }
-    clickEdit() {
+    clickConfirmar() {
+        store.dispatch(modoPantalla("consultadetallemsg", "principal"))
     }
     clickAtras() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("consultaturnos", "consulta"))
     }
     clickFoto() {
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";

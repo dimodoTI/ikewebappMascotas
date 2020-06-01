@@ -1,10 +1,11 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {button} from "../css/button"
-import {modoPantalla} from "../../redux/actions/ui";
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { media02 } from "../css/media02"
+import { button } from "../css/button"
+import { modoPantalla } from "../../redux/actions/ui";
 export class pantallaClaveModificarMsg extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -16,6 +17,7 @@ export class pantallaClaveModificarMsg extends connect(store)(LitElement) {
         return css`
         ${label}
         ${button}
+        ${media02}
         :host{
             position: absolute;
             display:grid;
@@ -86,9 +88,9 @@ export class pantallaClaveModificarMsg extends connect(store)(LitElement) {
             align-self: end;
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
             <div id="x" @click=${this.clickBoton1}>
             </div>               
             <div id="imagen">
@@ -103,11 +105,10 @@ export class pantallaClaveModificarMsg extends connect(store)(LitElement) {
             ${idiomas[this.idioma].clavemodificarmsg.btn1}
             </button>
 
-
         `
     }
-    
-    clickBoton1(){
+
+    clickBoton1() {
         store.dispatch(modoPantalla("usuariodetalle"))
     }
     stateChanged(state, name) {

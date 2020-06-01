@@ -10,9 +10,9 @@ import {
     connect
 } from "@brunomon/helpers";
 import { repeat } from 'lit-html/directives/repeat.js';
-import {modoPantalla,cancelarTimer} from "../../redux/actions/ui";
-import {idiomas} from "../../redux/datos/idiomas"
-import {button} from "../css/button";
+import { modoPantalla, cancelarTimer } from "../../redux/actions/ui";
+import { idiomas } from "../../redux/datos/idiomas"
+import { button } from "../css/button";
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -20,10 +20,10 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
         this.hidden = true
         this.idioma = "ES"
         this.lienaActual = 0;
-        this.lineas = [{titulo: "Cuidalos. Sin salir de tu casa", mensaje: "Accedé a consultas online y chat personalizado con nuestros profesionales."},
-            {titulo: "Lo que necesitas, al alcance de tu mano.", mensaje: "Consultá la historia clínica de tus mascotas en cualquier momento y lugar."},
-            {titulo: "Te ayudamos a darles lo mejor", mensaje: "Chequeá el calendario de vacunación para estar siempre al día."},
-            {titulo: "Bruno", mensaje: "Chequeá el calendario de vacunación para estar siempre al día."}
+        this.lineas = [{ titulo: "Cuidalos. Sin salir de tu casa", mensaje: "Accedé a consultas online y chat personalizado con nuestros profesionales." },
+        { titulo: "Lo que necesitas, al alcance de tu mano.", mensaje: "Consultá la historia clínica de tus mascotas en cualquier momento y lugar." },
+        { titulo: "Te ayudamos a darles lo mejor", mensaje: "Chequeá el calendario de vacunación para estar siempre al día." },
+        { titulo: "Bruno", mensaje: "Chequeá el calendario de vacunación para estar siempre al día." }
         ];
     }
 
@@ -33,7 +33,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
         :host{
             position: absolute;
             display:grid;
-            grid-template-rows:4.5fr 5.5fr
+            grid-template-rows:4.5fr 5.5fr;
             top: 0rem;
             left: 0rem;  
             height:100%;
@@ -61,12 +61,13 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             background-color: transparent;
             justify-items:center;
             align-items:center; 
+            text-align:center;
         }
         #flecha-izq{
             position: absolute;
             top: 0px;
             left: 0px;
-            height: 60%;
+            height: 40%;
             width: 5%;
             background-color: transparent;
             background-image:var(--imagen-flecha-izq);
@@ -80,7 +81,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             position: absolute;
             top: 0px;
             right: 0px;
-            height: 60%;
+            height: 40%;
             width: 5%;
             background-color: transparent;
             background-image:var(--imagen-flecha-der);
@@ -102,13 +103,24 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             font-weight: var(--font-header-h1-weight);
             text-align: center;
         }
-
+        :host([media-size="medium"]) #titulo{
+            width:16rem;
+        }
+        :host([media-size="large"]) #titulo{
+            width:16rem;
+        }
         #leyenda{
             position: relative;
             width:80%;
             background-color: transparent;
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
+        }
+        :host([media-size="medium"]) #leyenda{
+            width:16rem;
+        }
+        :host([media-size="large"]) #leyenda{
+            width:16rem;
         }
         #puntos{
             position: relative;
@@ -120,7 +132,13 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             position: relative;
             height: 2rem;
             width: 80%;
-         }
+        }
+        :host([media-size="medium"]) #btn-siguiente{
+            width:12rem;
+        }
+        :host([media-size="large"]) #btn-siguiente{
+            width:12rem;
+        }
         #btn-cuenta{
             position: relative;
             height: 2rem;
@@ -150,7 +168,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
     }
 
     render() {
-        return html `
+        return html`
         <div id="header">
         </div>
         <div id="cuerpo">
@@ -166,7 +184,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             </div>
             <div id="puntos">
             ${repeat(this.lineas, (item) => item.titulo, (item, index) => html`
-                <div id="punto${index}" class="${index==0 ? 'puntoLLeno' : 'puntoVacio'}">
+                <div id="punto${index}" class="${index == 0 ? 'puntoLLeno' : 'puntoVacio'}">
                 </div>
             `)}
             </div>
@@ -186,51 +204,51 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
     }
     firstUpdated() {
         this.shadowRoot.querySelector("#flecha-izq").hidden = true
-        if (this.lineas.length == 1){
-           this.shadowRoot.querySelector("#flecha-der").hidden = true
+        if (this.lineas.length == 1) {
+            this.shadowRoot.querySelector("#flecha-der").hidden = true
         }
     }
-    adelante(){
-        if (this.lienaActual+1 < this.lineas.length){
+    adelante() {
+        if (this.lienaActual + 1 < this.lineas.length) {
             this.shadowRoot.querySelector("#flecha-izq").hidden = false
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.add("puntoVacio");
-            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoLLeno");           
+            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoLLeno");
             this.lienaActual = this.lienaActual + 1;
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.add("puntoLLeno");
-            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoVacio");           
+            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoVacio");
             this.shadowRoot.querySelector("#titulo").innerHTML = this.lineas[this.lienaActual].titulo
             this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].mensaje
-            if (this.lienaActual+1 == this.lineas.length){
+            if (this.lienaActual + 1 == this.lineas.length) {
                 this.shadowRoot.querySelector("#flecha-der").hidden = true
-                 this.shadowRoot.querySelector("#btn-siguiente").innerText = idiomas[this.idioma].onboarding.btn3
-            }  
+                this.shadowRoot.querySelector("#btn-siguiente").innerText = idiomas[this.idioma].onboarding.btn3
+            }
         }
     }
-    atras(){
-        if (this.lienaActual > 0){
+    atras() {
+        if (this.lienaActual > 0) {
             this.shadowRoot.querySelector("#flecha-der").hidden = false
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.add("puntoVacio");
-            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoLLeno");           
+            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoLLeno");
             this.lienaActual = this.lienaActual - 1;
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.add("puntoLLeno");
-            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoVacio");           
+            this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoVacio");
             this.shadowRoot.querySelector("#titulo").innerHTML = this.lineas[this.lienaActual].titulo
             this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].mensaje
             this.shadowRoot.querySelector("#btn-siguiente").innerText = this.txtBtn1
-            if (this.lienaActual == 0){
+            if (this.lienaActual == 0) {
                 this.shadowRoot.querySelector("#flecha-izq").hidden = true
-            }             
+            }
         }
     }
-    clickBoton1(){
-        if (this.lienaActual+1 == this.lineas.length){
-            store.dispatch(modoPantalla("accesoplan"));           
-        }else{
+    clickBoton1() {
+        if (this.lienaActual + 1 == this.lineas.length) {
+            store.dispatch(modoPantalla("accesoplan", "onboarding"));
+        } else {
             this.adelante();
         }
-    }   
-    clickBoton2(){
-        store.dispatch(modoPantalla("iniciosesion"));  
+    }
+    clickBoton2() {
+        store.dispatch(modoPantalla("iniciosesion", "onboarding"));
     }
 
     static get properties() {
@@ -238,6 +256,11 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

@@ -49,8 +49,9 @@ import { pantallaConsultaTurnos } from "./formularios/consultaTurnos";
 import { pantallaConsultaDetalle } from "./formularios/consultaDetalle";
 import { pantallaConsultaDetalleMsg } from "./formularios/consultaDetalleMsg";
 
+const MEDIA_CHANGE = "ui.media.timeStamp"
 const QUEPANTALLA = "ui.timeStampPantalla";
-export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
+export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitElement) {
     constructor() {
         super();
         this.current = "IKE-Mascotas";
@@ -61,7 +62,7 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         :host{
             display: grid;                 
             grid-gap:1rem;
-             height:100vh;
+            height:100vh;
             width: 100vw;
             padding:0;
             background-color:var(--color-gris-claro);
@@ -70,35 +71,35 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
             align-self: top;
             height: 100%;
             width: 100%;
-          }
-        `;
+        }
+        `
     }
     render() {
         return html`
-        <pantalla-splash id='splash'></pantalla-splash>
-        <pantalla-onboarding id="onboarding"></pantalla-onboarding>
-        <pantalla-iniciosesion id="iniciosesion"></pantalla-iniciosesion>
-        <pantalla-recuperaclave id="recuperaclave"></pantalla-recuperaclave>
-        <pantalla-recuperaclavemsg id="recuperaclavemsg"></pantalla-recuperaclavemsg>
-        <pantalla-crearclave id="crearclave"></pantalla-crearclave>
-        <pantalla-crearclavemsg id="crearclavemsg"></pantalla-crearclavemsg>
-        <pantalla-accesoplan id="accesoplan"></pantalla-accesoplan>
-        <pantalla-vercobertura id="vercobertura"></pantalla-vercobertura>
-        <pantalla-usuarioregistro id="usuarioregistro"></pantalla-usuarioregistro>
-        <pantalla-plandetalle id="plandetalle"></pantalla-plandetalle>
+        <pantalla-splash id="splash" media-size="${this.mediaSize}"></pantalla-splash>
+        <pantalla-onboarding id="onboarding" media-size="${this.mediaSize}"></pantalla-onboarding>
+        <pantalla-iniciosesion id="iniciosesion" media-size="${this.mediaSize}"></pantalla-iniciosesion>
+        <pantalla-recuperaclave id="recuperaclave" media-size="${this.mediaSize}"></pantalla-recuperaclave>
+        <pantalla-recuperaclavemsg id="recuperaclavemsg" media-size="${this.mediaSize}"></pantalla-recuperaclavemsg>
+        <pantalla-crearclave id="crearclave" media-size="${this.mediaSize}"></pantalla-crearclave>
+        <pantalla-crearclavemsg id="crearclavemsg" media-size="${this.mediaSize}"></pantalla-crearclavemsg>
+        <pantalla-accesoplan id="accesoplan" media-size="${this.mediaSize}"></pantalla-accesoplan>
+        <pantalla-vercobertura id="vercobertura" media-size="${this.mediaSize}"></pantalla-vercobertura>
+        <pantalla-usuarioregistro id="usuarioregistro" media-size="${this.mediaSize}"></pantalla-usuarioregistro>
+        <pantalla-plandetalle id="plandetalle" media-size="${this.mediaSize}"></pantalla-plandetalle>
         <pantalla-principal id="principal"></pantalla-principal>
-        <pantalla-usuariodetalle id="usuariodetalle"></pantalla-usuariodetalle>
+        <pantalla-usuariodetalle id="usuariodetalle" media-size="${this.mediaSize}"></pantalla-usuariodetalle>
         <pantalla-mascota id="mascota"></pantalla-mascota>
         <pantalla-misconsultas id="misconsultas"></pantalla-misconsultas>
         <pantalla-calendario id="calendario"></pantalla-calendario>
         <pantalla-fotogaleria id="fotogaleria"></pantalla-fotogaleria>
         <pantalla-fotover id="fotover"></pantalla-fotover>
-        <pantalla-video id="video"></pantalla-video>
+        <pantalla-video id="video" media-size="${this.mediaSize}"></pantalla-video>
         <pantalla-videocalificacion id="videocalificacion"></pantalla-videocalificacion>
         <pantalla-videodetalle id="videodetalle"></pantalla-videodetalle>
-        <pantalla-clavemodificar id="clavemodificar"></pantalla-clavemodificar>
-        <pantalla-clavemodificarmsg id="clavemodificarmsg"></pantalla-clavemodificarmsg>
-        <pantalla-plancontrata id="plancontrata"></pantalla-plancontrata>
+        <pantalla-clavemodificar id="clavemodificar" media-size="${this.mediaSize}"></pantalla-clavemodificar>
+        <pantalla-clavemodificarmsg id="clavemodificarmsg" media-size="${this.mediaSize}"></pantalla-clavemodificarmsg>
+        <pantalla-plancontrata id="plancontrata" media-size="${this.mediaSize}"></pantalla-plancontrata>
         <pantalla-notificacion id="notificacion"></pantalla-notificacion>
         <pantalla-vacuna id="vacuna"></pantalla-vacuna>
         <pantalla-vacunamsg id="vacunamsg"></pantalla-vacunamsg>
@@ -106,15 +107,16 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
         <pantalla-mascotaalta accion="UPDATE" id="mascotaedit"></pantalla-mascotaalta>
         <pantalla-mascotaaltamsg id="mascotaaltamsg"></pantalla-mascotaaltamsg>
         <pantalla-mascotaver id="mascotaver"></pantalla-mascotaver>
-        <pantalla-consulta id="consulta"></pantalla-consulta>
+        <pantalla-consulta id="consulta" media-size="${this.mediaSize}"></pantalla-consulta>
         <pantalla-consultaturnos id="consultaturnos"></pantalla-consultaturnos>
-        <pantalla-consultadetalle id="consultadetalle"></pantalla-consultadetalle>
-        <pantalla-consultadetallemsg id="consultadetallemsg"></pantalla-consultadetallemsg>
+        <pantalla-consultadetalle id="consultadetalle" media-size="${this.mediaSize}"></pantalla-consultadetalle>
+        <pantalla-consultadetallemsg id="consultadetallemsg" media-size="${this.mediaSize}"></pantalla-consultadetallemsg>
         `
     }
 
     stateChanged(state, name) {
-        if (name == QUEPANTALLA) {
+        if (name == QUEPANTALLA || name == MEDIA_CHANGE) {
+            this.mediaSize = state.ui.media.size
             if (this.shadowRoot.children.length > 0) {
                 this.shadowRoot.querySelector("#splash").hidden = state.ui.quePantalla != "splash";
                 this.shadowRoot.querySelector("#onboarding").hidden = state.ui.quePantalla != "onboarding";
@@ -153,7 +155,6 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 this.shadowRoot.querySelector("#consultadetallemsg").hidden = state.ui.quePantalla != "consultadetallemsg";
             }
         }
-
         this.update();
     }
 
@@ -163,9 +164,9 @@ export class viewManager extends connect(store, QUEPANTALLA)(LitElement) {
                 type: String,
                 reflect: true,
                 attribute: 'media-size'
-
             }
         }
     }
 }
+
 window.customElements.define("view-manager", viewManager);

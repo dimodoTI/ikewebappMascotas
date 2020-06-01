@@ -1,9 +1,10 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {modoPantalla} from "../../redux/actions/ui";
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { media02 } from "../css/media02"
+import { modoPantalla } from "../../redux/actions/ui";
 export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -14,6 +15,7 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
     static get styles() {
         return css`
         ${label}
+        ${media02}
         :host{
             position: absolute;
             display:grid;
@@ -64,9 +66,9 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
             font-weight: var(--font-header-h2-weight);
         }
         `
-    } 
+    }
     render() {
-        return html `
+        return html`
             <div id="x" @click=${this.clickBoton1}>
             </div>               
             <div id="titulo">
@@ -77,11 +79,11 @@ export class pantallaRecuperaClaveMsg extends connect(store)(LitElement) {
             </label>
         `
     }
-    
-    clickBoton1(){
-//        store.dispatch(modoPantalla("iniciosesion"))
-        store.dispatch(modoPantalla("crearclave"))
-    } 
+
+    clickBoton1() {
+        //        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("crearclave", "crearclavemsg"))
+    }
 
     stateChanged(state, name) {
 

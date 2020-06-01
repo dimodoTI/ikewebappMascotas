@@ -106,7 +106,7 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
         <div id="cuerpo">
             <div id="divCalificar">
                 <label id="lblCalificar">${idiomas[this.idioma].videodetalle.calificar}</label>
-                <button id="btnCalificar" btn2 style="height:2rem">
+                <button id="btnCalificar" btn2 @click=${this.clickCalificar} style="height:2rem">
                     ${idiomas[this.idioma].videodetalle.btn1}
                 </button>
             </div>
@@ -140,18 +140,11 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
         </div >
     `
     }
-    clickEdit() {
-    }
     clickAtras() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("videocalificacion", "principal"))
     }
-    clickFoto() {
-        this.shadowRoot.querySelector("#divTapa").style.display = "grid";
-        this.shadowRoot.querySelector("#divMensaje").style.display = "grid";
-    }
-    clickCancelar() {
-        this.shadowRoot.querySelector("#divTapa").style.display = "none";
-        this.shadowRoot.querySelector("#divMensaje").style.display = "none";
+    clickCalificar() {
+        store.dispatch(modoPantalla("videocalificacion", "principal"))
     }
 
     stateChanged(state, name) {

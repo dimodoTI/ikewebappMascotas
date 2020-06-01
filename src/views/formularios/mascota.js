@@ -1,24 +1,24 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {button} from "../css/button"
-import {cabecera1} from "../css/cabecera1"
-import {cardMascotaVertical} from "../css/cardMascotaVertical"
-import {btnFlotanteAlargado} from "../css/btnFlotanteAlargado"
-import {modoPantalla} from "../../redux/actions/ui";
-import {REGALO,CARRITO,RELOJ,NOVEDADES1,NOVEDADES2,NOVEDADES3,HOME,MASCOTA,CONSULTA,VACUNA,FOTO,MAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { button } from "../css/button"
+import { cabecera1 } from "../css/cabecera1"
+import { cardMascotaVertical } from "../css/cardMascotaVertical"
+import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
+import { modoPantalla } from "../../redux/actions/ui";
+import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCOTA, CONSULTA, VACUNA, FOTO, MAS } from "../../../assets/icons/icons"
 export class pantallaMascota extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = [{imagen: "--imagen-perro1", tipo:"Perro",nombre:"Coqui",raza:"Calle",edad:"4",consultas:"6"},
-        {imagen: "--imagen-perro1", tipo:"Perro",nombre:"Ringo",raza:"Callejera",edad:"5",consultas:"7"},
-        {imagen: "--imagen-perro1", tipo:"Perro",nombre:"Ringo",raza:"Callejera",edad:"5",consultas:"7"},
-        {imagen: "--imagen-perro1", tipo:"Perro",nombre:"Ringo",raza:"Callejera",edad:"5",consultas:"7"},
-        {imagen: "--imagen-perro1", tipo:"Perro",nombre:"Ringo",raza:"Callejera",edad:"5",consultas:"7"}]
+        this.item = [{ imagen: "--imagen-perro1", tipo: "Perro", nombre: "Coqui", raza: "Calle", edad: "4", consultas: "6" },
+        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" },
+        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" },
+        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" },
+        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" }]
     }
 
     static get styles() {
@@ -76,15 +76,15 @@ export class pantallaMascota extends connect(store)(LitElement) {
             position:relative;
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">
             <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
                 <div id="bar">
                     <div id="lblTitulo">${idiomas[this.idioma].mascota.titulo}</div>
                 </div>
-                <div id="campana"></div>
+                <div id="campana" @click=${this.clickBotonNotificacion}></div>
             </div>    
             <div id="lblLeyenda">${idiomas[this.idioma].mascota.leyenda}</div>
         </div>
@@ -103,21 +103,17 @@ export class pantallaMascota extends connect(store)(LitElement) {
         </div>        
         <pie-componente id="pie" opcion="dos">
         </pie-componente>
-        <div id="bfaDivMas">
+        <div id="bfaDivMas"  @click=${this.clickAgregarMascota}>
             ${MASCOTA}
             <label>${idiomas[this.idioma].mascota.btn}</label>
         </div>
         `
     }
-
-    clickBotonUsuario(){
-        store.dispatch(modoPantalla("usuariodetalle"))
+    clickBotonNotificacion() {
+        store.dispatch(modoPantalla("notificacion", "mascota"))
     }
-    clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
-    }
-    clickBoton2(){
-        store.dispatch(modoPantalla("iniciosesion"))
+    clickAgregarMascota() {
+        store.dispatch(modoPantalla("mascotaalta", "mascota"))
     }
     stateChanged(state, name) {
     }

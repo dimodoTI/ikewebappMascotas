@@ -84,7 +84,7 @@ export const idiomas = {
             titulo: "Registrá una vacuna", leyenda: "Completá los datos de la vacuna que le aplicaste a tu mascota.", mascota: "¿A cuál mascota vacunaste?",
             vacuna: "¿Qué vacuna le aplicaron?", fecha: "¿Cuándo se la dieron?", btn1: "Registrar vacuna"
         },
-        vacunamsg: { titulo: "¡Listo!", leyenda: "Tu consulta fue agendada con éxito", btn1: "Ir a Mis Consultas", btn2: "Volver al inicio" },
+        vacunamsg: { titulo: "¡Genial!", leyenda: "La vacuna fue registrada con éxito.", btn1: "Registrar otra vacuna", btn2: "Volver al inicio" },
         mascotaalta: {
             titulo: "Agregá tu mascota", leyenda: "Completá los datos de tu mascota para disfrutar de tu cobertura.", mascota: "¿Qué animal es?",
             nombre: "¿Cómo se llama?", nombre_ph: "Coquito", fecha: "¿Cuándo nació?", raza: "¿De qué raza es?", btn1: "Agregar foto", btn2: "Agregar mascota",

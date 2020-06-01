@@ -117,13 +117,13 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
                         <div id="cmhDivFecha">${dato.fecha}</div>
                         <div id="cmhDivDiagnostico">${dato.diagnostico}</div>
                         <div id="cmhDivVerDetalle">
-                            <button btn2 style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
+                            <button btn2  @click=${ this.clickEdit} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
                         </div>
                         <div id="cmhDivChat">${CHAT}</div>              
                     </div>
                 `)}
             </div>
-            <button id="btn-edit" btn3 @click=${ this.clickConsultas}>
+            <button id="btn-edit" btn3 @click=${ this.clickConsulta}>
                 ${ idiomas[this.idioma].mascotaver.btn2}
             </button >
             <label class="subTitulo">${idiomas[this.idioma].mascotaver.vacuna}</label>
@@ -145,10 +145,17 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
         </div >
     `
     }
-    clickEdit() {
-    }
     clickAtras() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "principal"))
+    }
+    clickEdit() {
+        store.dispatch(modoPantalla("mascotaedit", "mascotaver"))
+    }
+    clickConsulta() {
+        store.dispatch(modoPantalla("consulta", "mascotaver"))
+    }
+    clickVacunas() {
+        store.dispatch(modoPantalla("vacuna", "mascotaver"))
     }
     clickFoto() {
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";

@@ -9,20 +9,22 @@ import {
 import {
     connect
 } from "@brunomon/helpers";
-import {modoPantalla,dispararTimer,cancelarTimer} from "../../redux/actions/ui";
+import { modoPantalla, dispararTimer, cancelarTimer } from "../../redux/actions/ui";
 const MODO_PANTALLA = "ui.timeStampPantalla"
-import {COLGAR,MICROFONO,VIDEO} from "../../../assets/icons/icons"
-import {idiomas } from "../../redux/datos/idiomas"
+import { COLGAR, MICROFONO, VIDEO } from "../../../assets/icons/icons"
+import { idiomas } from "../../redux/datos/idiomas"
+import { media02 } from "../css/media02"
 
 export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
         this.idioma = "ES"
-        this.hidden = false
+        this.hidden = true
     }
 
     static get styles() {
         return css`
+        ${media02}
         :host{
             display: grid;
             justify-items:center;
@@ -135,9 +137,12 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
                 <div id="microfono">${MICROFONO}</div>
                 <div id="video">${VIDEO}</div>
             </div>
-            <div id="cortar">${COLGAR}</div>
+            <div id="cortar" @click="${this.colgar}">${COLGAR}</div>
         </div>
         `
+    }
+    colgar() {
+        store.dispatch(modoPantalla("videocalificacion", "video"))
     }
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "video") {
@@ -145,8 +150,8 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
     }
     pasar(e) {
         this.shadowRoot.querySelector("#fondo").removeAttribute("llamando");
-        this.shadowRoot.querySelector("#fondo").setAttribute("hablando","");
-        this.shadowRoot.querySelector("#llamando").innerHTML="";
+        this.shadowRoot.querySelector("#fondo").setAttribute("hablando", "");
+        this.shadowRoot.querySelector("#llamando").innerHTML = "";
     }
     static get properties() {
         return {

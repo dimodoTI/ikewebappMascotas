@@ -197,7 +197,7 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
                     <option value="Calle" .selected="${this.item.raza == "Calle"}">Calle</option>
                 </select>
             </div>  
-            <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 apagado @click=${this.clickGrabar}>
+            <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
                 ${this.accion == "ALTA"
                 ? idiomas[this.idioma].mascotaalta.btn2 : idiomas[this.idioma].mascotaedit.btn2}
             </button>
@@ -264,7 +264,7 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         return valido
     }
     clickAtras() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, store.getState().ui.quePantalla))
     }
     clickFoto() {
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";
@@ -275,11 +275,11 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         this.shadowRoot.querySelector("#divMensaje").style.display = "none";
     }
     clickGrabar() {
-        if (this.activo) {
-            if (this.valido()) {
-                store.dispatch(modoPantalla("clavemodificarmsg"));
-            }
-        }
+        //        if (this.activo) {
+        //            if (this.valido()) {
+        store.dispatch(modoPantalla("mascotaaltamsg"));
+        //            }
+        //       }
     }
     stateChanged(state, name) {
     }

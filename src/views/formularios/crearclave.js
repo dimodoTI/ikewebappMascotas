@@ -1,18 +1,19 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {button} from "../css/button"
-import {ikeInput} from "../css/ikeInput"
-import {cabecera1} from "../css/cabecera1"
-import {modoPantalla} from "../../redux/actions/ui";
-import {ATRAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { button } from "../css/button"
+import { ikeInput } from "../css/ikeInput"
+import { cabecera1 } from "../css/cabecera1"
+import { media01 } from "../css/media01"
+import { modoPantalla } from "../../redux/actions/ui";
+import { ATRAS } from "../../../assets/icons/icons"
 export class pantallaCrearClave extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item={mail:"",clave:"",recordar:""}
+        this.item = { mail: "", clave: "", recordar: "" }
         this.label = ""
     }
 
@@ -21,13 +22,14 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
         ${ikeInput}
         ${button}
         ${cabecera1}
+        ${media01}
         :host{
             position: absolute;
             top: 0rem;
             left: 0rem;  
             height:100%;
             width: 100%;
-            background-color:var(--color-gris-claro);
+            background-color:var(--color-gris-fondo);
             display:grid;
             grid-template-rows:2fr 8fr
         }
@@ -52,9 +54,9 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
             font-weight: var(--font-bajada-weight);
         }
         `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">        
             <div id="bar">
                 <div @click=${this.clickBoton1}>${ATRAS}</div>
@@ -115,13 +117,13 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
         this.update()
         return valido
     }
-    clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
+    clickBoton1() {
+        store.dispatch(modoPantalla("iniciosesion", "crearclave"))
     }
-    clickBoton2(){
+    clickBoton2() {
         if (this.activo) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("crearclavemsg"));
+                store.dispatch(modoPantalla("crearclavemsg", "crearclave"));
             }
         }
     }

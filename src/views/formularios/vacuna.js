@@ -93,7 +93,7 @@ export class pantallaVacuna extends connect(store)(LitElement) {
 
         </div>
 
-            <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
+            <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickBoton2}>
                 ${idiomas[this.idioma].vacuna.btn1}
             </button>
     `
@@ -134,14 +134,14 @@ export class pantallaVacuna extends connect(store)(LitElement) {
         return valido
     }
     clickBoton1() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, store.getState().ui.quePantalla))
     }
     clickBoton2() {
-        if (this.activo) {
-            if (this.valido()) {
-                store.dispatch(modoPantalla("clavemodificarmsg"));
-            }
-        }
+        //        if (this.activo ) {
+        //            if (this.valido() ) {
+        store.dispatch(modoPantalla("vacunamsg", "vacuna"));
+        //            }
+        //        }
     }
     stateChanged(state, name) {
     }

@@ -26,6 +26,9 @@ import {
     cabecera1
 } from "../css/cabecera1"
 import {
+    media01
+} from "../css/media01"
+import {
     miCheckbox
 } from "../componentes/checkbox"
 import {
@@ -45,12 +48,12 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
         ${button}
         ${ikeInput}
         ${cabecera1}
+        ${media01}
         :host{ 
             position: absolute;
             top: 0rem;
             left: 0rem;  
             height:100%;
-            width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
             grid-template-rows:2fr 8fr
@@ -61,15 +64,20 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
         #cuerpo{
             background-color: transparent;
             display:grid;
-            padding:2rem;
             grid-auto-flow:row;
             grid-gap:.8rem;
             align-content:start;
             overflow-y: auto; 
             overflow-x: hidden; 
         }
-        #cuerpo::-webkit-scrollbar {
+        #cuerpo::-webkit-scrollbar{
             display: none;
+        }       
+        :host([media-size="medium"]) #header #bar{
+            grid-template-columns: 100%;
+        }
+        :host([media-size="large"]) #header #bar{
+            grid-template-columns: 100%;
         }
         `
     }
@@ -150,16 +158,16 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     clickBoton1() {
         if (this.activo) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("principal"));
+                store.dispatch(modoPantalla("principal", "iniciosesion"));
             }
         }
     }
 
     clickBoton2() {
-        store.dispatch(modoPantalla("recuperaclave"));
+        store.dispatch(modoPantalla("recuperaclave", "iniciosesion"));
     }
     clickBoton3() {
-        store.dispatch(modoPantalla("principal"));
+        store.dispatch(modoPantalla("principal", "iniciosesion"));
     }
     stateChanged(state, name) { }
     firstUpdated() { }
@@ -175,6 +183,12 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
+
             }
         }
     }

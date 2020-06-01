@@ -6,7 +6,8 @@
     <link rel="manifest" href="manifest.json" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -50,17 +51,17 @@
     </div>
 </body>
 <script>
+
     let newWorker;
 
     //The click event on the pop up notification
     document.getElementById('reload').addEventListener('click', function () {
-         newWorker.postMessage({
-             action: 'skipWaiting'
+        newWorker.postMessage({
+            action: 'skipWaiting'
         });
     });
 
     if ('serviceWorker' in navigator) {
-
         navigator.serviceWorker.register('/Service-worker.js').then(reg => {
             reg.addEventListener('updatefound', () => {
                 // A wild service worker has appeared in reg.installing!
@@ -75,7 +76,7 @@
                                 showUpdateBar();
                             }
                             // No update available
-                        break;
+                            break;
                     }
                 });
             });

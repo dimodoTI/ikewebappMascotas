@@ -1,19 +1,22 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {button} from "../css/button"
-import {cabecera1} from "../css/cabecera1"
-import {modoPantalla,pantallaQueLLamo} from "../../redux/actions/ui";
-import {repeat} from 'lit-html/directives/repeat.js';
-import {ATRAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { button } from "../css/button"
+import { cabecera1 } from "../css/cabecera1"
+import { modoPantalla, pantallaQueLLamo } from "../../redux/actions/ui";
+import { repeat } from 'lit-html/directives/repeat.js';
+import { ATRAS } from "../../../assets/icons/icons"
+import {
+    media01
+} from "../css/media01"
 export class pantallaPlanDetalle extends connect(store)(LitElement) {
     constructor() {
         super();
-        this.plan=["Atención ante emergencias.","Análisis y estudios.","Intervención quirúrgica.",
-        "Internación.","Guardería.","Ayuda para localización de mascotas extraviadas.",
-        "Envío de alimento a domicilio.","Asesoramiento legal telefónico.","Orientación en adiestramiento.",
-        "Descuentos en farmacias y veterinarias."]
+        this.plan = ["Atención ante emergencias.", "Análisis y estudios.", "Intervención quirúrgica.",
+            "Internación.", "Guardería.", "Ayuda para localización de mascotas extraviadas.",
+            "Envío de alimento a domicilio.", "Asesoramiento legal telefónico.", "Orientación en adiestramiento.",
+            "Descuentos en farmacias y veterinarias."]
         this.hidden = true
         this.idioma = "ES"
     }
@@ -22,11 +25,12 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
         return css`
         ${button}
         ${cabecera1}
+        ${media01}
         :host{
             position: absolute;
             top: 0rem;
             left: 0rem;  
-            height:100%;
+            height:100vh;
             width: 100%;
             background-color:var(--color-gris-claro);
             display:grid;
@@ -42,6 +46,7 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
             grid-auto-flow:row;
             grid-gap:.8rem;
             align-content:start;
+            height:90%;
             overflow-y: auto; 
             overflow-x: hidden; 
         }
@@ -86,9 +91,9 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
             justify-content:left;
         }        
         `
-    } 
+    }
     render() {
-        return html `
+        return html`
 
         <div id="header">
             <div id="bar">
@@ -114,21 +119,21 @@ export class pantallaPlanDetalle extends connect(store)(LitElement) {
                 style="grid-column-start: 1;grid-column-end:3;width:100%;margin-top:1rem">
                 ${idiomas[this.idioma].plandetalle.btn2}
                 </button>  
-            
+                <div style="height:2rem"></div>
             </div>
              
         </div>
         `
     }
-    
-    clickBoton1(){
+
+    clickBoton1() {
         //store.dispatch(modoPantalla("iniciosesion","plandetalle"))
     }
-    clickBoton2(){
+    clickBoton2() {
         //store.dispatch(modoPantalla("iniciosesion","plandetalle"))
     }
-    clickBoton3(){
-        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo,"plandetalle"))
+    clickBoton3() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "plandetalle"))
     }
     stateChanged(state, name) {
     }

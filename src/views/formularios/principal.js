@@ -1,21 +1,21 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {button} from "../css/button"
-import {cabecera1} from "../css/cabecera1"
-import {btnFlotanteRedondo} from "../css/btnFlotanteRedondo"
-import {btnConsultaNueva} from "../css/btnConsultaNueva"
-import {modoPantalla} from "../../redux/actions/ui";
-import {REGALO,CARRITO,RELOJ,NOVEDADES1,NOVEDADES2,NOVEDADES3,HOME,MASCOTA,CONSULTA,VACUNA,FOTO,MAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { button } from "../css/button"
+import { cabecera1 } from "../css/cabecera1"
+import { btnFlotanteRedondo } from "../css/btnFlotanteRedondo"
+import { btnConsultaNueva } from "../css/btnConsultaNueva"
+import { modoPantalla } from "../../redux/actions/ui";
+import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCOTA, CONSULTA, VACUNA, FOTO, MAS } from "../../../assets/icons/icons"
 export class pantallaPrincipal extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.marque1 = [{imagen:REGALO,texto:idiomas[this.idioma].principal.carro1[0].lbl, color:"--color-celeste"},{imagen:CARRITO,texto:idiomas[this.idioma].principal.carro1[1].lbl, color:"--color-amarillo"},{imagen:RELOJ,texto:idiomas[this.idioma].principal.carro1[2].lbl, color:"--color-rosa"}]
-        this.marque2 = [{imagen:NOVEDADES1, texto:idiomas[this.idioma].principal.carro2[0].lbl, color:"--color-celeste"},{imagen:NOVEDADES2,texto:idiomas[this.idioma].principal.carro2[1].lbl, color:"--color-celeste"},{imagen:NOVEDADES3,texto:idiomas[this.idioma].principal.carro2[2].lbl, color:"--color-celeste"}]
+        this.marque1 = [{ imagen: REGALO, texto: idiomas[this.idioma].principal.carro1[0].lbl, color: "--color-celeste" }, { imagen: CARRITO, texto: idiomas[this.idioma].principal.carro1[1].lbl, color: "--color-amarillo" }, { imagen: RELOJ, texto: idiomas[this.idioma].principal.carro1[2].lbl, color: "--color-rosa" }]
+        this.marque2 = [{ imagen: NOVEDADES1, texto: idiomas[this.idioma].principal.carro2[0].lbl, color: "--color-celeste" }, { imagen: NOVEDADES2, texto: idiomas[this.idioma].principal.carro2[1].lbl, color: "--color-celeste" }, { imagen: NOVEDADES3, texto: idiomas[this.idioma].principal.carro2[2].lbl, color: "--color-celeste" }]
     }
 
     static get styles() {
@@ -119,7 +119,7 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             display:grid;
             overflow-x: scroll; 
             border-radius:.4rem;
-            height:25.5vh;
+            height:8rem;
             width: 95vw;
         }
         #carro::-webkit-scrollbar {
@@ -136,10 +136,9 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         #carroNovedades{
             position: relative;
             display:grid;
-            flow:left;
             overflow-x: scroll; 
             border-radius:.4rem;
-            height:8rem;
+            height:7.5rem;
             width: 95vw;
         }
         #carroNovedades::-webkit-scrollbar {
@@ -157,9 +156,9 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             justify-content:center;
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">
             <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
                 <div id="bar">
@@ -168,7 +167,7 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
                         @click=${this.clickBotonUsuario}>
                     </div>
                 </div>
-                <div id="campana"></div>
+                <div id="campana" @click=${this.clickBotonNotificacion}></div>
             </div>    
             <div id="lblLeyenda">${idiomas[this.idioma].principal.leyendaCabecera}</div>
         </div>
@@ -176,15 +175,15 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
             <div id="div-consultaNueva">
                 <label id="lbl-consultaNueva">${idiomas[this.idioma].principal.lblConsulta}</label>
-                <button id="btn-consultaNueva" btn2>${idiomas[this.idioma].principal.btnConsulta}</button>
+                <button id="btn-consultaNueva" btn2 @click=${this.clickConsulta}>${idiomas[this.idioma].principal.btnConsulta}</button>
             </div>  
             <div id="div-agenda" >
                <label id="lbl-agenda">${idiomas[this.idioma].principal.lblFlier}</label>
-               <button id="btn-agenda" btn2>${idiomas[this.idioma].principal.btnFlier}</button>
+               <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].principal.btnFlier}</button>
             </div>  
 
             <div id="carro">
-                <marquesina-componente id="marq" style="height:7.8rem"
+                <marquesina-componente id="marq"
                 .item=${this.marque1}>
                 </marquesina-componente>
             </div>
@@ -192,13 +191,13 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             <label id="lbl-novedades">${idiomas[this.idioma].principal.lblNovedades}</label>
 
             <div id="carroNovedades">
-                <marquesina-componente id="marqNovedades" style="height:7.8rem;"
+                <marquesina-componente id="marqNovedades" 
                 .item=${this.marque2}>
                 </marquesina-componente>
             </div>
 
             <label id="lbl-ayuda">${idiomas[this.idioma].principal.lblAyuda}</label>
-            <button btn3 id="btn-ayuda">${idiomas[this.idioma].principal.btnAyuda}</button>
+            <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}</button>
             <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
 
         </div>        
@@ -208,17 +207,31 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         `
     }
 
-    clickBotonUsuario(){
-        store.dispatch(modoPantalla("usuariodetalle"))
+
+    clickBotonUsuario() {
+        store.dispatch(modoPantalla("usuariodetalle", "principal"))
     }
-    clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
+    clickBotonNotificacion() {
+        store.dispatch(modoPantalla("notificacion", "principal"))
     }
-    clickBoton2(){
-        store.dispatch(modoPantalla("iniciosesion"))
+    clickConsulta() {
+        store.dispatch(modoPantalla("video", "principal"))
+    }
+    clickAgenda() {
+        store.dispatch(modoPantalla("plancontrata", "principal"))
+    }
+    clickAyuda() {
+        store.dispatch(modoPantalla("vercobertura", "principal"))
+    }
+    clickBoton1() {
+        store.dispatch(modoPantalla("iniciosesion", "principal"))
+    }
+    clickBoton2() {
+        store.dispatch(modoPantalla("iniciosesion", "principal"))
     }
     stateChanged(state, name) {
     }
+
     firstUpdated() {
     }
 

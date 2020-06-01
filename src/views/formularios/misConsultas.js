@@ -88,7 +88,7 @@ export class pantallaMisConsultas extends connect(store)(LitElement) {
                 <div id="bar">
                     <div id="lblTitulo">${idiomas[this.idioma].misconsultas.titulo}</div>
                 </div>
-                <div id="campana"></div>
+                <div id="campana" @click=${this.clickBotonNotificacion}></div>
             </div>    
             <div id="lblLeyenda">${idiomas[this.idioma].misconsultas.leyenda}</div>
         </div>
@@ -100,7 +100,7 @@ export class pantallaMisConsultas extends connect(store)(LitElement) {
                     <div id="cmhDivFecha">${dato.fecha}</div>
                     <div id="cmhDivDiagnostico">${dato.diagnostico}</div>
                     <div id="cmhDivVerDetalle">
-                        <button btn2 style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
+                        <button btn2  @click=${this.clickBoton1} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
                     </div>
                     <div id="cmhDivChat">${CHAT}</div>              
                 </div>
@@ -108,21 +108,20 @@ export class pantallaMisConsultas extends connect(store)(LitElement) {
         </div>        
         <pie-componente id="pie" opcion="tres">
         </pie-componente>
-        <div id="bfaDivMas">
+        <div id="bfaDivMas"  @click=${this.clickBoton2}>
             ${CONSULTA}
             <label>${idiomas[this.idioma].misconsultas.btn}</label>
         </div>
         `
     }
-
-    clickBotonUsuario() {
-        store.dispatch(modoPantalla("usuariodetalle"))
+    clickBotonNotificacion() {
+        store.dispatch(modoPantalla("notificacion", "misconsultas"))
     }
     clickBoton1() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("mascotaver", "misconsultas"))
     }
     clickBoton2() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla("consulta", "misconsultas"))
     }
     stateChanged(state, name) {
     }

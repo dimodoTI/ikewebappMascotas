@@ -4,6 +4,7 @@ import { connect } from "@brunomon/helpers";
 import { idiomas } from "../../redux/datos/idiomas"
 import { label } from "../css/label"
 import { button } from "../css/button"
+import { media02 } from "../css/media02"
 import { modoPantalla } from "../../redux/actions/ui";
 export class pantallaConsultaDetalleMsg extends connect(store)(LitElement) {
     constructor() {
@@ -16,6 +17,7 @@ export class pantallaConsultaDetalleMsg extends connect(store)(LitElement) {
         return css`
         ${label}
         ${button}
+        ${media02}
         :host{
             position: absolute;
             display:grid;
@@ -99,10 +101,10 @@ export class pantallaConsultaDetalleMsg extends connect(store)(LitElement) {
             <label id="leyenda">
             ${idiomas[this.idioma].consultadetallemsg.leyenda}
             </label>
-            <button id="btn-ingresar" btn1 @click=${this.clickBoton1}>
+            <button id="btn-ingresar" btn1 @click=${this.clickBoton2}>
             ${idiomas[this.idioma].consultadetallemsg.btn1}
             </button>
-            <button id="btn-ingresar" btn2 @click=${this.clickBoton1}>
+            <button id="btn-ingresar" btn2 @click=${this.clickBoton3}>
             ${idiomas[this.idioma].consultadetallemsg.btn2}
             </button>
 
@@ -110,7 +112,13 @@ export class pantallaConsultaDetalleMsg extends connect(store)(LitElement) {
     }
 
     clickBoton1() {
-        store.dispatch(modoPantalla("usuariodetalle"))
+        store.dispatch(modoPantalla("principal", "principal"))
+    }
+    clickBoton2() {
+        store.dispatch(modoPantalla("misconsultas", "principal"))
+    }
+    clickBoton3() {
+        store.dispatch(modoPantalla("principal", "principal"))
     }
     stateChanged(state, name) {
 

@@ -99,10 +99,10 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
             <label id="leyenda">
             ${idiomas[this.idioma].mascotaaltamsg.leyenda}
             </label>
-            <button id="btn-ingresar" btn1 @click=${this.clickBoton1}>
+            <button id="btn-ingresar" btn1 @click=${this.clickBoton2}>
             ${idiomas[this.idioma].mascotaaltamsg.btn1}
             </button>
-            <button id="btn-ingresar" btn2 @click=${this.clickBoton1}>
+            <button id="btn-ingresar" btn2 @click=${this.clickBoton3}>
             ${idiomas[this.idioma].mascotaaltamsg.btn2}
             </button>
 
@@ -110,7 +110,13 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     }
 
     clickBoton1() {
-        store.dispatch(modoPantalla("usuariodetalle"))
+        store.dispatch(modoPantalla("principal", "principal"))
+    }
+    clickBoton2() {
+        store.dispatch(modoPantalla("mascotaver", "principal"))
+    }
+    clickBoton3() {
+        store.dispatch(modoPantalla("principal", "principal"))
     }
     stateChanged(state, name) {
 

@@ -127,8 +127,11 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
 
         }
     }
+    clickBoton1() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "principal"))
+    }
     clickBoton2() {
-
+        store.dispatch(modoPantalla("consultadetalle", "consultaturnos"))
     }
     stateChanged(state, name) {
     }

@@ -1,10 +1,11 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {modoPantalla} from "../../redux/actions/ui";
-import {button} from "../css/button"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { modoPantalla } from "../../redux/actions/ui";
+import { button } from "../css/button"
+import { media02 } from "../css/media02"
 export class pantallaVerCobertura extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -16,6 +17,7 @@ export class pantallaVerCobertura extends connect(store)(LitElement) {
         return css`
         ${label}
         ${button}
+        ${media02}
         :host{
             position: absolute;
             display:grid;
@@ -51,9 +53,9 @@ export class pantallaVerCobertura extends connect(store)(LitElement) {
             font-weight: var(--font-bajada-weight);
        }
         `
-    } 
+    }
     render() {
-        return html `            
+        return html`            
             <label id="titulo">
             ${idiomas[this.idioma].vercobertura.titulo}
             </label>
@@ -69,19 +71,17 @@ export class pantallaVerCobertura extends connect(store)(LitElement) {
             <button id="btn-volver" btn2 @click=${this.clickBoton3}>
             ${idiomas[this.idioma].vercobertura.btn3}
             </button>
-
-
         `
     }
-    
-    clickBoton1(){
+
+    clickBoton1() {
         //store.dispatch(modoPantalla("iniciosesion"))
     }
-    clickBoton2(){
+    clickBoton2() {
         //store.dispatch(modoPantalla("iniciosesion"))
     }
-    clickBoton3(){
-        store.dispatch(modoPantalla("accesoplan"))
+    clickBoton3() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "vercobertura"))
     }
 
     stateChanged(state, name) {

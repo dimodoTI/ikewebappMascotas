@@ -10,7 +10,7 @@ import {
     CANCELAR_TIMER,
     SET_TIMER
 } from "../actions/ui";
- 
+
 const initialState = {
     loading: 0,
     errorTimestamp: false,
@@ -79,6 +79,10 @@ export const reducer = (state = initialState, action) => {
         case CANCELAR_TIMER:
             if (newState.timer) clearTimeout(newState.timer)
             if (newState.intervalo) clearInterval(newState.intervalo)
+            break;
+        case SET_MEDIA:
+            newState.media.size = action.size
+            newState.media.timeStamp = (new Date()).getTime()
             break;
     }
     return newState;

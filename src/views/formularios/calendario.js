@@ -98,7 +98,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
                 <div id="bar">
                     <div id="lblTitulo">${idiomas[this.idioma].calendario.titulo}</div>
                 </div>
-                <div id="campana"></div>
+                <div id="campana" @click=${this.clickBotonNotificacion}></div>
             </div>    
             <div id="lblLeyenda">${idiomas[this.idioma].calendario.leyenda}</div>
         </div>
@@ -122,7 +122,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         </div>        
         <pie-componente id="pie" opcion="cuatro">
         </pie-componente>
-        <div id="bfaDivMas">
+        <div id="bfaDivMas"  @click=${this.clickBotonVacuna}>
             ${VACUNA}
             <label>${idiomas[this.idioma].calendario.btn}</label>
         </div>
@@ -144,7 +144,12 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         this.animal = "gato"
         this.update();
     }
-
+    clickBotonNotificacion() {
+        store.dispatch(modoPantalla("notificacion", "calendario"))
+    }
+    clickBotonVacuna() {
+        store.dispatch(modoPantalla("vacuna", "calendario"))
+    }
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "calendario") {
         }

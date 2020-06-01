@@ -1,19 +1,20 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {ikeInput} from "../css/ikeInput"
-import {cabecera1} from "../css/cabecera1"
-import {button} from "../css/button"
-import {modoPantalla} from "../../redux/actions/ui";
-import {ATRAS} from "../../../assets/icons/icons"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { ikeInput } from "../css/ikeInput"
+import { cabecera1 } from "../css/cabecera1"
+import { button } from "../css/button"
+import { modoPantalla } from "../../redux/actions/ui";
+import { media01 } from "../css/media01"
+import { ATRAS } from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item={mail:"",clave:"",recordar:""}
+        this.item = { mail: "", clave: "", recordar: "" }
         this.label = ""
     }
 
@@ -22,6 +23,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
         ${cabecera1}
         ${ikeInput}
         ${button}
+        ${media01}
         :host{
             position: absolute;
             top: 0rem;
@@ -44,6 +46,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             align-content:start;
             overflow-y: auto; 
             overflow-x: hidden; 
+            height:90%;
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
@@ -52,9 +55,9 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             position: relative;
         }
         `
-    } 
+    }
     render() {
-        return html `
+        return html`
         <div id="header">
             <div id="bar">
                 <div @click=${this.clickBoton4}>${ATRAS}</div>
@@ -98,6 +101,8 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
             <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].usuarioregistro.btn2}
             </button>
             <button id="btnInvitado" btn2 @click=${this.clickBoton3} style="padding-bottom:1rem;">${idiomas[this.idioma].usuarioregistro.btn3}</button>
+            <div style="height:2rem"></div>
+
         </div>
         `
     }
@@ -105,7 +110,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
         this.activo = true
         const nombre = this.shadowRoot.getElementById("txtNombre");
         const mail = this.shadowRoot.getElementById("txtMail");
-        const celular =this.shadowRoot.getElementById("txtCelular");
+        const celular = this.shadowRoot.getElementById("txtCelular");
         const clave1 = this.shadowRoot.querySelector("#txtClave1")
         const clave2 = this.shadowRoot.querySelector("#txtClave2")
         if (nombre.value.length < 4) {
@@ -137,7 +142,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
         let valido = true
         const nombre = this.shadowRoot.getElementById("txtNombre");
         const mail = this.shadowRoot.getElementById("txtMail");
-        const celular =this.shadowRoot.getElementById("txtCelular");
+        const celular = this.shadowRoot.getElementById("txtCelular");
         const clave1 = this.shadowRoot.querySelector("#txtClave1")
         const clave2 = this.shadowRoot.querySelector("#txtClave2")
         if (nombre.value.length < 8) {
@@ -163,19 +168,19 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
         this.update()
         return valido
     }
-    activaIngreso(){
+    activaIngreso() {
         let nom = this.shadowRoot.getElementById("txtNombre");
         let mail = this.shadowRoot.getElementById("txtMail");
-        let cel =this.shadowRoot.getElementById("txtCelular");
-        let c1 =this.shadowRoot.getElementById("txtClave1");
-        let c2 =this.shadowRoot.getElementById("txtClave2");
-        if (nom.value != "" && mail.value != "" && cel.value != "" && c1.value != "" && c2.value != ""){
-            if(this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado","");
+        let cel = this.shadowRoot.getElementById("txtCelular");
+        let c1 = this.shadowRoot.getElementById("txtClave1");
+        let c2 = this.shadowRoot.getElementById("txtClave2");
+        if (nom.value != "" && mail.value != "" && cel.value != "" && c1.value != "" && c2.value != "") {
+            if (this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")) {
+                this.shadowRoot.querySelector("#btnIngresar").removeAttribute("apagado", "");
             }
-        }else{
-            if(!this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")){
-                this.shadowRoot.querySelector("#btnIngresar").setAttribute("apagado","");
+        } else {
+            if (!this.shadowRoot.getElementById("btnIngresar").hasAttribute("apagado")) {
+                this.shadowRoot.querySelector("#btnIngresar").setAttribute("apagado", "");
             }
         }
     }
@@ -185,22 +190,24 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA)(LitEl
     }
     firstUpdated() {
     }
-    clickBoton1(){
+
+    clickBoton4() {
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuarioregistro"))
+    }
+    clickBoton1() {
         if (this.activo) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("principal","usuarioregistro"))
+                store.dispatch(modoPantalla("principal", "usuarioregistro"))
             }
         }
     }
-    clickBoton2(){
-        store.dispatch(modoPantalla("plandetalle","usuarioregistro"))
+    clickBoton2() {
+        store.dispatch(modoPantalla("plandetalle", "usuarioregistro"))
     }
-    clickBoton3(){
-        store.dispatch(modoPantalla("principal","usuarioregistro"))
+    clickBoton3() {
+        store.dispatch(modoPantalla("principal", "usuarioregistro"))
     }
-    clickBoton4(){
-        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo,"usuarioregistro"))
-    }
+
 
 
     static get properties() {

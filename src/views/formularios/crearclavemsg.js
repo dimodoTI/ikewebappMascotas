@@ -1,10 +1,11 @@
-import {html,LitElement,css} from "lit-element";
-import {store} from "../../redux/store";
-import {connect} from "@brunomon/helpers";
-import {idiomas } from "../../redux/datos/idiomas"
-import {label} from "../css/label"
-import {button} from "../css/button"
-import {modoPantalla} from "../../redux/actions/ui";
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { idiomas } from "../../redux/datos/idiomas"
+import { label } from "../css/label"
+import { button } from "../css/button"
+import { media02 } from "../css/media02"
+import { modoPantalla } from "../../redux/actions/ui";
 export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -16,17 +17,20 @@ export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
         return css`
         ${label}
         ${button}
+        ${media02}
         :host{
             position: absolute;
             display:grid;
-            top: 0rem;
+            grid-template-columns: auto;
+            grid-template-rows: auto auto auto;
+            grid-gap:0.5rem;
+            top: 35%;
             left: 0rem;  
-            height:100%;
-            width: 100%;
-            background-color:var(--color-gris-fondo);
-            grid-template-rows:5fr 1.5fr 3.5fr;
-            grid-gap:.4rem;
-            justify-items:center;
+            height:auto;
+            width: 100vw;
+            background-color:var(--color-gris-claro);
+            justify-content:center;
+            align-items:center; 
         }
         :host([hidden]){
             display: none; 
@@ -65,20 +69,15 @@ export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
         }
-        #btn-ingresar {
-            position:relative;
-            display:flex;
+        button, label {
             width:80vw;
-            height: 2rem;
-            align-items: flex-start;
-            justify-content:center;
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
         }
     `
-    } 
+    }
     render() {
-        return html `
+        return html`
             <div id="x" @click=${this.clickBoton1}>
             </div>               
             <div id="titulo">
@@ -94,9 +93,9 @@ export class pantallaCrearClaveMsg extends connect(store)(LitElement) {
 
         `
     }
-    
-    clickBoton1(){
-        store.dispatch(modoPantalla("iniciosesion"))
+
+    clickBoton1() {
+        store.dispatch(modoPantalla("iniciosesion", "crearclavemsg"))
     }
     stateChanged(state, name) {
 

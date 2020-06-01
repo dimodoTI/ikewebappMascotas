@@ -72,7 +72,7 @@ export class pantallaNotificacion extends connect(store)(LitElement) {
     }
 
     clickBoton1() {
-        store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "notificacion"))
     }
     stateChanged(state, name) {
 
