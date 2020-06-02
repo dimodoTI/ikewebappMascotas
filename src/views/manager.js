@@ -87,7 +87,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-vercobertura id="vercobertura" media-size="${this.mediaSize}"></pantalla-vercobertura>
         <pantalla-usuarioregistro id="usuarioregistro" media-size="${this.mediaSize}"></pantalla-usuarioregistro>
         <pantalla-plandetalle id="plandetalle" media-size="${this.mediaSize}"></pantalla-plandetalle>
-        <pantalla-principal id="principal"></pantalla-principal>
+        <pantalla-principal id="principal" media-size="${this.mediaSize}"></pantalla-principal>
         <pantalla-usuariodetalle id="usuariodetalle" media-size="${this.mediaSize}"></pantalla-usuariodetalle>
         <pantalla-mascota id="mascota"></pantalla-mascota>
         <pantalla-misconsultas id="misconsultas"></pantalla-misconsultas>

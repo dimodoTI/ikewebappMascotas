@@ -18,13 +18,10 @@ export class pieComponente extends connect(store)(LitElement) {
         ${label}
         :host{
             display: grid;
-            height:100%;
-            width: 100%;
-            display:grid;
             align-items:center; 
             justify-content:center;
             background-color: var(--color-blanco);;
-            grid-template-columns:2fr 2fr 2fr 2fr 2fr;
+            grid-template-columns:repeat(5,2fr);
             grid-template-rows: 60% 40%;
             grid-gap:0rem;
         }

@@ -29,15 +29,27 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             position: absolute;
             top: 0rem;
             left: 0rem;  
-            height:100%;
-            width: 100%;
+            height:100vh;
+            width: 100vw;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:20% 70% 10%;
+            grid-template-areas:
+                'Contenedor'
+                'Pie';   
+            grid-template-rows: 9fr 1fr;      
         }
         :host([hidden]){
             display: none; 
         } 
+        #gridContenedor{
+            grid-area: Contenedor; 
+            grid-template-rows:20% 80%;
+            display:grid;
+        }
+        #gridPie{
+            grid-area: Pie; 
+            display:grid;
+        }
         #detalle{
             height: 90%;
             width: 2rem;
@@ -144,9 +156,6 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         #carroNovedades::-webkit-scrollbar {
             display: none;
         }
-        #pie{
-            position:relative;
-        }
         #lbl-ayuda{
             position: relative;
             display:flex;
@@ -159,52 +168,52 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
     }
     render() {
         return html`
-        <div id="header">
-            <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
-                <div id="bar">
-                    <div id="lblTitulo">${idiomas[this.idioma].principal.tituloCabecera}</div>
-                    <div id="detalle" 
-                        @click=${this.clickBotonUsuario}>
-                    </div>
+            <div id="gridContenedor">
+                <div id="header">
+                    <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
+                        <div id="bar">
+                            <div id="lblTitulo">${idiomas[this.idioma].principal.tituloCabecera}</div>
+                            <div id="detalle" 
+                                @click=${this.clickBotonUsuario}>
+                            </div>
+                        </div>
+                        <div id="campana" @click=${this.clickBotonNotificacion}></div>
+                    </div>    
+                    <div id="lblLeyenda">${idiomas[this.idioma].principal.leyendaCabecera}</div>
                 </div>
-                <div id="campana" @click=${this.clickBotonNotificacion}></div>
-            </div>    
-            <div id="lblLeyenda">${idiomas[this.idioma].principal.leyendaCabecera}</div>
-        </div>
-        <div id="cuerpo">
-            <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
-            <div id="div-consultaNueva">
-                <label id="lbl-consultaNueva">${idiomas[this.idioma].principal.lblConsulta}</label>
-                <button id="btn-consultaNueva" btn2 @click=${this.clickConsulta}>${idiomas[this.idioma].principal.btnConsulta}</button>
-            </div>  
-            <div id="div-agenda" >
-               <label id="lbl-agenda">${idiomas[this.idioma].principal.lblFlier}</label>
-               <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].principal.btnFlier}</button>
-            </div>  
+                <div id="cuerpo">
+                    <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
+                    <div id="div-consultaNueva">
+                        <label id="lbl-consultaNueva">${idiomas[this.idioma].principal.lblConsulta}</label>
+                        <button id="btn-consultaNueva" btn2 @click=${this.clickConsulta}>${idiomas[this.idioma].principal.btnConsulta}</button>
+                    </div>  
+                    <div id="div-agenda" >
+                        <label id="lbl-agenda">${idiomas[this.idioma].principal.lblFlier}</label>
+                        <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].principal.btnFlier}</button>
+                    </div>  
 
-            <div id="carro">
-                <marquesina-componente id="marq"
-                .item=${this.marque1}>
-                </marquesina-componente>
+                    <div id="carro">
+                        <marquesina-componente id="marq"
+                        .item=${this.marque1}>
+                        </marquesina-componente>
+                    </div>
+
+                    <label id="lbl-novedades">${idiomas[this.idioma].principal.lblNovedades}</label>
+
+                    <div id="carroNovedades">
+                        <marquesina-componente id="marqNovedades" 
+                        .item=${this.marque2}>
+                        </marquesina-componente>
+                    </div>
+                    <label id="lbl-ayuda">${idiomas[this.idioma].principal.lblAyuda}</label>
+                    <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}</button>
+                    <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
+                </div>        
             </div>
-
-            <label id="lbl-novedades">${idiomas[this.idioma].principal.lblNovedades}</label>
-
-            <div id="carroNovedades">
-                <marquesina-componente id="marqNovedades" 
-                .item=${this.marque2}>
-                </marquesina-componente>
-            </div>
-
-            <label id="lbl-ayuda">${idiomas[this.idioma].principal.lblAyuda}</label>
-            <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}</button>
-            <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
-
-        </div>        
-        <pie-componente id="pie" opcion="uno">
-        </pie-componente>
-        <div id="bfrDivMas">${MAS}</div>
-        `
+            <pie-componente id="gridPie" opcion="uno">
+            </pie-componente>
+            <div id="bfrDivMas">${MAS}</div>
+`
     }
 
 
