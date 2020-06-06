@@ -7,9 +7,10 @@ import { cabecera1 } from "../css/cabecera1"
 import { btnCalendario } from "../css/btnCalendario"
 import { cardCalendario } from "../css/cardCalendario"
 import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
-import { btnConsultaNueva } from "../css/btnConsultaNueva"
 import { modoPantalla } from "../../redux/actions/ui";
 import { VACUNA, CONSULTA } from "../../../assets/icons/icons"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
+
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -35,7 +36,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         ${cardCalendario}
         ${btnCalendario}
         ${btnFlotanteAlargado}
-        ${btnConsultaNueva}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -44,11 +45,18 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:20% 10% 60% 10%;
         }
         :host([hidden]){
             display: none; 
-        } 
+        }
+        #cuerpo{
+            display:grid;
+            grid-template-rows:10% 90%;           
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width:70%;
+            justify-self:center;
+        }
         #campana{
             position:relative;
             background-image: var(--icon-campana-con-marca);
@@ -79,9 +87,6 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
         }      
-        #pie{
-            position:relative;
-        }
         #animales{
             display:grid;
             padding: 0 1rem 0 1rem;
@@ -89,38 +94,48 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             height:1.5rem;
             align-items:top;
         }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
     `
     }
     render() {
         return html`
-        <div id="header">
-            <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
-                <div id="bar">
-                    <div id="lblTitulo">${idiomas[this.idioma].calendario.titulo}</div>
-                </div>
-                <div id="campana" @click=${this.clickBotonNotificacion}></div>
-            </div>    
-            <div id="lblLeyenda">${idiomas[this.idioma].calendario.leyenda}</div>
-        </div>
-        <div id="animales" style="padding-top: .4rem;">
-            <div id="btnPerro" class="btnCalendario" pres @click="${this.perro}">
-                ${idiomas[this.idioma].calendario.perro}
+        <div id="gridContenedor">
+            <div id="header">
+                <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
+                    <div id="bar">
+                        <div id="lblTitulo">${idiomas[this.idioma].calendario.titulo}</div>
+                    </div>
+                    <div id="campana" @click=${this.clickBotonNotificacion}></div>
+                </div>    
+                <div id="lblLeyenda">${idiomas[this.idioma].calendario.leyenda}</div>
             </div>
-            <div id="btnGato" class="btnCalendario" nopres @click="${this.gato}">
-                ${idiomas[this.idioma].calendario.gato}
-            </div>
-        </div>
-        <div id="cuerpoVacuna" style="width:95%;justify-self: center;">
-            ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
-                <div id="ccDivEtiqueta">
-                    <div id="ccDivVacuna">${dato.vacuna}</div>
-                    <div id="ccDivPara">${dato.para}</div>
-                    <div id="ccDivCachorro">${dato.edad}</div>
-                    <div id="ccDivObligatorio">${dato.obligatoria}</div>
+            <div id="cuerpo">
+                <div id="animales" style="padding-top: .4rem;">
+                    <div id="btnPerro" class="btnCalendario" pres @click="${this.perro}">
+                        ${idiomas[this.idioma].calendario.perro}
+                    </div>
+                    <div id="btnGato" class="btnCalendario" nopres @click="${this.gato}">
+                        ${idiomas[this.idioma].calendario.gato}
+                    </div>
                 </div>
-            `)}
+                <div id="cuerpoVacuna" style="width:95%;justify-self: center;">
+                    ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
+                        <div id="ccDivEtiqueta">
+                            <div id="ccDivVacuna">${dato.vacuna}</div>
+                            <div id="ccDivPara">${dato.para}</div>
+                            <div id="ccDivCachorro">${dato.edad}</div>
+                            <div id="ccDivObligatorio">${dato.obligatoria}</div>
+                        </div>
+                    `)}
+                </div>        
+            </div>        
         </div>        
-        <pie-componente id="pie" opcion="cuatro">
+        <pie-componente id="pie" opcion="cuatro" >
         </pie-componente>
         <div id="bfaDivMas"  @click=${this.clickBotonVacuna}>
             ${VACUNA}
@@ -164,6 +179,11 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

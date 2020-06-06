@@ -15,6 +15,10 @@ export const cardMascotaHorizontal = css`
     align-items: center;
     box-shadow: var(--shadow-elevation-4-box);
 }  
+:host(:not([media-size="small"])) #cmhDivEtiqueta{
+    height:12vw;   
+    box-shadow: var(--shadow-elevation-2-box);
+}
 #cmhDivImagen{
     height:22vw;
     width:22vw;
@@ -22,6 +26,10 @@ export const cardMascotaHorizontal = css`
     background-position: center center;
     background-size: cover;
     border-radius:.4rem 0 0 .4rem;   
+}
+:host(:not([media-size="small"])) #cmhDivImagen{
+    height:12vw;
+    width:12vw;
 }
 #cmhDivNombre{
     font-size: var(--font-bajada-size);

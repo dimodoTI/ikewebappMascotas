@@ -5,6 +5,7 @@ import { idiomas } from "../../redux/datos/idiomas"
 import { label } from "../css/label"
 import { button } from "../css/button"
 import { cabecera1 } from "../css/cabecera1"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
 import { cardMascotaVertical } from "../css/cardMascotaVertical"
 import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
 import { modoPantalla } from "../../redux/actions/ui";
@@ -28,6 +29,7 @@ export class pantallaMascota extends connect(store)(LitElement) {
         ${cabecera1}
         ${cardMascotaVertical}
         ${btnFlotanteAlargado}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -36,7 +38,6 @@ export class pantallaMascota extends connect(store)(LitElement) {
             width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:20% 70% 10%;
         }
         :host([hidden]){
             display: none; 
@@ -63,6 +64,9 @@ export class pantallaMascota extends connect(store)(LitElement) {
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
+        :host(:not([media-size="small"])) #cuerpo{
+            grid-template-columns: repeat(auto-fit,minmax(10rem,1fr));
+        }
         label,button {
             position: relative;
             width: 95%;
@@ -79,29 +83,31 @@ export class pantallaMascota extends connect(store)(LitElement) {
     }
     render() {
         return html`
-        <div id="header">
-            <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
-                <div id="bar">
-                    <div id="lblTitulo">${idiomas[this.idioma].mascota.titulo}</div>
-                </div>
-                <div id="campana" @click=${this.clickBotonNotificacion}></div>
-            </div>    
-            <div id="lblLeyenda">${idiomas[this.idioma].mascota.leyenda}</div>
-        </div>
+        <div id="gridContenedor">
+            <div id="header">
+                <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
+                    <div id="bar">
+                        <div id="lblTitulo">${idiomas[this.idioma].mascota.titulo}</div>
+                    </div>
+                    <div id="campana" @click=${this.clickBotonNotificacion}></div>
+                </div>    
+                <div id="lblLeyenda">${idiomas[this.idioma].mascota.leyenda}</div>
+            </div>
 
-        <div id="cuerpo">
-            ${this.item.map(dato => html`
-                <div id="cmhDivEtiqueta">
-                    <div id="cmhDivImagen" style="background-image:var(${dato.imagen});"></div>
-                    <div id="cmhDivTipo">${dato.tipo}</div>
-                    <div id="cmhDivNombre">${dato.nombre}</div>
-                    <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.raza}</div>
-                    <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + dato.edad}</div>
-                    <div id="cmhDivConsultas">${dato.consultas + idiomas[this.idioma].mascota.consultas}</div>              
-                </div>
-            `)}
-        </div>        
-        <pie-componente id="pie" opcion="dos">
+            <div id="cuerpo">
+                ${this.item.map(dato => html`
+                    <div id="cmhDivEtiqueta" >
+                        <div id="cmhDivImagen" style="background-image:var(${dato.imagen});"></div>
+                        <div id="cmhDivTipo">${dato.tipo}</div>
+                        <div id="cmhDivNombre">${dato.nombre}</div>
+                        <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.raza}</div>
+                        <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + dato.edad}</div>
+                        <div id="cmhDivConsultas">${dato.consultas + idiomas[this.idioma].mascota.consultas}</div>              
+                    </div>
+                `)}
+            </div>        
+        </div>
+        <pie-componente id="pie" opcion="dos" media-size="${this.mediaSize}">
         </pie-componente>
         <div id="bfaDivMas"  @click=${this.clickAgregarMascota}>
             ${MASCOTA}
@@ -129,6 +135,11 @@ export class pantallaMascota extends connect(store)(LitElement) {
             label: {
                 type: String,
                 reflect: false
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

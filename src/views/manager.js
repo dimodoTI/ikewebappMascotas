@@ -89,10 +89,10 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-plandetalle id="plandetalle" media-size="${this.mediaSize}"></pantalla-plandetalle>
         <pantalla-principal id="principal" media-size="${this.mediaSize}"></pantalla-principal>
         <pantalla-usuariodetalle id="usuariodetalle" media-size="${this.mediaSize}"></pantalla-usuariodetalle>
-        <pantalla-mascota id="mascota"></pantalla-mascota>
-        <pantalla-misconsultas id="misconsultas"></pantalla-misconsultas>
-        <pantalla-calendario id="calendario"></pantalla-calendario>
-        <pantalla-fotogaleria id="fotogaleria"></pantalla-fotogaleria>
+        <pantalla-mascota id="mascota" media-size="${this.mediaSize}"></pantalla-mascota>
+        <pantalla-misconsultas id="misconsultas" media-size="${this.mediaSize}"></pantalla-misconsultas>
+        <pantalla-calendario id="calendario" media-size="${this.mediaSize}"></pantalla-calendario>
+        <pantalla-fotogaleria id="fotogaleria" media-size="${this.mediaSize}"></pantalla-fotogaleria>
         <pantalla-fotover id="fotover"></pantalla-fotover>
         <pantalla-video id="video" media-size="${this.mediaSize}"></pantalla-video>
         <pantalla-videocalificacion id="videocalificacion"></pantalla-videocalificacion>

@@ -8,7 +8,7 @@ import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCO
 import { tiempos } from "../../redux/datos/tiempoEspera";
 
 const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
-export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(LitElement) {
+export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.item = {}
@@ -26,15 +26,17 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
             display: grid; 
             grid-auto-flow: column;
             background-color: transparent;
-            grid-template-rows: 98%;
-            grid-gap:1rem;
+            grid-template-rows: 48% 48%;
+            grid-template-columns: 50% 50%;
+            grid-gap:.6rem;
             height:100%;
             width:auto;
         }
         #cuerpo-marq{
             position: relative;
             display: grid;
-            height: 98%;
+            height: 100%;
+            width: 100%;
             background-color: var(--color-celeste);
             align-items:center; 
             justify-content:center;
@@ -44,6 +46,9 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
         }
         .cuerpo-marq-combinado{
              grid-template-rows: 70% 30%;
+        }
+        :host(:not([media-size="small"])) .cuerpo-marq-combinado{
+             grid-template-rows: 65% 35%;
         }
         .cuerpo-marq-uno{
             grid-template-rows: 100%;
@@ -88,10 +93,10 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
     render() {
         if (this.item) {
             return html`
-        ${
+            ${
                 repeat(this.item, (dato) => dato.texto, (dato, index) => html`
                 <div id="cuerpo-marq" class="${!dato.texto == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"
-                style="background-color:var(${dato.color});width:${this.etiquetaAncho}">
+                style="background-color:var(${dato.color});">
                     <div class="${!dato.texto == '' ? 'img-marq-dos' : 'img-marq-solo'}" >
                     <img  style="content:var(${dato.imagen})"/>
                     </div>
@@ -128,4 +133,4 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
     }
 }
 
-window.customElements.define("marquesina-componente", marquesinaComponente);
+window.customElements.define("marquesinafija-componente", marquesinaFijaComponente);

@@ -2,11 +2,11 @@ import {
     css
 } from "lit-element"
 
-export const btnFlotanteRedondo = css `
+export const btnFlotanteRedondo = css`
 #bfrDivMas{
     position:absolute;
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 2rem;
+    width: 2rem;
     right: 2rem;
     bottom:5rem;
     background-color: var(--color-azul-oscuro); 
@@ -16,6 +16,11 @@ export const btnFlotanteRedondo = css `
     justify-content:center;
     box-shadow: var(--shadow-elevation-4-box);
     cursor:pointer;
+    z-index:50;
+}
+:host(:not([media-size="small"])) #bfrDivMas{
+  top: 15%;
+  left:18.4%;  
 }
 #bfrDivMas svg{
     display:flex;

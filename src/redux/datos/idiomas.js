@@ -44,10 +44,16 @@ export const idiomas = {
             btn1: "Descargar póliza", btn2: "Ver todos los planes"
         },
         principal: {
-            tituloCabecera: "Hola, Lucía", leyendaCabecera: "Bienvenida a Iké, tu asistencia de mascotas.", lblConsulta: "Tenés una consulta en 10 minutos", btnConsulta: "Ingresar", lblFlier: "Visitá al veterinario, sin moverte del sillón.",
-            btnFlier: "Ingresar", carro1: [{ lbl: "Club Iké" }, { lbl: "Ecommerce" }, { lbl: "Agendar Alarma" }],
-            carro2: [{ lbl: "" }, { lbl: "" }, { lbl: "" }], lblNovedades: "Novedades Iké",
-            lblAyuda: "¿Necesitás ayuda?. Estamos para lo que necesites.", btnAyuda: "Solicitar asistencia"
+            tituloCabecera: "Hola, Lucía", leyendaCabecera: "Bienvenida a Iké, tu asistencia de mascotas.", lblConsulta: "Tenés una consulta en 10 minutos", btnConsulta: "Ingresar",
+            lblNovedades: "Novedades Iké",
+            lblAyuda01: "¿Necesitás ayuda?.", lblAyuda02: "Estamos para lo que necesites.", btnAyuda: "Solicitar asistencia"
+        },
+        publicidad: {
+            marquesina: [{ lbl: "Club Iké" }, { lbl: "Ecommerce" }, { lbl: "Agendar Alarma" }, { lbl: "Club Iké" }],
+            flier: [{
+                lbl: "Visitá al veterinario, sin moverte del sillón.",
+                lblBtn: "Agenda una consulta."
+            }]
         },
         pie: { inicio: "Inicio", mascota: "Mascotas", consulta: "Consultas", vacuna: "Vacunas", foto: "Fotos" },
         usuariodetalle: {
@@ -57,7 +63,7 @@ export const idiomas = {
             btnCobertura: "¿Qué incluye mi cobertura?", btnDelete: "Eliminar esta cuenta", btnAsistencia: "Solicitar asistencia", lblAyuda: "¿Necesitás ayuda?. Estamos para lo que necesites."
         },
         mascota: { titulo: "Mis mascotas", leyenda: "Creá el perfil de tus mascotas y accedé a su historia clínica.", label: "Mis mascotas", btn: "Agregar mascota", raza: "Raza: ", edad: "Edad: ", consultas: " Consulta/s" },
-        misconsultas: { titulo: "Mis consultas", leyenda: "Creá el perfil de tus mascotas y accedé a su historia clínica.", label: "Mis consultas", btn: "Agendar consulta", verDetalle: "Ver detalle: " },
+        misconsultas: { titulo: "Mis consultas", leyenda: "Creá el perfil de tus mascotas y accedé a su historia clínica.", titulo02: "Historial de consultas", label: "Mis consultas", btn: "Agendar consulta", verDetalle: "Ver detalle: " },
         calendario: { titulo: "Calendario de Vacunas", leyenda: "Consultá el calendario y registrá las vacunas de tus mascotas.", btn: "Registrar vacuna", perro: "Perros", gato: "Gatos", verDetalle: "Ver detalle: " },
         fotogaleria: { titulo: "Mis fotos", leyenda: "Creá tu galería de fotos en Iké." },
         video: { conectando: "Conectando ..." },

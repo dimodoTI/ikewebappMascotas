@@ -6,16 +6,20 @@ import { label } from "../css/label"
 import { button } from "../css/button"
 import { cabecera1 } from "../css/cabecera1"
 import { btnFlotanteRedondo } from "../css/btnFlotanteRedondo"
-import { btnConsultaNueva } from "../css/btnConsultaNueva"
+import { btnNuevaConsulta } from "../componentes/btnNuevaConsulta"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
 import { modoPantalla } from "../../redux/actions/ui";
+import { flierPortadaComponente } from "../componentes/flierPortada";
+import { marquesinaFijaComponente } from "../componentes/marquesinaFija";
 import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCOTA, CONSULTA, VACUNA, FOTO, MAS } from "../../../assets/icons/icons"
-export class pantallaPrincipal extends connect(store)(LitElement) {
+
+const RESERVA_TIMESTAMP = "reserva.timeStamp"
+export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.marque1 = [{ imagen: REGALO, texto: idiomas[this.idioma].principal.carro1[0].lbl, color: "--color-celeste" }, { imagen: CARRITO, texto: idiomas[this.idioma].principal.carro1[1].lbl, color: "--color-amarillo" }, { imagen: RELOJ, texto: idiomas[this.idioma].principal.carro1[2].lbl, color: "--color-rosa" }]
-        this.marque2 = [{ imagen: NOVEDADES1, texto: idiomas[this.idioma].principal.carro2[0].lbl, color: "--color-celeste" }, { imagen: NOVEDADES2, texto: idiomas[this.idioma].principal.carro2[1].lbl, color: "--color-celeste" }, { imagen: NOVEDADES3, texto: idiomas[this.idioma].principal.carro2[2].lbl, color: "--color-celeste" }]
+        this.hayReserva = "N";
     }
 
     static get styles() {
@@ -24,31 +28,24 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         ${button}
         ${cabecera1}
         ${btnFlotanteRedondo}
-        ${btnConsultaNueva}
+        ${mediaConMenu01}
         :host{
             position: absolute;
-            top: 0rem;
-            left: 0rem;  
-            height:100vh;
-            width: 100vw;
+            top: 0;
+            left: 0;  
+            height:100%;
+            width:100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-areas:
-                'Contenedor'
-                'Pie';   
-            grid-template-rows: 9fr 1fr;      
+            overflow-x: auto; 
         }
         :host([hidden]){
             display: none; 
         } 
-        #gridContenedor{
-            grid-area: Contenedor; 
-            grid-template-rows:20% 80%;
-            display:grid;
-        }
         #gridPie{
             grid-area: Pie; 
             display:grid;
+            overflow-x: none; 
         }
         #detalle{
             height: 90%;
@@ -70,18 +67,55 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         }
         #cuerpo{
             position: relative;
-            width: 100vw;
-            background-color: transparent;
             display: grid;
-            grid-auto-flow: row;
-            grid-gap: .8rem;
+            background-color: transparent;
+            grid-template-columns : 60% 40%;
+            grid-row-gap : .5rem;
+            grid-column-gap:.2rem;    
             align-items: center;
             justify-items: center;
-            overflow-y: auto; 
+            justify-content: center;
             overflow-x: hidden; 
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            grid-template-rows : 1% 7% 55% 7% 25% 1%;
+            grid-row-gap : .4rem;
+        }
+        #avisoConsulta{
+            width:95%;
+            height:2rem;
+            grid-column-start:1;
+            grid-column-end:3;
+        }
+        :host(:not([media-size="small"])) #avisoConsulta{
+            width:95%;
+            grid-column-start:1;
+            grid-column-end:3;
+            height:100%;
+        }
+        #flier{
+            grid-column-start:1;
+            grid-column-end:3;
+            width:95%;
+            height:10rem;
+        }
+        :host(:not([media-size="small"])) #flier{
+            width:92%;
+            grid-column-start:1;
+            grid-column-end:1;
+            height:100%;
+        }
+        #marqFija{
+            display:none;
+            height:100%;
+            justify-self: left;
+        }
+        :host(:not([media-size="small"])) #marqFija{
+            display:grid;
+            width:89%;
         }
         label,button {
             position: relative;
@@ -92,77 +126,67 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);
         }      
-        #div-agenda{
-            position: relative;
-            width: 95%;
-            height: 10rem;
-            background-color:var(--color-amarillo-claro);
-            border-radius:.5rem;          
-            display: grid;
-            align-items:top; 
-            justify-content:flex-start;
-            grid-template-columns:75%;
-            grid-template-rows: 70% 30%;
-            grid-gap:0rem;
-            background-image:var(--imagen-fondo-agenda);
-            background-repeat: no-repeat;
-            background-position: top right;
-            background-size: 120%;
-        }
-        #lbl-agenda{
-            width: 80%;
-            color: var(--color-negro);
-            position: relative;
-            display:flex;
-            align-items:top; 
-            justify-content: flex-start;
-            font-size: var(--font-header-h1-size);
-            font-weight: var(--font-header-h1-weight);
-            padding-top:1rem;
-            padding-left:.6rem;
-        }
-        #btn-agenda{    
-            position: relative;
-            display:flex;
-            width:8rem;
-        }
         #carro{
             position: relative;
             display:grid;
-            overflow-x: scroll; 
             border-radius:.4rem;
-            height:8rem;
-            width: 95vw;
+            height:8.5rem;
+            width:95vw;
+            overflow-x: scroll;
+            grid-column-start:1;
+            grid-column-end:3;
         }
         #carro::-webkit-scrollbar {
             display: none;
         }
+        :host(:not([media-size="small"])) #carro{
+            grid-column-start:1;
+            grid-column-end:1;
+            width:5vw;
+            display:none;
+        }
         #lbl-novedades{
-            position: relative;
-            display:flex;
-            font-size: var(--font-header-h2-size);
-            font-weight: var(--font-header-h2-weight);
+            font-size: var(--font-header-h1-menos-family);
+            font-weight: var(--font-header-h1-menos-weight);
             align-items:center;
             justify-items:left;
+            grid-column-start:1;
+            grid-column-end:3;  
+            margin-bottom: -.8rem;         
         }
         #carroNovedades{
             position: relative;
             display:grid;
             overflow-x: scroll; 
             border-radius:.4rem;
-            height:7.5rem;
-            width: 95vw;
+            height:9.5rem;
+            width:95vw;
+            overflow-x: scroll; 
+            grid-column-start:1;
+            grid-column-end:3;
         }
         #carroNovedades::-webkit-scrollbar {
             display: none;
         }
-        #lbl-ayuda{
-            position: relative;
-            display:flex;
+        :host(:not([media-size="small"])) #carroNovedades{
+            width:95%;
+            height:100%;
+         }
+        #divAyuda{
+            display:grid;
+            width:100%;
+            grid-gap:0;
+            justify-items:center;
+            grid-column-start:1;
+            grid-column-end:3;
+        }
+        :host(:not([media-size="small"])) #divAyuda{
+            display:none;
+        }
+        .lblayuda{
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
-            align-items:center;
-            justify-content:center;
+            text-align:center;
         }
     `
     }
@@ -182,37 +206,41 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
                     <div id="lblLeyenda">${idiomas[this.idioma].principal.leyendaCabecera}</div>
                 </div>
                 <div id="cuerpo">
-                    <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
-                    <div id="div-consultaNueva">
-                        <label id="lbl-consultaNueva">${idiomas[this.idioma].principal.lblConsulta}</label>
-                        <button id="btn-consultaNueva" btn2 @click=${this.clickConsulta}>${idiomas[this.idioma].principal.btnConsulta}</button>
-                    </div>  
-                    <div id="div-agenda" >
-                        <label id="lbl-agenda">${idiomas[this.idioma].principal.lblFlier}</label>
-                        <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].principal.btnFlier}</button>
-                    </div>  
+                    <div id="espacio" style="height:.5rem;width:1%;grid-column-start:1;grid-column-end:3;"></div>
+                    <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}">
+                    </btn-nueva-consulta>
+
+                    <flierportada-componente id="flier" media-size="${this.mediaSize}" tipo="C">
+                    </flierportada-componente>
+                    <marquesinafija-componente id="marqFija"  media-size="${this.mediaSize}"
+                        tipo="A" etiqueta-ancho="3rem">
+                    </marquesinafija-componente>
 
                     <div id="carro">
-                        <marquesina-componente id="marq"
-                        .item=${this.marque1}>
+                        <marquesina-componente id="marq"  media-size="${this.mediaSize}"
+                        tipo="A" etiqueta-ancho="8rem">
                         </marquesina-componente>
                     </div>
-
                     <label id="lbl-novedades">${idiomas[this.idioma].principal.lblNovedades}</label>
 
                     <div id="carroNovedades">
-                        <marquesina-componente id="marqNovedades" 
-                        .item=${this.marque2}>
+                        <marquesina-componente id="marqNovedades" media-size="${this.mediaSize}"
+                        tipo="B" etiqueta-ancho="${this.mediaSize == "small" ? '9rem' : '6.5rem'}">
                         </marquesina-componente>
                     </div>
-                    <label id="lbl-ayuda">${idiomas[this.idioma].principal.lblAyuda}</label>
-                    <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}</button>
-                    <div id="espacio" style="position:relative;height:.5rem;width:100%"></div>
+
+                    <div id="divAyuda">
+                        <label class="lblayuda">${idiomas[this.idioma].principal.lblAyuda01}</label>
+                        <label class="lblayuda">${idiomas[this.idioma].principal.lblAyuda02}</label>
+                        <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}</button>
+                    </div>
+                    <div id="espacio" style="height:.5rem;width:1%"></div>
                 </div>        
             </div>
-            <pie-componente id="gridPie" opcion="uno">
+            <pie-componente id="gridPie" opcion="uno" media-size="${this.mediaSize}">
             </pie-componente>
             <div id="bfrDivMas">${MAS}</div>
+
 `
     }
 
@@ -239,6 +267,15 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
         store.dispatch(modoPantalla("iniciosesion", "principal"))
     }
     stateChanged(state, name) {
+        if (name == RESERVA_TIMESTAMP) {
+            let reserva = state.reserva.entities;
+            if (reserva) {
+                if (reserva[0].tiene == "S") {
+                    this.hayReserva = "S";
+                }
+            }
+            this.update();
+        }
     }
 
     firstUpdated() {
@@ -253,6 +290,11 @@ export class pantallaPrincipal extends connect(store)(LitElement) {
             label: {
                 type: String,
                 reflect: false
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

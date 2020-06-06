@@ -15,6 +15,11 @@ export const cardCalendario = css`
     align-items: center;
     box-shadow: var(--shadow-elevation-4-box);
 } 
+:host(:not([media-size="small"])) #ccDivEtiqueta{
+    height:12vw;   
+    border-radius:.1rem ;           
+    box-shadow: var(--shadow-elevation-2-box);
+}
 #ccDivVacuna{
     font-size: var(--font-bajada-size);
     font-weight: bold;            
@@ -33,7 +38,7 @@ export const cardCalendario = css`
 #ccDivCachorro{
     font-size: var(--font-bajada-size);
     font-weight: var(--font-bajada-weight);  
-    background-color: var(--color-celeste);          
+    background-color: var(--color-celeste-claro);          
     color: var(--color-azul-oscuro);
     padding:0 .5rem 0 .5rem;
     justify-self: center;
@@ -42,7 +47,7 @@ export const cardCalendario = css`
 #ccDivObligatorio{
     font-size: var(--font-bajada-size);
     font-weight: var(--font-bajada-weight);            
-    background-color: var(--color-celeste);          
+    background-color: var(--color-celeste-claro);          
     color: var(--color-azul-oscuro);
     padding:0 .5rem 0 .5rem;
     justify-self: center;
