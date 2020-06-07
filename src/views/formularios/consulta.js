@@ -4,7 +4,7 @@ import { connect } from "@brunomon/helpers";
 import { idiomas } from "../../redux/datos/idiomas"
 import { button } from "../css/button"
 import { cabecera1 } from "../css/cabecera1"
-import { media01 } from "../css/media01"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
 import { select } from "../css/select"
 import { cardArchivo } from "../css/cardArchivo"
 import { modoPantalla } from "../../redux/actions/ui";
@@ -24,7 +24,7 @@ export class pantallaConsulta extends connect(store)(LitElement) {
         ${cabecera1}
         ${select}
         ${cardArchivo}
-        ${media01}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -33,11 +33,14 @@ export class pantallaConsulta extends connect(store)(LitElement) {
             width: 100%;
             background-color:var(--color-gris-claro);
             display:grid;
-            grid-template-rows:2fr 8fr;
-        }
+         }
         :host([hidden]){
             display: none; 
         } 
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
         #cuerpo{
             background-color: transparent;
             display:grid;
@@ -50,6 +53,10 @@ export class pantallaConsulta extends connect(store)(LitElement) {
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width: 50%;
+            justify-self: center;
         }
         #selectMascota{
             font-size: var(--font-label-size);
@@ -67,53 +74,66 @@ export class pantallaConsulta extends connect(store)(LitElement) {
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);           
         }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         `
     }
     render() {
         return html`
-        <div id="header">        
-            <div id="bar">
-                <div @click=${this.clickBoton1}>${ATRAS}</div>
-                <div id="lblTitulo">${idiomas[this.idioma].consulta.titulo}</div>
-            </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].consulta.leyenda}</div>
-        </div>
-        <div id="cuerpo">
-
-            <div id="selectPara" class="select" style="width:100%;height:3.4rem"> 
-                <label >${idiomas[this.idioma].consulta.para}</label>
-                <select style="width:100%;height:1.7rem;" id="txtMascota">          
-                    <option  value="Coco" .selected="${this.item.para == "Coco"}">Coco</option>
-                    <option value="Mafalda" .selected="${this.item.para == "Mafalda"}">Mafalda</option>
-                </select>
-            </div>  
-
-            <div id="selectMotivo" class="select" style="width:100%;height:3.4rem"> 
-                <label >${idiomas[this.idioma].consulta.motivo}</label>
-                <select style="width:100%;height:1.7rem;" id="txtVacuna">          
-                    <option  value="Diarrea" .selected="${this.item.motivo == "Diarrea"}">Diarrea</option>
-                    <option value="Tos" .selected="${this.item.motivo == "Tos"}">Tos</option>
-                </select>
-            </div>  
-            <div id="lblSintoma">${idiomas[this.idioma].consulta.sintoma}</div>
-            <textarea id="txtSintoma" style="width:100%;height:5rem;" @input=${this.activar}></textarea>
-            ${this.archivo.map(dato => html`
-                <div id="ciDivEtiqueta">
-                    <div id="ciDivContenido">
-                        <div id="ciDivIcomo">${ARCHIVO}</div>
-                        <div id="ciDivNombre">${dato.nombre}</div>
-                    </div>
-                    <div id="ciDivDelete">${BASURA}</div>
+        <div id="gridContenedor">
+            <div id="header">        
+                <div id="bar">
+                    <div @click=${this.clickBoton1}>${ATRAS}</div>
+                    <div id="lblTitulo">${idiomas[this.idioma].consulta.titulo}</div>
                 </div>
-            `)}              
-            <button id="btn-recuperar" btn3 @click=${this.clickBoton2}>
-                ${idiomas[this.idioma].consulta.btn1}
-            </button>
-            <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
-                ${idiomas[this.idioma].consulta.btn2}
-            </button>
-            <div style="height:1rem"></div>
+                <div id="lblLeyenda">${idiomas[this.idioma].consulta.leyenda}</div>
+            </div>
+            <div id="cuerpo">
+
+                <div id="selectPara" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].consulta.para}</label>
+                    <select style="width:100%;height:1.7rem;" id="txtMascota">          
+                        <option  value="Coco" .selected="${this.item.para == "Coco"}">Coco</option>
+                        <option value="Mafalda" .selected="${this.item.para == "Mafalda"}">Mafalda</option>
+                    </select>
+                </div>  
+
+                <div id="selectMotivo" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].consulta.motivo}</label>
+                    <select style="width:100%;height:1.7rem;" id="txtVacuna">          
+                        <option  value="Diarrea" .selected="${this.item.motivo == "Diarrea"}">Diarrea</option>
+                        <option value="Tos" .selected="${this.item.motivo == "Tos"}">Tos</option>
+                    </select>
+                </div>  
+                <div id="lblSintoma">${idiomas[this.idioma].consulta.sintoma}</div>
+                <textarea id="txtSintoma" style="width:100%;height:5rem;" @input=${this.activar}></textarea>
+                ${this.archivo.map(dato => html`
+                    <div id="ciDivEtiqueta">
+                        <div id="ciDivContenido">
+                            <div id="ciDivIcomo">${ARCHIVO}</div>
+                            <div id="ciDivNombre">${dato.nombre}</div>
+                        </div>
+                        <div id="ciDivDelete">${BASURA}</div>
+                    </div>
+                `)}              
+                <button id="btn-recuperar" btn3 @click=${this.clickBoton2}>
+                    ${idiomas[this.idioma].consulta.btn1}
+                </button>
+                <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
+                    ${idiomas[this.idioma].consulta.btn2}
+                </button>
+                <div style="height:1rem"></div>
+            </div>
         </div>
+        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        </pie-componente>
     `
     }
     activar() {
@@ -177,6 +197,11 @@ export class pantallaConsulta extends connect(store)(LitElement) {
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

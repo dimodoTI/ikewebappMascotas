@@ -13,7 +13,8 @@ import { modoPantalla, dispararTimer, cancelarTimer } from "../../redux/actions/
 const MODO_PANTALLA = "ui.timeStampPantalla"
 import { COLGAR, MICROFONO, VIDEO } from "../../../assets/icons/icons"
 import { idiomas } from "../../redux/datos/idiomas"
-import { media02 } from "../css/media02"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
+import { cabecera1 } from "../css/cabecera1"
 
 export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -24,19 +25,30 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
 
     static get styles() {
         return css`
-        ${media02}
+        ${mediaConMenu01}
+        ${cabecera1}
         :host{
             display: grid;
-            justify-items:center;
-            align-items: center;  
             background-color: trasparent;
-            height: 100vh;
-            width: 100vw;   
+            height: 100%;
+            width: 100%;   
         }
         :host([hidden]){
             display: none; 
         }
-        #fondo{
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
+        #campana{
+            position:relative;
+            background-image: var(--icon-campana-con-marca);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 1rem 1rem;
+        }
+        #cuerpo{
             height: 100%;
             width: 100%;
             display: grid;
@@ -49,10 +61,14 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
             align-items: center;
             justify-items: center;
         }
-        #fondo[llamando]{
+        :host([media-size="small"]) #cuerpo{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
+        #cuerpo[llamando]{
             background-image:var(--imagen-video-inactivo);
         }
-        #fondo[hablando]{
+        #cuerpo[hablando]{
             background-image:var(--imagen-video-activo);
         }
         #llamando{
@@ -99,6 +115,15 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
             fill: var(--color-blanco);
             stroke: transparent;
         }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         .parpadea {
   
             animation-name: parpadeo;
@@ -131,14 +156,27 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
     }
     render() {
         return html`
-        <div id="fondo"  llamando @click="${this.pasar}">
-            <div id="llamando" class="parpadea">${idiomas[this.idioma].video.conectando}</div>
-            <div id="micvid">
-                <div id="microfono">${MICROFONO}</div>
-                <div id="video">${VIDEO}</div>
+        <div id="gridContenedor">
+            <div id="header">
+                <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
+                    <div id="bar">
+                        <div id="lblTitulo">${idiomas[this.idioma].video.titulo}</div>
+                    </div>
+                    <div id="campana"></div>
+                </div>    
+                <div id="lblLeyenda">${idiomas[this.idioma].video.leyenda}</div>
             </div>
-            <div id="cortar" @click="${this.colgar}">${COLGAR}</div>
+            <div id="cuerpo"  llamando @click="${this.pasar}">
+                <div id="llamando" class="parpadea">${idiomas[this.idioma].video.conectando}</div>
+                <div id="micvid">
+                    <div id="microfono">${MICROFONO}</div>
+                    <div id="video">${VIDEO}</div>
+                </div>
+                <div id="cortar" @click="${this.colgar}">${COLGAR}</div>
+            </div>
         </div>
+        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        </pie-componente>
         `
     }
     colgar() {
@@ -149,8 +187,8 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
         }
     }
     pasar(e) {
-        this.shadowRoot.querySelector("#fondo").removeAttribute("llamando");
-        this.shadowRoot.querySelector("#fondo").setAttribute("hablando", "");
+        this.shadowRoot.querySelector("#cuerpo").removeAttribute("llamando");
+        this.shadowRoot.querySelector("#cuerpo").setAttribute("hablando", "");
         this.shadowRoot.querySelector("#llamando").innerHTML = "";
     }
     static get properties() {
@@ -158,6 +196,11 @@ export class pantallaVideo extends connect(store, MODO_PANTALLA)(LitElement) {
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

@@ -20,5 +20,5 @@ export const mediaConMenu01 = css`
         display:grid;
         overflow-y: hidden;
         overflow-x: hidden; 
-    }
+    } 
 `

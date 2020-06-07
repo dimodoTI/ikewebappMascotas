@@ -7,6 +7,8 @@ import { cabecera1 } from "../css/cabecera1"
 import { cardTurnosPaciente } from "../css/cardTurnosPaciente"
 import { modoPantalla } from "../../redux/actions/ui";
 import { ATRAS } from "../../../assets/icons/icons"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
+
 export class pantallaConsultaTurnos extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -20,14 +22,13 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
         { fecha: "2020-05-29", libre: [{ hora: "13:20" }, { hora: "13:40" }, { hora: "14:40" }] },
         { fecha: "2020-05-30", libre: [{ hora: "9:00" }, { hora: "9:20" }, { hora: "12:40" }] },
         { fecha: "2020-06-1", libre: [{ hora: "9:00" }, { hora: "9:20" }, { hora: "12:40" }] }]
-
     }
-
     static get styles() {
         return css`
         ${button}
         ${cabecera1}
         ${cardTurnosPaciente}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -36,11 +37,21 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
             width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:2fr .5fr 6fr 1.5fr;
+            grid-template-rows:100%;
         }
         :host([hidden]){
             display: none; 
         } 
+        #gridContenedor{
+            grid-template-rows:2fr .5fr 6.2fr 1.3fr;
+        }
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
+        :host(:not([media-size="small"])) #gridContenedor{
+            grid-template-rows:2fr .5fr 6.5fr 1fr;
+        }
         #cuerpo{
             background-color: transparent;
             display:grid;
@@ -67,39 +78,51 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
             justify-self:center;
             align-self:center;
         }
-
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         `
     }
     render() {
         return html`
-        <div id="header">        
-            <div id="bar">
-                <div @click=${this.clickBoton1}>${ATRAS}</div>
-                <div id="lblTitulo">${idiomas[this.idioma].consultaturnos.titulo}</div>
+        <div id="gridContenedor">
+            <div id="header">        
+                <div id="bar">
+                    <div @click=${this.clickBoton1}>${ATRAS}</div>
+                    <div id="lblTitulo">${idiomas[this.idioma].consultaturnos.titulo}</div>
+                </div>
+                <div id="lblLeyenda">${idiomas[this.idioma].consultaturnos.leyenda}</div>
             </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].consultaturnos.leyenda}</div>
-        </div>
-        <label id="lblProximo">${idiomas[this.idioma].consultaturnos.proximo}</label>
-        <div id="cuerpo">
-            ${this.libres.map((item) => {
+            <label id="lblProximo">${idiomas[this.idioma].consultaturnos.proximo}</label>
+            <div id="cuerpo">
+                ${this.libres.map((item) => {
             return item.libre.map((queDia) => {
                 return html`
-                    <div id="atDivEtiqueta" no @click=${this.clickSeleccionar}>
-                        <div id="atDivDia">
-                            <label id="atLblDiaNumero">${this.nroDia(item.fecha)}</label>
-                            <label id="atLblMes">${this.mes(item.fecha)}</label>
-                        </div>
-                        <div id="atDivHora" no>
-                            <label id="atLblDiaTexto">${this.dow(item.fecha)}</label>
-                            <label id="atLblHora">${queDia.hora}</label>
-                        </div>
-                    </div>`
+                        <div id="atDivEtiqueta" no @click=${this.clickSeleccionar}>
+                            <div id="atDivDia">
+                                <label id="atLblDiaNumero">${this.nroDia(item.fecha)}</label>
+                                <label id="atLblMes">${this.mes(item.fecha)}</label>
+                            </div>
+                            <div id="atDivHora" no>
+                                <label id="atLblDiaTexto">${this.dow(item.fecha)}</label>
+                                <label id="atLblHora">${queDia.hora}</label>
+                            </div>
+                        </div>`
             })
         })}    
+            </div>
+            <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
+                ${idiomas[this.idioma].consultaturnos.btn1}
+            </button>
         </div>
-        <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
-            ${idiomas[this.idioma].consultaturnos.btn1}
-        </button>
+        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        </pie-componente>
     `
     }
 
@@ -156,6 +179,11 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

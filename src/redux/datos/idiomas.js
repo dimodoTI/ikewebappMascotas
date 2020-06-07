@@ -66,7 +66,7 @@ export const idiomas = {
         misconsultas: { titulo: "Mis consultas", leyenda: "Creá el perfil de tus mascotas y accedé a su historia clínica.", titulo02: "Historial de consultas", label: "Mis consultas", btn: "Agendar consulta", verDetalle: "Ver detalle: " },
         calendario: { titulo: "Calendario de Vacunas", leyenda: "Consultá el calendario y registrá las vacunas de tus mascotas.", btn: "Registrar vacuna", perro: "Perros", gato: "Gatos", verDetalle: "Ver detalle: " },
         fotogaleria: { titulo: "Mis fotos", leyenda: "Creá tu galería de fotos en Iké." },
-        video: { conectando: "Conectando ..." },
+        video: { conectando: "Conectando ...", titulo: "Consulta Online", leyenda: "Accedé a consulta con un veterinario." },
         videocalificacion: {
             titulo: "Calificá la consulta", leyenda: "Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
             calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?", comentarioLbl: "Dejanos un comentario (opcional)",

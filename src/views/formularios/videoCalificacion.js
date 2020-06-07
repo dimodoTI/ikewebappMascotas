@@ -28,20 +28,55 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
         ${ikeInput}
         ${button}
         :host{
+            position:absolute;
+            display: grid;
+            background-color: trasparent;
+            height: 100%;
+            width: 100%;   
+        }
+        :host([hidden]){
+            display: none; 
+         }
+        :host([media-size="small"]) #fondo{
+           display:none; 
+        }
+        :host(:not([media-size="small"])) #fondo{
+            position:absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index:10;
+            background-color: var(--color-negro);
+            opacity:.7; 
+        }
+        :host([media-size="small"]) #cuerpo{
+            display: grid;
+            position:relative;
+            justify-items:center;
+            align-items: center;  
+            height: 100%;
+            width: 100%;   
+            background-color: var(--color-gris-fondo);
+            grid-template-rows: 10% 15% 10% 10% 12% 20% 13% 10%;           
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            position:absolute;
+            top:15%;
+            left:15%;
             display: grid;
             justify-items:center;
             align-items: center;  
             background-color: var(--color-gris-fondo);
-            height: 100%;
-            width: 100%;   
-            grid-template-rows:10% 10% 15% 10% 10% 7% 20% 8% 10%;
-        }
-        :host([hidden]){
-            display: none; 
+            height: 70%;
+            width: 70%;   
+            grid-template-rows: 10% 15% 10% 10% 12% 20% 13% 10%;  
+            z-index:20;
         }
         #cerrar{
-            justify-self: end;
-            padding-right: 1rem;
+            position:absolute;
+            top: .5rem;
+            right: .5rem;
             font-size: var(--font-titulo-h1-size);
             font-weight: var(--font-titulo-h1-weight);
         }
@@ -82,14 +117,16 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
             font-size: var(--font-label-size);
             font-weight: var(--font-label-weight);
             justify-self: left;
-            padding-left:1rem;
-            align-self: end;
+            padding-left:2rem;
+            align-self: center;
         }
 
         `
     }
     render() {
         return html`
+        <div id="fondo"> </div>
+        <div id="cuerpo">
             <div id="cerrar" @click="${this.cerrar}">X</div>
             <div id="titulo">${idiomas[this.idioma].videocalificacion.titulo}</div>
             <div id="leyenda">${idiomas[this.idioma].videocalificacion.leyenda}</div>
@@ -103,7 +140,7 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
             </div>
             <div id="comentarioLbl">${idiomas[this.idioma].videocalificacion.comentarioLbl}</div>
             <div id="comentarioTxt" style="width:90%;height:5rem;">
-                <textarea id="txtComentario" style="width:100%;height:5rem;"></textarea>
+                <textarea id="txtComentario" style="width:100%;height:90%;"></textarea>
             </div>
             <div id="btnGuardar" style="width:90%;">
                 <button btn1 @click="${this.guardar}" style="width:100%;">${idiomas[this.idioma].videocalificacion.btn1}</button>
@@ -111,6 +148,7 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
             <div id="btnAhoraNo">
                 <button btn2 @click="${this.ahoraNo}">${idiomas[this.idioma].videocalificacion.btn2}</button>
             </div>
+        </div>
         `
     }
     califica(e) {
@@ -141,6 +179,11 @@ export class pantallaVideoCalificacion extends connect(store, MODO_PANTALLA)(Lit
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

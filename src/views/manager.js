@@ -93,10 +93,10 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-misconsultas id="misconsultas" media-size="${this.mediaSize}"></pantalla-misconsultas>
         <pantalla-calendario id="calendario" media-size="${this.mediaSize}"></pantalla-calendario>
         <pantalla-fotogaleria id="fotogaleria" media-size="${this.mediaSize}"></pantalla-fotogaleria>
-        <pantalla-fotover id="fotover"></pantalla-fotover>
+        <pantalla-fotover id="fotover" media-size="${this.mediaSize}"></pantalla-fotover>
         <pantalla-video id="video" media-size="${this.mediaSize}"></pantalla-video>
-        <pantalla-videocalificacion id="videocalificacion"></pantalla-videocalificacion>
-        <pantalla-videodetalle id="videodetalle"></pantalla-videodetalle>
+        <pantalla-videocalificacion id="videocalificacion" media-size="${this.mediaSize}"></pantalla-videocalificacion>
+        <pantalla-videodetalle id="videodetalle" media-size="${this.mediaSize}"></pantalla-videodetalle>
         <pantalla-clavemodificar id="clavemodificar" media-size="${this.mediaSize}"></pantalla-clavemodificar>
         <pantalla-clavemodificarmsg id="clavemodificarmsg" media-size="${this.mediaSize}"></pantalla-clavemodificarmsg>
         <pantalla-plancontrata id="plancontrata" media-size="${this.mediaSize}"></pantalla-plancontrata>
@@ -108,7 +108,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-mascotaaltamsg id="mascotaaltamsg"></pantalla-mascotaaltamsg>
         <pantalla-mascotaver id="mascotaver"></pantalla-mascotaver>
         <pantalla-consulta id="consulta" media-size="${this.mediaSize}"></pantalla-consulta>
-        <pantalla-consultaturnos id="consultaturnos"></pantalla-consultaturnos>
+        <pantalla-consultaturnos id="consultaturnos" media-size="${this.mediaSize}"></pantalla-consultaturnos>
         <pantalla-consultadetalle id="consultadetalle" media-size="${this.mediaSize}"></pantalla-consultadetalle>
         <pantalla-consultadetallemsg id="consultadetallemsg" media-size="${this.mediaSize}"></pantalla-consultadetallemsg>
         `
@@ -136,7 +136,9 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
                 this.shadowRoot.querySelector("#calendario").hidden = state.ui.quePantalla != "calendario";
                 this.shadowRoot.querySelector("#fotogaleria").hidden = state.ui.quePantalla != "fotogaleria";
                 this.shadowRoot.querySelector("#fotover").hidden = state.ui.quePantalla != "fotover";
-                this.shadowRoot.querySelector("#video").hidden = state.ui.quePantalla != "video";
+                if (state.ui.quePantalla != "videocalificacion") {
+                    this.shadowRoot.querySelector("#video").hidden = state.ui.quePantalla != "video";
+                }
                 this.shadowRoot.querySelector("#videocalificacion").hidden = state.ui.quePantalla != "videocalificacion";
                 this.shadowRoot.querySelector("#videodetalle").hidden = state.ui.quePantalla != "videodetalle";
                 this.shadowRoot.querySelector("#clavemodificar").hidden = state.ui.quePantalla != "clavemodificar";

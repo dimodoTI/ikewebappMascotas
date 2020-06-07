@@ -7,6 +7,8 @@ import { cabecera1 } from "../css/cabecera1"
 import { cardArchivoSolo } from "../css/cardArchivoSolo"
 import { modoPantalla } from "../../redux/actions/ui";
 import { ATRAS, ARCHIVO } from "../../../assets/icons/icons"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
+
 export class pantallaVideoDetalle extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -23,6 +25,7 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
         ${button}
         ${cabecera1}
         ${cardArchivoSolo}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -31,11 +34,14 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
             width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:2fr 8fr;
         }
         :host([hidden]){
             display: none; 
         } 
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
         #cuerpo{
             background-color: transparent;
             display:grid;
@@ -48,6 +54,10 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width:75%;
+            justify-self: center;
         }
         #divCalificar{
             display:grid;
@@ -92,52 +102,65 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
             font-size: var(--font-bajada-size);
             font-weight: var(--font-header-h1-weight);
         }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         `
     }
     render() {
         return html`
-        <div id="header">        
-            <div id="bar">
-                <div @click=${this.clickAtras}>${ATRAS}</div>
-                <div id="lblTitulo">${idiomas[this.idioma].videodetalle.titulo}</div>
+        <div id="gridContenedor">
+            <div id="header">        
+                <div id="bar">
+                    <div @click=${this.clickAtras}>${ATRAS}</div>
+                    <div id="lblTitulo">${idiomas[this.idioma].videodetalle.titulo}</div>
+                </div>
+                <div id="lblLeyenda">${idiomas[this.idioma].videodetalle.leyenda}</div>
             </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].videodetalle.leyenda}</div>
-        </div>
-        <div id="cuerpo">
-            <div id="divCalificar">
-                <label id="lblCalificar">${idiomas[this.idioma].videodetalle.calificar}</label>
-                <button id="btnCalificar" btn2 @click=${this.clickCalificar} style="height:2rem">
-                    ${idiomas[this.idioma].videodetalle.btn1}
-                </button>
-            </div>
-            <label id="lblConclusion">${idiomas[this.idioma].videodetalle.conclusion}</label>
-            <div id="divRecomienda">
-                <label id="lblRecomienda">${idiomas[this.idioma].videodetalle.recomienda}</label>
-                <label id="txtRecomienda">${this.recomienda}</label>           
-            </div>
-            <div style="height:.5rem"></div>
-            <label id="lblDetalle">${idiomas[this.idioma].videodetalle.detalle}</label>
-            <div id="divDetalle">
-                <label id="lblExpediente">${idiomas[this.idioma].videodetalle.expediente + this.expediente}</label>
-                <label class="detalle">${idiomas[this.idioma].videodetalle.paciente + this.datos.paciente}</label>           
-                <label class="detalle">${idiomas[this.idioma].videodetalle.motivo + this.datos.motivo}</label>           
-                <label class="detalle">${idiomas[this.idioma].videodetalle.fecha + this.datos.fecha}</label>           
-                <label class="detalle">${idiomas[this.idioma].videodetalle.hora + this.datos.hora}</label>           
-                <label class="detalle">${idiomas[this.idioma].videodetalle.sintoma + this.datos.sintoma}</label>           
-                <div style="padding-top:.5rem;display:grid;grid-gap:.5rem">
-                ${this.archivo.map(dato => html`
-                    <div id="cisDivEtiqueta">
-                        <div id="cisDivContenido">
-                            <div id="cisDivIcomo">${ARCHIVO}</div>
-                            <div id="cisDivNombre">${dato.nombre}</div>
+            <div id="cuerpo">
+                <div id="divCalificar">
+                    <label id="lblCalificar">${idiomas[this.idioma].videodetalle.calificar}</label>
+                    <button id="btnCalificar" btn2 @click=${this.clickCalificar} style="height:2rem">
+                        ${idiomas[this.idioma].videodetalle.btn1}
+                    </button>
+                </div>
+                <label id="lblConclusion">${idiomas[this.idioma].videodetalle.conclusion}</label>
+                <div id="divRecomienda">
+                    <label id="lblRecomienda">${idiomas[this.idioma].videodetalle.recomienda}</label>
+                    <label id="txtRecomienda">${this.recomienda}</label>           
+                </div>
+                <div style="height:.5rem"></div>
+                <label id="lblDetalle">${idiomas[this.idioma].videodetalle.detalle}</label>
+                <div id="divDetalle">
+                    <label id="lblExpediente">${idiomas[this.idioma].videodetalle.expediente + this.expediente}</label>
+                    <label class="detalle">${idiomas[this.idioma].videodetalle.paciente + this.datos.paciente}</label>           
+                    <label class="detalle">${idiomas[this.idioma].videodetalle.motivo + this.datos.motivo}</label>           
+                    <label class="detalle">${idiomas[this.idioma].videodetalle.fecha + this.datos.fecha}</label>           
+                    <label class="detalle">${idiomas[this.idioma].videodetalle.hora + this.datos.hora}</label>           
+                    <label class="detalle">${idiomas[this.idioma].videodetalle.sintoma + this.datos.sintoma}</label>           
+                    <div style="padding-top:.5rem;display:grid;grid-gap:.5rem">
+                    ${this.archivo.map(dato => html`
+                        <div id="cisDivEtiqueta">
+                            <div id="cisDivContenido">
+                                <div id="cisDivIcomo">${ARCHIVO}</div>
+                                <div id="cisDivNombre">${dato.nombre}</div>
+                            </div>
                         </div>
+                    `)}   
                     </div>
-                `)}   
+                    <div style="height:1rem"></div>
                 </div>
                 <div style="height:1rem"></div>
-             </div>
-            <div style="height:1rem"></div>
-        </div >
+            </div >
+        </div>
+        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        </pie-componente>
     `
     }
     clickAtras() {
@@ -161,6 +184,11 @@ export class pantallaVideoDetalle extends connect(store)(LitElement) {
             label: {
                 type: String,
                 reflect: ""
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }
