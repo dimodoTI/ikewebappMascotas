@@ -8,6 +8,8 @@ import { cabecera1 } from "../css/cabecera1"
 import { select } from "../css/select"
 import { modoPantalla } from "../../redux/actions/ui";
 import { ATRAS, CAMARA, CAMARAROLLO } from "../../../assets/icons/icons"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
+
 export class pantallaMascotaAlta extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -23,6 +25,7 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         ${button}
         ${cabecera1}
         ${select}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -31,11 +34,14 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
             width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:2fr 8fr;
         }
         :host([hidden]){
             display: none; 
         } 
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
         #cuerpo{
             background-color: transparent;
             display:grid;
@@ -47,6 +53,10 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width:65%;
+            justify-self:center;
         }
         #foto{
             display:grid;
@@ -147,86 +157,99 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
             color: var(--color-gris-oscuro);
             align-items: center;
         }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         `
     }
     render() {
         return html`
-        <div id="header">        
-            <div id="bar">
-                <div @click=${this.clickAtras}>${ATRAS}</div>
-                <div id="lblTitulo">${this.accion == "ALTA"
+        <div id="gridContenedor">
+            <div id="header">        
+                <div id="bar">
+                    <div @click=${this.clickAtras}>${ATRAS}</div>
+                    <div id="lblTitulo">${this.accion == "ALTA"
                 ? idiomas[this.idioma].mascotaalta.titulo : idiomas[this.idioma].mascotaedit.titulo}
+                    </div>
                 </div>
-            </div>
-            <div id="lblLeyenda">${this.accion == "ALTA"
+                <div id="lblLeyenda">${this.accion == "ALTA"
                 ? idiomas[this.idioma].mascotaalta.leyenda : idiomas[this.idioma].mascotaedit.leyenda}
+                </div>
             </div>
-        </div>
-        <div id="cuerpo">
-            <div id="foto">
-                <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.accion == "ALTA"
+            <div id="cuerpo">
+                <div id="foto">
+                    <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.accion == "ALTA"
                 ? idiomas[this.idioma].mascotaalta.btn1 : idiomas[this.idioma].mascotaedit.btn1}
-                </button>
-            </div>
-            <div id="selectMascota" class="select" style="width:100%;height:3.4rem"> 
-                <label >${idiomas[this.idioma].mascotaalta.mascota}</label>
-                <select style="width:100%;height:1.7rem;" id="mascota">          
-                    <option  value="Perro" .selected="${this.item.tipo == "Perro"}">Perro</option>
-                    <option value="Gato" .selected="${this.item.tipo == "Gato"}">Gato</option>
-                </select>
-            </div>
+                    </button>
+                </div>
+                <div id="selectMascota" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].mascotaalta.mascota}</label>
+                    <select style="width:100%;height:1.7rem;" id="mascota">          
+                        <option  value="Perro" .selected="${this.item.tipo == "Perro"}">Perro</option>
+                        <option value="Gato" .selected="${this.item.tipo == "Gato"}">Gato</option>
+                    </select>
+                </div>
 
-            <div class="ikeInput">
-                <label id="lblNombre">${idiomas[this.idioma].mascotaalta.nombre}</label>
-                <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].mascotaalta.nombre_ph}>
-                <label id="lblErrorNombre" error oculto>"Nombre Erroneo"</label>
-            </div>
+                <div class="ikeInput">
+                    <label id="lblNombre">${idiomas[this.idioma].mascotaalta.nombre}</label>
+                    <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].mascotaalta.nombre_ph}>
+                    <label id="lblErrorNombre" error oculto>"Nombre Erroneo"</label>
+                </div>
 
-            <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
-                <label >${idiomas[this.idioma].mascotaalta.fecha}</label>
-                <select style="width:100%;height:1.7rem;" id="nombre">          
-                    <option  value="Rabia" .selected="${this.item.mascota == "Rabia"}">Rabia</option>
-                    <option value="Corona virus" .selected="${this.item.mascota == "Corona virus"}">Corona virus</option>
-                </select>
-            </div>  
+                <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].mascotaalta.fecha}</label>
+                    <select style="width:100%;height:1.7rem;" id="nombre">          
+                        <option  value="Rabia" .selected="${this.item.mascota == "Rabia"}">Rabia</option>
+                        <option value="Corona virus" .selected="${this.item.mascota == "Corona virus"}">Corona virus</option>
+                    </select>
+                </div>  
 
-            <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
-                <label >${idiomas[this.idioma].mascotaalta.raza}</label>
-                <select style="width:100%;height:1.7rem;" id="fecha">          
-                    <option  value="Salchicha" .selected="${this.item.raza == "Salchicha"}">Salchicha</option>
-                    <option value="Calle" .selected="${this.item.raza == "Calle"}">Calle</option>
-                </select>
-            </div>  
-            <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
-                ${this.accion == "ALTA"
+                <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].mascotaalta.raza}</label>
+                    <select style="width:100%;height:1.7rem;" id="fecha">          
+                        <option  value="Salchicha" .selected="${this.item.raza == "Salchicha"}">Salchicha</option>
+                        <option value="Calle" .selected="${this.item.raza == "Calle"}">Calle</option>
+                    </select>
+                </div>  
+                <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
+                    ${this.accion == "ALTA"
                 ? idiomas[this.idioma].mascotaalta.btn2 : idiomas[this.idioma].mascotaedit.btn2}
-            </button>
-            <div style="height:1rem"></div>
-        </div>
-        <div id="divTapa">
-        </div>
-        <div id="divMensaje">
-            <div id=divMensaje1>
-                <div id="divMsj1Linea1Col1">
-                    ${CAMARA}
-                </div>
-                <div id="divMsj1Linea1Col2">
-                    ${idiomas[this.idioma].mascotaalta.btnCamara}
-                </div>
-                <div id="divMsj1Linea2">
-                </div>
-                <div id="divMsj1Linea3Col1">
-                    ${CAMARAROLLO}
-                </div>
-                <div id="divMsj1Linea3Col2">
-                   ${idiomas[this.idioma].mascotaalta.btnImagen}
-               </div>
+                </button>
+                <div style="height:1rem"></div>
             </div>
-            <div id=divMensaje2 @click=${this.clickCancelar}>
-                ${idiomas[this.idioma].mascotaalta.btnCancelar}
+            <div id="divTapa">
+            </div>
+            <div id="divMensaje">
+                <div id=divMensaje1>
+                    <div id="divMsj1Linea1Col1">
+                        ${CAMARA}
+                    </div>
+                    <div id="divMsj1Linea1Col2">
+                        ${idiomas[this.idioma].mascotaalta.btnCamara}
+                    </div>
+                    <div id="divMsj1Linea2">
+                    </div>
+                    <div id="divMsj1Linea3Col1">
+                        ${CAMARAROLLO}
+                    </div>
+                    <div id="divMsj1Linea3Col2">
+                    ${idiomas[this.idioma].mascotaalta.btnImagen}
+                </div>
+                </div>
+                <div id=divMensaje2 @click=${this.clickCancelar}>
+                    ${idiomas[this.idioma].mascotaalta.btnCancelar}
+                </div>
             </div>
         </div>
-`
+        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        </pie-componente>
+    `
     }
     activar() {
         this.activo = true
@@ -295,6 +318,11 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
             accion: {
                 type: String,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

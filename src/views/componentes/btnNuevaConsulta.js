@@ -5,6 +5,7 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import { button } from "../css/button"
 import { label } from "../css/label"
 import { idiomas } from "../../redux/datos/idiomas"
+import { modoPantalla } from "../../redux/actions/ui";
 
 const RESERVA_TIMESTAMP = "reserva.timeStamp"
 export class btnNuevaConsulta extends connect(store, RESERVA_TIMESTAMP)(LitElement) {
@@ -62,6 +63,10 @@ export class btnNuevaConsulta extends connect(store, RESERVA_TIMESTAMP)(LitEleme
                 <button id="btn-consultaNueva" btn2 @click=${this.clickConsulta}>${idiomas[this.idioma].principal.btnConsulta}</button>
             </div>  
         `
+    }
+    clickConsulta() {
+        store.dispatch(modoPantalla("video", store.getState().ui.pantallaQueLLamo))
+
     }
     stateChanged(state, name) {
         if (name == RESERVA_TIMESTAMP) {

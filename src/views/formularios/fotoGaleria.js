@@ -111,7 +111,7 @@ export class pantallaFotoGaleria extends connect(store, MODO_PANTALLA)(LitElemen
                     <div id="bar">
                         <div id="lblTitulo">${idiomas[this.idioma].fotogaleria.titulo}</div>
                     </div>
-                    <div id="campana"></div>
+                    <div id="campana"  @click=${this.clickBotonNotificacion}></div>
                 </div>    
                 <div id="lblLeyenda">${idiomas[this.idioma].fotogaleria.leyenda}</div>
             </div>
@@ -135,6 +135,9 @@ export class pantallaFotoGaleria extends connect(store, MODO_PANTALLA)(LitElemen
         }
     }
     firstUpdated() {
+    }
+    clickBotonNotificacion() {
+        store.dispatch(modoPantalla("notificacion", "fotogaleria"))
     }
     verFoto() {
         store.dispatch(modoPantalla("fotover", "fotogaleria"))

@@ -132,7 +132,7 @@ export class pantallaConsulta extends connect(store)(LitElement) {
                 <div style="height:1rem"></div>
             </div>
         </div>
-        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        <pie-componente id="pie" opcion="tres" media-size="${this.mediaSize}">
         </pie-componente>
     `
     }

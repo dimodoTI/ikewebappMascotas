@@ -8,6 +8,7 @@ import { cardMascotaHorizontal } from "../css/cardMascotaHorizontal"
 import { cardCalendario } from "../css/cardCalendario"
 import { modoPantalla } from "../../redux/actions/ui";
 import { ATRAS, CHAT } from "../../../assets/icons/icons"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
 export class pantallaMascotaVer extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -36,6 +37,7 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
         ${cabecera1}
         ${cardCalendario}
         ${cardMascotaHorizontal}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -44,7 +46,10 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
             width: 100%;
             background-color:var(--color-gris-fondo);
             display:grid;
-            grid-template-rows:2fr 8fr;
+        }
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
         }
         :host([hidden]){
             display: none; 
@@ -60,6 +65,10 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width:70%;
+            justify-self:center;
         }
         #foto{
             display:grid;
@@ -87,62 +96,75 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         `
     }
     render() {
         return html`
-        <div id="header">        
-            <div id="bar">
-                <div @click=${this.clickAtras}>${ATRAS}</div>
-                <div id="lblTitulo">${this.mascota.nombre}</div>
+        <div id="gridContenedor">
+            <div id="header">        
+                <div id="bar">
+                    <div @click=${this.clickAtras}>${ATRAS}</div>
+                    <div id="lblTitulo">${this.mascota.nombre}</div>
+                </div>
+                <div id="lblLeyenda">${idiomas[this.idioma].mascotaver.leyenda}</div>
             </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].mascotaver.leyenda}</div>
-        </div>
-        <div id="cuerpo">
-            <div id="foto" style="background-image:var(--imagen-perro1)">
-            </div>
-            <label class="subTitulo">${idiomas[this.idioma].mascotaver.informacion}</label>
-            <label class="informacion">${idiomas[this.idioma].mascotaver.tipo + this.mascota.tipo}</label>
-            <label class="informacion">${idiomas[this.idioma].mascotaver.raza + this.mascota.raza}</label>
-            <label class="informacion">${idiomas[this.idioma].mascotaver.edad + this.mascota.edad}</label>
-            <button id="btn-edit" btn1 @click=${ this.clickEdit}>
-                ${ idiomas[this.idioma].mascotaver.btn1}
-            </button >
-            <label class="subTitulo">${idiomas[this.idioma].mascotaver.consulta}</label>
-            <div style="display:grid;grid-gap:.8rem;justify-self: center;">
-                ${this.consulta.map(dato => html`
-                    <div id="cmhDivEtiqueta">
-                        <div id="cmhDivImagen" style="background-image:var(${dato.imagen});grid-row-start:1;grid-row-end:4;"></div>
-                        <div id="cmhDivNombre">${dato.nombre}</div>
-                        <div id="cmhDivFecha">${dato.fecha}</div>
-                        <div id="cmhDivDiagnostico">${dato.diagnostico}</div>
-                        <div id="cmhDivVerDetalle">
-                            <button btn2  @click=${ this.clickEdit} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
+            <div id="cuerpo">
+                <div id="foto" style="background-image:var(--imagen-perro1)">
+                </div>
+                <label class="subTitulo">${idiomas[this.idioma].mascotaver.informacion}</label>
+                <label class="informacion">${idiomas[this.idioma].mascotaver.tipo + this.mascota.tipo}</label>
+                <label class="informacion">${idiomas[this.idioma].mascotaver.raza + this.mascota.raza}</label>
+                <label class="informacion">${idiomas[this.idioma].mascotaver.edad + this.mascota.edad}</label>
+                <button id="btn-edit" btn1 @click=${ this.clickEdit}>
+                    ${ idiomas[this.idioma].mascotaver.btn1}
+                </button >
+                <label class="subTitulo">${idiomas[this.idioma].mascotaver.consulta}</label>
+                <div style="display:grid;grid-gap:.8rem;justify-self: center;">
+                    ${this.consulta.map(dato => html`
+                        <div id="cmhDivEtiqueta">
+                            <div id="cmhDivImagen" style="background-image:var(${dato.imagen});grid-row-start:1;grid-row-end:4;"></div>
+                            <div id="cmhDivNombre">${dato.nombre}</div>
+                            <div id="cmhDivFecha">${dato.fecha}</div>
+                            <div id="cmhDivDiagnostico">${dato.diagnostico}</div>
+                            <div id="cmhDivVerDetalle">
+                                <button btn2  @click=${ this.clickEdit} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
+                            </div>
+                            <div id="cmhDivChat">${CHAT}</div>              
                         </div>
-                        <div id="cmhDivChat">${CHAT}</div>              
-                    </div>
-                `)}
-            </div>
-            <button id="btn-edit" btn3 @click=${ this.clickConsulta}>
-                ${ idiomas[this.idioma].mascotaver.btn2}
-            </button >
-            <label class="subTitulo">${idiomas[this.idioma].mascotaver.vacuna}</label>
-            <div style="display:grid;grid-gap:.8rem;justify-self: center;">
-                ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
-                    <div id="ccDivEtiqueta">
-                        <div id="ccDivVacuna">${dato.vacuna}</div>
-                        <div id="ccDivPara">${dato.para}</div>
-                        <div id="ccDivCachorro">${dato.edad}</div>
-                        <div id="ccDivObligatorio">${dato.obligatoria}</div>
-                    </div>
-                `)}       
-            </div>
-            <button id="btn-edit" btn3 @click=${ this.clickVacunas}>
-                ${ idiomas[this.idioma].mascotaver.btn3}
-            </button >
+                    `)}
+                </div>
+                <button id="btn-edit" btn3 @click=${ this.clickConsulta}>
+                    ${ idiomas[this.idioma].mascotaver.btn2}
+                </button >
+                <label class="subTitulo">${idiomas[this.idioma].mascotaver.vacuna}</label>
+                <div style="display:grid;grid-gap:.8rem;justify-self: center;">
+                    ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
+                        <div id="ccDivEtiqueta">
+                            <div id="ccDivVacuna">${dato.vacuna}</div>
+                            <div id="ccDivPara">${dato.para}</div>
+                            <div id="ccDivCachorro">${dato.edad}</div>
+                            <div id="ccDivObligatorio">${dato.obligatoria}</div>
+                        </div>
+                    `)}       
+                </div>
+                <button id="btn-edit" btn3 @click=${ this.clickVacunas}>
+                    ${ idiomas[this.idioma].mascotaver.btn3}
+                </button >
 
-            <div style="height:1rem"></div>
-        </div >
+                <div style="height:1rem"></div>
+            </div >
+        </div>
+        <pie-componente id="pie" opcion="cinco" media-size="${this.mediaSize}">
+        </pie-componente>
     `
     }
     clickAtras() {
@@ -180,6 +202,11 @@ export class pantallaMascotaVer extends connect(store)(LitElement) {
             label: {
                 type: String,
                 reflect: ""
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }

@@ -100,13 +100,13 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-clavemodificar id="clavemodificar" media-size="${this.mediaSize}"></pantalla-clavemodificar>
         <pantalla-clavemodificarmsg id="clavemodificarmsg" media-size="${this.mediaSize}"></pantalla-clavemodificarmsg>
         <pantalla-plancontrata id="plancontrata" media-size="${this.mediaSize}"></pantalla-plancontrata>
-        <pantalla-notificacion id="notificacion"></pantalla-notificacion>
-        <pantalla-vacuna id="vacuna"></pantalla-vacuna>
-        <pantalla-vacunamsg id="vacunamsg"></pantalla-vacunamsg>
-        <pantalla-mascotaalta accion="ALTA" id="mascotaalta"></pantalla-mascotaalta>
-        <pantalla-mascotaalta accion="UPDATE" id="mascotaedit"></pantalla-mascotaalta>
-        <pantalla-mascotaaltamsg id="mascotaaltamsg"></pantalla-mascotaaltamsg>
-        <pantalla-mascotaver id="mascotaver"></pantalla-mascotaver>
+        <pantalla-notificacion id="notificacion" media-size="${this.mediaSize}"></pantalla-notificacion>
+        <pantalla-vacuna id="vacuna" media-size="${this.mediaSize}"></pantalla-vacuna>
+        <pantalla-vacunamsg id="vacunamsg" media-size="${this.mediaSize}"></pantalla-vacunamsg>
+        <pantalla-mascotaalta accion="ALTA" id="mascotaalta" media-size="${this.mediaSize}"></pantalla-mascotaalta>
+        <pantalla-mascotaalta accion="UPDATE" id="mascotaedit" media-size="${this.mediaSize}"></pantalla-mascotaalta>
+        <pantalla-mascotaaltamsg id="mascotaaltamsg" media-size="${this.mediaSize}"></pantalla-mascotaaltamsg>
+        <pantalla-mascotaver id="mascotaver" media-size="${this.mediaSize}"></pantalla-mascotaver>
         <pantalla-consulta id="consulta" media-size="${this.mediaSize}"></pantalla-consulta>
         <pantalla-consultaturnos id="consultaturnos" media-size="${this.mediaSize}"></pantalla-consultaturnos>
         <pantalla-consultadetalle id="consultadetalle" media-size="${this.mediaSize}"></pantalla-consultadetalle>
@@ -129,12 +129,15 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
                 this.shadowRoot.querySelector("#vercobertura").hidden = state.ui.quePantalla != "vercobertura";
                 this.shadowRoot.querySelector("#usuarioregistro").hidden = state.ui.quePantalla != "usuarioregistro";
                 this.shadowRoot.querySelector("#plandetalle").hidden = state.ui.quePantalla != "plandetalle";
-                this.shadowRoot.querySelector("#principal").hidden = state.ui.quePantalla != "principal";
+                if (state.ui.quePantalla != "notificacion") {
+                    this.shadowRoot.querySelector("#principal").hidden = state.ui.quePantalla != "principal";
+                    this.shadowRoot.querySelector("#mascota").hidden = state.ui.quePantalla != "mascota";
+                    this.shadowRoot.querySelector("#misconsultas").hidden = state.ui.quePantalla != "misconsultas";
+                    this.shadowRoot.querySelector("#calendario").hidden = state.ui.quePantalla != "calendario";
+                    this.shadowRoot.querySelector("#fotogaleria").hidden = state.ui.quePantalla != "fotogaleria";
+                }
+                this.shadowRoot.querySelector("#notificacion").hidden = state.ui.quePantalla != "notificacion";
                 this.shadowRoot.querySelector("#usuariodetalle").hidden = state.ui.quePantalla != "usuariodetalle";
-                this.shadowRoot.querySelector("#mascota").hidden = state.ui.quePantalla != "mascota";
-                this.shadowRoot.querySelector("#misconsultas").hidden = state.ui.quePantalla != "misconsultas";
-                this.shadowRoot.querySelector("#calendario").hidden = state.ui.quePantalla != "calendario";
-                this.shadowRoot.querySelector("#fotogaleria").hidden = state.ui.quePantalla != "fotogaleria";
                 this.shadowRoot.querySelector("#fotover").hidden = state.ui.quePantalla != "fotover";
                 if (state.ui.quePantalla != "videocalificacion") {
                     this.shadowRoot.querySelector("#video").hidden = state.ui.quePantalla != "video";
@@ -144,16 +147,21 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
                 this.shadowRoot.querySelector("#clavemodificar").hidden = state.ui.quePantalla != "clavemodificar";
                 this.shadowRoot.querySelector("#clavemodificarmsg").hidden = state.ui.quePantalla != "clavemodificarmsg";
                 this.shadowRoot.querySelector("#plancontrata").hidden = state.ui.quePantalla != "plancontrata";
-                this.shadowRoot.querySelector("#notificacion").hidden = state.ui.quePantalla != "notificacion";
-                this.shadowRoot.querySelector("#vacuna").hidden = state.ui.quePantalla != "vacuna";
+                if (state.ui.quePantalla != "vacunamsg") {
+                    this.shadowRoot.querySelector("#vacuna").hidden = state.ui.quePantalla != "vacuna";
+                }
                 this.shadowRoot.querySelector("#vacunamsg").hidden = state.ui.quePantalla != "vacunamsg";
-                this.shadowRoot.querySelector("#mascotaalta").hidden = state.ui.quePantalla != "mascotaalta";
+                if (state.ui.quePantalla != "mascotaaltamsg") {
+                    this.shadowRoot.querySelector("#mascotaalta").hidden = state.ui.quePantalla != "mascotaalta";
+                    this.shadowRoot.querySelector("#mascotaedit").hidden = state.ui.quePantalla != "mascotaedit";
+                }
                 this.shadowRoot.querySelector("#mascotaaltamsg").hidden = state.ui.quePantalla != "mascotaaltamsg";
                 this.shadowRoot.querySelector("#mascotaver").hidden = state.ui.quePantalla != "mascotaver";
-                this.shadowRoot.querySelector("#mascotaedit").hidden = state.ui.quePantalla != "mascotaedit";
                 this.shadowRoot.querySelector("#consulta").hidden = state.ui.quePantalla != "consulta";
                 this.shadowRoot.querySelector("#consultaturnos").hidden = state.ui.quePantalla != "consultaturnos";
-                this.shadowRoot.querySelector("#consultadetalle").hidden = state.ui.quePantalla != "consultadetalle";
+                if (state.ui.quePantalla != "consultadetallemsg") {
+                    this.shadowRoot.querySelector("#consultadetalle").hidden = state.ui.quePantalla != "consultadetalle";
+                }
                 this.shadowRoot.querySelector("#consultadetallemsg").hidden = state.ui.quePantalla != "consultadetallemsg";
             }
         }

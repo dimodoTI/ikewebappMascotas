@@ -23,12 +23,7 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
             left: 0rem;  
             height:100%;
             width: 100%;
-            background-color:var(--color-gris-fondo);
-            grid-template-rows:4fr 1fr 1fr 1fr 1fr 2fr;
-            grid-gap:.4rem;
-            justify-items:center;
-            overflow-y: auto; 
-            overflow-x: hidden; 
+            background-color:transparent;
         }
         :host([hidden]){
             display: none; 
@@ -36,8 +31,45 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
         :host::-webkit-scrollbar {
             display: none;
         }
+        :host([media-size="small"]) #fondo{
+           display:none; 
+        }
+        :host(:not([media-size="small"])) #fondo{
+            position:absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index:10;
+            background-color: var(--color-negro);
+            opacity:.7; 
+        }
+        :host([media-size="small"]) #cuerpo{
+            display: grid;
+            position:relative;
+            justify-items:center;
+            align-items: center;  
+            height: 100%;
+            width: 100%;   
+            background-color: var(--color-gris-fondo);
+            grid-template-rows:5fr 1fr 1fr 1fr 2fr;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            position:absolute;
+            top:15%;
+            left:15%;
+            display: grid;
+            justify-items:center;
+            align-items: center;  
+            background-color: var(--color-gris-fondo);
+            height: 70%;
+            width: 70%;   
+            grid-template-rows:5fr 1fr 1fr 1fr 2fr;
+            z-index:20;
+        }
+ 
         #x{
-            position: fixed;
+            position: absolute;
             top: .5rem;
             right: .5rem;
             width: 1.5rem;
@@ -89,6 +121,8 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     }
     render() {
         return html`
+        <div id="fondo"> </div>
+        <div id="cuerpo">
             <div id="x" @click=${this.clickBoton1}>
             </div>               
             <div id="imagen">
@@ -105,7 +139,7 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
             <button id="btn-ingresar" btn2 @click=${this.clickBoton3}>
             ${idiomas[this.idioma].mascotaaltamsg.btn2}
             </button>
-
+        </div>
         `
     }
 
@@ -129,6 +163,11 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
             hidden: {
                 type: Boolean,
                 reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }
