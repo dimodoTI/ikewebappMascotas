@@ -6,7 +6,7 @@ import { ikeInput } from "../css/ikeInput"
 import { button } from "../css/button"
 import { modoPantalla } from "../../redux/actions/ui";
 import { cabecera1 } from "../css/cabecera1"
-import { media01 } from "../css/media01"
+import { mediaConMenu01 } from "../css/mediaConMenu01"
 import { ATRAS } from "../../../assets/icons/icons"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitElement) {
@@ -27,7 +27,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
         ${ikeInput}
         ${button}
         ${cabecera1}
-        ${media01}
+        ${mediaConMenu01}
         :host{
             position: absolute;
             top: 0rem;
@@ -38,11 +38,14 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             justify-content:stretch;
             align-content:stretch; 
             display:grid;
-            grid-template-rows:2fr 8fr
         }
         :host([hidden]){
             display: none; 
         } 
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
         #cabeceraTit{
             position:relative;
             display:grid;
@@ -58,6 +61,14 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             overflow-y: auto; 
             overflow-x: hidden; 
             height:90%;
+        }
+        :host([media-size="small"]) #cuerpo{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width:70%;
+            justify-self:center;
         }
         #cuerpo::-webkit-scrollbar {
             display: none;
@@ -146,72 +157,85 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             font-weight: var(--font-header-h1-weight);
             text-align:center;
         }        
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
         `
     }
     render() {
         return html`
-        <div id="header">        
-            <div id="bar">
-                <div @click=${this.clickAtras}>${ATRAS}</div>
-                <div id="lblTitulo">${idiomas[this.idioma].usuariodetalle.titulo}</div>
-            </div>
-            <div id="lblLeyenda">${idiomas[this.idioma].usuariodetalle.leyenda}</div>
-        </div>
-        <div id="cuerpo">
-            <div style="height:1rem;width:100%"></div>
-            <div id="marco">
-                <div id="foto" style="background-image:var(${this.item.foto});">
-                    <div id="fotoEdit"></div>
+        <div id="gridContenedor">
+            <div id="header">        
+                <div id="bar">
+                    <div @click=${this.clickAtras}>${ATRAS}</div>
+                    <div id="lblTitulo">${idiomas[this.idioma].usuariodetalle.titulo}</div>
                 </div>
-                <div id="lblTitNombre">${this.item.nombre}</div>
-                <div id="lblPlan">${this.item.plan}</div>
-                <div id="lblCreada">${this.item.creada}</div>
-                <div id="divLinea"></div>
-                <div id="divDatos">
-                    <div id="divMascotaCan">${this.item.mascotas}</div>
-                    <div id="divConsultaCan">${this.item.consultas}</div>
-                    <div id="divVacunaCan">${this.item.vacunas}</div>
-                    <div id="divMascotaTitulo">${idiomas[this.idioma].usuariodetalle.mascota}</div>
-                    <div id="divConsultaTitulo">${idiomas[this.idioma].usuariodetalle.consulta}</div>
-                    <div id="divVacunaTitulo">${idiomas[this.idioma].usuariodetalle.vacuna}</div>
+                <div id="lblLeyenda">${idiomas[this.idioma].usuariodetalle.leyenda}</div>
+            </div>
+            <div id="cuerpo">
+                <div style="height:1rem;width:100%"></div>
+                <div id="marco">
+                    <div id="foto" style="background-image:var(${this.item.foto});">
+                        <div id="fotoEdit"></div>
+                    </div>
+                    <div id="lblTitNombre">${this.item.nombre}</div>
+                    <div id="lblPlan">${this.item.plan}</div>
+                    <div id="lblCreada">${this.item.creada}</div>
+                    <div id="divLinea"></div>
+                    <div id="divDatos">
+                        <div id="divMascotaCan">${this.item.mascotas}</div>
+                        <div id="divConsultaCan">${this.item.consultas}</div>
+                        <div id="divVacunaCan">${this.item.vacunas}</div>
+                        <div id="divMascotaTitulo">${idiomas[this.idioma].usuariodetalle.mascota}</div>
+                        <div id="divConsultaTitulo">${idiomas[this.idioma].usuariodetalle.consulta}</div>
+                        <div id="divVacunaTitulo">${idiomas[this.idioma].usuariodetalle.vacuna}</div>
+                    </div>
                 </div>
+                <div id="divInformacion">${idiomas[this.idioma].usuariodetalle.informacion}</div>
+
+                <div class="ikeInput">
+                    <label id="lblNombre">${idiomas[this.idioma].usuariodetalle.lblNombre}</label>
+                    <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuariodetalle.lblNombre_ph}>
+                    <label id="lblErrorNombre" error oculto>Nombre Incorrecto</label>
+                </div>
+
+                <div class="ikeInput">
+                    <label id="lblMail">${idiomas[this.idioma].usuariodetalle.lblMail}</label>
+                    <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].usuariodetalle.lblMail_ph}>
+                    <label id="lblErrorMail" error oculto>Mail Incorrecto</label>
+                </div>
+
+                <div class="ikeInput">
+                    <label id="lblCelular">${idiomas[this.idioma].usuariodetalle.lblCelu}</label>
+                    <input id="txtCelular"  @input=${this.activar} type="phone" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph}>
+                    <label id="lblErrorCelular" error oculto>Celular Incorrecto</label>
+                </div> 
+
+                <button id="btnClave" btn2 style="justify-self:end" @click=${this.clickClave}>
+                ${idiomas[this.idioma].usuariodetalle.btnClave}</button>
+                <button id="btnEdit" btn1 apagado @click=${this.clickEdit}>
+                ${idiomas[this.idioma].usuariodetalle.btnEdit}</button>
+                <button id="btnCobertura" btn3 @click=${this.clickCobertura}>
+                ${idiomas[this.idioma].usuariodetalle.btnCobertura}</button>
+                <button id="btnDelete" btn2 @click=${this.clickDelete}>
+                ${idiomas[this.idioma].usuariodetalle.btnDelete}</button>
+
+                <div id="divAyuda">${idiomas[this.idioma].usuariodetalle.lblAyuda}</div>
+
+                <button id="btnAsistencia" btn3 @click=${this.clickAsistencia}>
+                ${idiomas[this.idioma].usuariodetalle.btnAsistencia}</button>
+                <div style="height:1rem;width:100%"></div>
+
             </div>
-            <div id="divInformacion">${idiomas[this.idioma].usuariodetalle.informacion}</div>
-
-            <div class="ikeInput">
-                <label id="lblNombre">${idiomas[this.idioma].usuariodetalle.lblNombre}</label>
-                <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuariodetalle.lblNombre_ph}>
-                <label id="lblErrorNombre" error oculto>Nombre Incorrecto</label>
-            </div>
-
-            <div class="ikeInput">
-                <label id="lblMail">${idiomas[this.idioma].usuariodetalle.lblMail}</label>
-                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].usuariodetalle.lblMail_ph}>
-                <label id="lblErrorMail" error oculto>Mail Incorrecto</label>
-            </div>
-
-            <div class="ikeInput">
-                <label id="lblCelular">${idiomas[this.idioma].usuariodetalle.lblCelu}</label>
-                <input id="txtCelular"  @input=${this.activar} type="phone" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph}>
-                <label id="lblErrorCelular" error oculto>Celular Incorrecto</label>
-            </div> 
-
-            <button id="btnClave" btn2 style="justify-self:end" @click=${this.clickClave}>
-            ${idiomas[this.idioma].usuariodetalle.btnClave}</button>
-            <button id="btnEdit" btn1 apagado @click=${this.clickEdit}>
-            ${idiomas[this.idioma].usuariodetalle.btnEdit}</button>
-            <button id="btnCobertura" btn3 @click=${this.clickCobertura}>
-            ${idiomas[this.idioma].usuariodetalle.btnCobertura}</button>
-            <button id="btnDelete" btn2 @click=${this.clickDelete}>
-            ${idiomas[this.idioma].usuariodetalle.btnDelete}</button>
-
-            <div id="divAyuda">${idiomas[this.idioma].usuariodetalle.lblAyuda}</div>
-
-            <button id="btnAsistencia" btn3 @click=${this.clickAsistencia}>
-            ${idiomas[this.idioma].usuariodetalle.btnAsistencia}</button>
-            <div style="height:1rem;width:100%"></div>
-
         </div>
+        <pie-componente id="pie" opcion="uno" media-size="${this.mediaSize}">
+        </pie-componente>
         `
     }
     valido() {
@@ -288,6 +312,11 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             label: {
                 type: String,
                 reflect: ""
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
             }
         }
     }
