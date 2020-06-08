@@ -1,10 +1,30 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { button } from "../css/button"
-import { HOME, MASCOTA, VACUNA, CONSULTA, FOTO } from "../../../assets/icons/icons";
-import { modoPantalla } from "../../redux/actions/ui";
-import { idiomas } from "../../redux/datos/idiomas"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    button
+} from "../css/button"
+import {
+    HOME,
+    MASCOTA,
+    VACUNA,
+    CONSULTA,
+    FOTO
+} from "../../../assets/icons/icons";
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
 
 export class pieComponente extends connect(store)(LitElement) {
     constructor() {
@@ -14,7 +34,7 @@ export class pieComponente extends connect(store)(LitElement) {
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         :host{
             display: grid;
@@ -144,12 +164,10 @@ export class pieComponente extends connect(store)(LitElement) {
 
         `
     }
-    attributeChangedCallback(name, oldVal, newVal) {
-        console.log('attribute change: ', name, newVal);
-        super.attributeChangedCallback(name, oldVal, newVal);
-    }
+
+
     render() {
-        return html`
+        return html `
             <div id="pieCabecera">
             </div>
             <div id="pieMenu">

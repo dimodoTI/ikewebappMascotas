@@ -1,22 +1,36 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { repeat } from 'lit-html/directives/repeat.js';
-import { button } from "../css/button"
-import { idiomas } from "../../redux/datos/idiomas"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    repeat
+} from 'lit-html/directives/repeat.js';
+import {
+    button
+} from "../css/button"
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
 
 const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
 export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
-        this.item = {}
+        this.item = []
         this.mediaSize = ""
         this.tipo = "C"
         this.idioma = "ES"
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         :host{
             position: relative;
@@ -55,7 +69,7 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
     }
     render() {
         if (this.item) {
-            return html`
+            return html `
             ${
                 repeat(this.item, (dato) => dato.texto, (dato, index) => html`
                 <div id="div-agenda" >
@@ -68,7 +82,9 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
     }
     stateChanged(state, name) {
         if (name == PUBLICIDAD_TIMESTAMP) {
-            this.item = state.publicidad.entities.filter(item => { return item.tipo == this.tipo });
+            this.item = state.publicidad.entities.filter(item => {
+                return item.tipo == this.tipo
+            });
             this.update();
         }
     }

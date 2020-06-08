@@ -3,6 +3,17 @@ import {
   ODataFetchFactory
 } from "@brunomon/odata-fetch-factory"
 
+import {
+  fetchFactory
+} from "../libs/fetchFactory"
+
+
+const webApiUsuarios = "http://64.227.109.20:8080/api"
+export const ikeUsuarioFetch = fetchFactory(webApiUsuarios, "Usuario")
+export const ikeLoginFetch = fetchFactory(webApiUsuarios, "Autorizacion/login")
+export const ikeRenovacionFetch = fetchFactory(webApiUsuarios, "Autorizacion/renovacion")
+export const ikeRecuperoFetch = fetchFactory(webApiUsuarios, "Autorizacion/recupero")
+
 /* let app = "DigitalizacionExpedientes"
 let dominio = "http://localhost/" + app
 if (process.env.NODE_ENV == 'production') {

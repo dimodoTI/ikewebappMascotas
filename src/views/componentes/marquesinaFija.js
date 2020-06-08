@@ -1,17 +1,46 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { label } from "../css/label"
-import { repeat } from 'lit-html/directives/repeat.js';
-import { idiomas } from "../../redux/datos/idiomas"
-import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCOTA, CONSULTA, VACUNA, FOTO, MAS } from "../../../assets/icons/icons"
-import { tiempos } from "../../redux/datos/tiempoEspera";
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    label
+} from "../css/label"
+import {
+    repeat
+} from 'lit-html/directives/repeat.js';
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    REGALO,
+    CARRITO,
+    RELOJ,
+    NOVEDADES1,
+    NOVEDADES2,
+    NOVEDADES3,
+    HOME,
+    MASCOTA,
+    CONSULTA,
+    VACUNA,
+    FOTO,
+    MAS
+} from "../../../assets/icons/icons"
+import {
+    tiempos
+} from "../../redux/datos/tiempoEspera";
 
 const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
 export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
-        this.item = {}
+        this.item = []
         this.mediaSize = ""
         this.tipo = "A"
         this.idioma = "ES"
@@ -19,7 +48,7 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
     }
 
     static get styles() {
-        return css`
+        return css `
         ${label}
         :host{
             position: relative;
@@ -92,24 +121,20 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
     }
     render() {
         if (this.item) {
-            return html`
-            ${
-                repeat(this.item, (dato) => dato.texto, (dato, index) => html`
-                <div id="cuerpo-marq" class="${!dato.texto == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"
-                style="background-color:var(${dato.color});">
-                    <div class="${!dato.texto == '' ? 'img-marq-dos' : 'img-marq-solo'}" >
-                    <img  style="content:var(${dato.imagen})"/>
-                    </div>
-                    <label id="lbl-marq" >${!dato.texto == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.texto].lbl : ''}</label>
-                </div>                
-            `)
-                }
-        `
+            return repeat(this.item, (dato) => dato.texto, (dato, index) => html `
+                  <div id="cuerpo-marq" class="${!dato.texto == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.color});">
+                      <div class="${!dato.texto == '' ? 'img-marq-dos' : 'img-marq-solo'}">
+                        <img  style="content:var(${dato.imagen})"/>
+                      </div>
+                      <label id="lbl-marq" >${!dato.texto == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.texto].lbl : ''}</label>
+                  </div>`)
         }
     }
     stateChanged(state, name) {
         if (name == PUBLICIDAD_TIMESTAMP) {
-            this.item = state.publicidad.entities.filter(item => { return item.tipo == this.tipo });
+            this.item = state.publicidad.entities.filter(item => {
+                return item.tipo == this.tipo
+            });
             this.update();
         }
     }

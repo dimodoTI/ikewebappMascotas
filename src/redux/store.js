@@ -19,19 +19,36 @@ import {
 import {
   middleware as api
 } from "./middleware/api";
+import {
+  middleware as rest
+} from "./middleware/REST";
+import {
+  middleware as usuario
+} from "./middleware/usuario";
+import {
+  middleware as autorizacion
+} from "./middleware/autorizacion";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let mdw = [
   api,
-  ...ui
+  rest,
+  ...ui,
+  ...usuario,
+  ...autorizacion
+
 ]
 
 if (process.env.NODE_ENV !== 'production') {
   mdw = [...mdw, logger]
 }
 
-const initialData = loadState()
+//ver que se guarda en el dispositivo y que no
+// const initialData = loadState()
+
+
+const initialData = {}
 
 export const store = createStore(
   reducers,
@@ -40,6 +57,7 @@ export const store = createStore(
 );
 
 
-store.subscribe(function () {
+//ver que se guarda en el dispositivo y que no
+/* store.subscribe(function () {
   saveState(store.getState())
-})
+}) */
