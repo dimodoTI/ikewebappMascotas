@@ -24,7 +24,9 @@ import {
 import {
     login,
     recupero,
-    renovacion
+    renovacion,
+    logon,
+    updateProfile
 } from "./redux/actions/autorizacion"
 import {
     patch,
@@ -65,3 +67,7 @@ store.dispatch(getReserva())
 }, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjIiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE1OTE2NTg5NjksImV4cCI6MTU5MTY2NDM2OSwiaWF0IjoxNTkxNjU4OTY5fQ.I1HnLkt6f-iUD9aGEmLyFTtPNjoQU5M6LkzamiAsLbg")) */
 
 /* store.dispatch(remove(3, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjIiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE1OTE2NTg5NjksImV4cCI6MTU5MTY2NDM2OSwiaWF0IjoxNTkxNjU4OTY5fQ.I1HnLkt6f-iUD9aGEmLyFTtPNjoQU5M6LkzamiAsLbg")) */
+
+// store.dispatch(logon("Cliente", "Logon" , "cliente@ike.com", 20257844) )
+
+//store.dispatch(updateProfile("Cliente", "Perez", 20257844, "", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjciLCJyb2xlIjoiQ2xpZW50ZSIsIm5iZiI6MTU5MTczMDI1OCwiZXhwIjoxNTkxNzM1NjU4LCJpYXQiOjE1OTE3MzAyNTh9.HXdFivKO2I0U0Ty2v1uz6NvzYjB03_aAwvxTs8t_Kww"))

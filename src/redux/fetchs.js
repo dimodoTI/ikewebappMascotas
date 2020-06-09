@@ -13,6 +13,8 @@ export const ikeUsuarioFetch = fetchFactory(webApiUsuarios, "Usuario")
 export const ikeLoginFetch = fetchFactory(webApiUsuarios, "Autorizacion/login")
 export const ikeRenovacionFetch = fetchFactory(webApiUsuarios, "Autorizacion/renovacion")
 export const ikeRecuperoFetch = fetchFactory(webApiUsuarios, "Autorizacion/recupero")
+export const ikeLogonFetch = fetchFactory(webApiUsuarios, "Autorizacion/logon")
+export const ikeUpdateProfileFetch = fetchFactory(webApiUsuarios, "Autorizacion/updateProfile")
 
 /* let app = "DigitalizacionExpedientes"
 let dominio = "http://localhost/" + app

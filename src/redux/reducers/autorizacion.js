@@ -4,7 +4,11 @@ import {
     RECUPERO_SUCCESS,
     RECUPERO_ERROR,
     RENOVACION_SUCCESS,
-    RENOVACION_ERROR
+    RENOVACION_ERROR,
+    LOGON_ERROR,
+    LOGON_SUCCESS,
+    UPDATE_PROFILE_ERROR,
+    UPDATE_PROFILE_SUCCESS
 } from "../actions/autorizacion";
 
 
@@ -13,6 +17,8 @@ const initialState = {
     loginTimeStamp: null,
     recuperoTimeStamp: null,
     renovacionTimeStamp: null,
+    logonTimeStamp: null,
+    updateProfileTimeStamp: null,
     commandErrorTimeStamp: null
 };
 
@@ -32,7 +38,14 @@ export const reducer = (state = initialState, action) => {
         case RECUPERO_SUCCESS:
             newState.recuperoTimeStamp = (new Date()).getTime();
             break;
-        case LOGIN_ERROR || RECUPERO_ERROR || RENOVACION_ERROR:
+        case LOGON_SUCCESS:
+            newState.usuario = action.payload.receive
+            newState.logonTimeStamp = (new Date()).getTime();
+            break;
+        case UPDATE_PROFILE_SUCCESS:
+            newState.updateProfileTimeStamp = (new Date()).getTime();
+            break;
+        case LOGIN_ERROR || RECUPERO_ERROR || RENOVACION_ERROR || UPDATE_PROFILE_ERROR || LOGON_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
 

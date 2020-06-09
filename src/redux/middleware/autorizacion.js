@@ -2,19 +2,26 @@ import {
     LOGIN,
     RECUPERO,
     RENOVACION,
+    LOGON,
+    UPDATE_PROFILE,
     LOGIN_SUCCESS,
     RECUPERO_SUCCESS,
     RENOVACION_SUCCESS,
+    LOGON_SUCCESS,
+    UPDATE_PROFILE_SUCCESS,
     LOGIN_ERROR,
     RECUPERO_ERROR,
-    RENOVACION_ERROR
-
+    RENOVACION_ERROR,
+    LOGON_ERROR,
+    UPDATE_PROFILE_ERROR
 } from "../actions/autorizacion";
 
 import {
     ikeLoginFetch,
     ikeRecuperoFetch,
-    ikeRenovacionFetch
+    ikeRenovacionFetch,
+    ikeLogonFetch,
+    ikeUpdateProfileFetch
 } from "../../redux/fetchs"
 
 import {
@@ -54,12 +61,40 @@ export const renovacion = ({
     }
 };
 
+export const logon = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === LOGON) {
+        dispatch(RESTAdd(ikeLogonFetch, {
+            apellido: action.apellido,
+            nombre: action.nombre,
+            email: action.email,
+            documento: action.documento
+        }, LOGON_SUCCESS, LOGON_ERROR))
+    }
+};
+
+export const updateProfile = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === UPDATE_PROFILE) {
+        dispatch(RESTAdd(ikeUpdateProfileFetch, {
+            apellido: action.apellido,
+            nombre: action.nombre,
+            foto: action.foto,
+            documento: action.documento,
+        }, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_ERROR, action.token))
+    }
+};
+
 
 export const processCommand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === LOGIN_SUCCESS || action.type === RENOVACION_SUCCESS || action.type === RECUPERO_SUCCESS) {
+    if (action.type === LOGIN_SUCCESS || action.type === RENOVACION_SUCCESS || action.type === RECUPERO_SUCCESS || action.type === LOGON_SUCCESS || action.type === UPDATE_PROFILE_SUCCESS) {
 
     }
 };
@@ -69,9 +104,9 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === LOGIN_ERROR || action.type === RENOVACION_ERROR || action.type === RECUPERO_ERROR) {
+    if (action.type === LOGIN_ERROR || action.type === RENOVACION_ERROR || action.type === RECUPERO_ERROR || action.type == LOGON_ERROR || action.type == UPDATE_PROFILE_ERROR) {
 
     }
 };
 
-export const middleware = [login, recupero, renovacion, processCommand, processError];
+export const middleware = [login, recupero, renovacion, logon, updateProfile, processCommand, processError];
