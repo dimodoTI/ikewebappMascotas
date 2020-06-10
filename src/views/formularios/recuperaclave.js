@@ -1,26 +1,54 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { ikeInput } from "../css/ikeInput"
-import { cabecera1 } from "../css/cabecera1"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS } from "../../../assets/icons/icons"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS
+} from "../../../assets/icons/icons"
 import {
     media01
 } from "../css/media01"
-export class pantallaRecuperaClave extends connect(store)(LitElement) {
+import {
+    recupero
+} from "../../redux/actions/autorizacion";
+const RECUPERO_OK = "autorizacion.recuperoTimeStamp"
+export class pantallaRecuperaClave extends connect(store, RECUPERO_OK)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { mail: "", clave: "", recordar: "" }
+        this.item = {
+            mail: "",
+            clave: "",
+            recordar: ""
+        }
         this.label = ""
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         ${ikeInput}
         ${cabecera1}
@@ -52,7 +80,7 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="header">        
             <div id="bar">
                 <div @click=${this.clickBoton1}>${ATRAS}</div>
@@ -120,15 +148,18 @@ export class pantallaRecuperaClave extends connect(store)(LitElement) {
     clickBoton2() {
         if (this.activo) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("recuperaclavemsg", "recuperaclave"));
+                store.dispatch(recupero(this.shadowRoot.querySelector("#txtMail").value))
             }
         }
     }
 
     stateChanged(state, name) {
+        if (name == RECUPERO_OK) {
+            store.dispatch(modoPantalla("recuperaclavemsg", "recuperaclave"));
+        }
+
     }
-    firstUpdated() {
-    }
+    firstUpdated() {}
 
     static get properties() {
         return {

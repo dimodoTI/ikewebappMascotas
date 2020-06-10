@@ -27,6 +27,10 @@ import {
 import {
     RESTAdd,
 } from "../actions/REST"
+import {
+    setDatos,
+    setLogueado
+} from "../actions/cliente";
 
 export const login = ({
     dispatch
@@ -90,11 +94,25 @@ export const updateProfile = ({
 };
 
 
+export const processLogin = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === LOGIN_SUCCESS) {
+        if (action.payload.receive.message) {
+            dispatch(setLogueado(false))
+        } else {
+            dispatch(setLogueado(true))
+            dispatch(setDatos(action.payload.receive))
+        }
+    }
+};
+
 export const processCommand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === LOGIN_SUCCESS || action.type === RENOVACION_SUCCESS || action.type === RECUPERO_SUCCESS || action.type === LOGON_SUCCESS || action.type === UPDATE_PROFILE_SUCCESS) {
+    if (action.type === LOGON_SUCCESS || action.type === RENOVACION_SUCCESS || action.type === RECUPERO_SUCCESS || action.type === UPDATE_PROFILE_SUCCESS) {
 
     }
 };
@@ -109,4 +127,4 @@ export const processError = ({
     }
 };
 
-export const middleware = [login, recupero, renovacion, logon, updateProfile, processCommand, processError];
+export const middleware = [login, recupero, renovacion, logon, updateProfile, processLogin, processCommand, processError];

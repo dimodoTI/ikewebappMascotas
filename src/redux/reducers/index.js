@@ -17,12 +17,17 @@ import {
   reducer as autorizacionReducer
 } from "./autorizacion"
 
+import {
+  reducer as clienteReducer
+} from "./cliente"
+
 export const rootReducer = (state = {}, action) => {
   return {
     ui: uiReducer(state.ui, action),
     publicidad: publicidadReducer(state.publicidad, action),
     reserva: reservaReducer(state.reserva, action),
     usuario: usuarioReducer(state.usuario, action),
-    autorizacion: autorizacionReducer(state.autorizacion, action)
+    autorizacion: autorizacionReducer(state.autorizacion, action),
+    cliente: clienteReducer(state.cliente, action)
   };
 };

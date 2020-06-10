@@ -1,23 +1,52 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { label } from "../css/label"
-import { button } from "../css/button"
-import { ikeInput } from "../css/ikeInput"
-import { cabecera1 } from "../css/cabecera1"
-import { media01 } from "../css/media01"
-import { modoPantalla } from "../../redux/actions/ui";
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    label
+} from "../css/label"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    media01
+} from "../css/media01"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    setDatos
+} from "../../redux/actions/cliente"
 export class pantallaAccesoPlan extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { mail: "", clave: "", recordar: "" }
+        this.item = {
+            mail: "",
+            clave: "",
+            recordar: ""
+        }
     }
 
     static get styles() {
-        return css`
+        return css `
         ${ikeInput}
         ${button}
         ${cabecera1}
@@ -49,7 +78,7 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="header">        
             <div id="bar">
                 <div id="lblTitulo">${idiomas[this.idioma].crearclave.titulo}</div>
@@ -86,10 +115,8 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
         }
         this.update()
     }
-    stateChanged(state, name) {
-    }
-    firstUpdated() {
-    }
+    stateChanged(state, name) {}
+    firstUpdated() {}
     valido() {
         [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
             element.setAttribute("oculto", "")
@@ -106,6 +133,10 @@ export class pantallaAccesoPlan extends connect(store)(LitElement) {
     clickBoton1() {
         if (this.activo) {
             if (this.valido()) {
+                const documento = this.shadowRoot.querySelector("#txtDocumento").value
+                store.dispatch(setDatos({
+                    documento: documento
+                }))
                 store.dispatch(modoPantalla("usuarioregistro", "accesoplan"));
             }
         }

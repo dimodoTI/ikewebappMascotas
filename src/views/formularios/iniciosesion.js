@@ -34,9 +34,22 @@ import {
 import {
     ATRAS
 } from "../../../assets/icons/icons";
+import {
+    login,
+    LOGON,
+    LOGON_ERROR
+} from "../../redux/actions/autorizacion";
+import {
+    setLogueado
+} from "../../redux/actions/cliente";
+import {
+    saveState
+} from "../../libs/localStorage";
 
 const MODO_PANTALLA = "ui.timeStampPantalla"
-export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitElement) {
+const LOGIN_OK_ERROR = "cliente.logueadoTimeStamp"
+const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
+export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK_ERROR, COMMAND_ERROR)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -44,7 +57,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         ${ikeInput}
         ${cabecera1}
@@ -83,7 +96,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     }
 
     render() {
-        return html`
+        return html `
         <div id="header">
             <div id="bar">
                <!--  <div>${ATRAS}</div> -->
@@ -158,7 +171,10 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     clickBoton1() {
         if (this.activo) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("principal", "iniciosesion"));
+                const clave = this.shadowRoot.querySelector("#txtClave").value
+                const email = this.shadowRoot.querySelector("#txtMail").value
+                store.dispatch(login(email, clave))
+                //store.dispatch(modoPantalla("principal", "iniciosesion"));
             }
         }
     }
@@ -169,13 +185,30 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA)(LitEleme
     clickBoton3() {
         store.dispatch(modoPantalla("principal", "iniciosesion"));
     }
-    stateChanged(state, name) { }
-    firstUpdated() { }
+
+    firstUpdated() {}
 
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "iniciosesion") {
             store.dispatch(cancelarTimer())
         }
+
+        if (name == LOGIN_OK_ERROR) {
+
+            if (!state.cliente.logueado) {
+                alert("Usuario o contraseña incorrectos")
+
+            } else {
+                store.dispatch(modoPantalla("principal", "iniciosesion"));
+            }
+
+            return
+        }
+        if (name == COMMAND_ERROR) {
+            alert("Problemas con la conexión. Intente mas tarde")
+            return
+        }
+
     }
 
     static get properties() {

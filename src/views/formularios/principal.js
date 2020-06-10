@@ -1,17 +1,58 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { label } from "../css/label"
-import { button } from "../css/button"
-import { cabecera1 } from "../css/cabecera1"
-import { btnFlotanteRedondo } from "../css/btnFlotanteRedondo"
-import { btnNuevaConsulta } from "../componentes/btnNuevaConsulta"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
-import { modoPantalla } from "../../redux/actions/ui";
-import { flierPortadaComponente } from "../componentes/flierPortada";
-import { marquesinaFijaComponente } from "../componentes/marquesinaFija";
-import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCOTA, CONSULTA, VACUNA, FOTO, MAS } from "../../../assets/icons/icons"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    label
+} from "../css/label"
+import {
+    button
+} from "../css/button"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    btnFlotanteRedondo
+} from "../css/btnFlotanteRedondo"
+import {
+    btnNuevaConsulta
+} from "../componentes/btnNuevaConsulta"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    flierPortadaComponente
+} from "../componentes/flierPortada";
+import {
+    marquesinaFijaComponente
+} from "../componentes/marquesinaFija";
+import {
+    REGALO,
+    CARRITO,
+    RELOJ,
+    NOVEDADES1,
+    NOVEDADES2,
+    NOVEDADES3,
+    HOME,
+    MASCOTA,
+    CONSULTA,
+    VACUNA,
+    FOTO,
+    MAS
+} from "../../../assets/icons/icons"
 
 const RESERVA_TIMESTAMP = "reserva.timeStamp"
 export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElement) {
@@ -23,7 +64,7 @@ export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElem
     }
 
     static get styles() {
-        return css`
+        return css `
         ${label}
         ${button}
         ${cabecera1}
@@ -191,12 +232,12 @@ export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElem
     `
     }
     render() {
-        return html`
+        return html `
             <div id="gridContenedor">
                 <div id="header">
                     <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
                         <div id="bar">
-                            <div id="lblTitulo">${idiomas[this.idioma].principal.tituloCabecera}</div>
+                            <div id="lblTitulo">${idiomas[this.idioma].principal.tituloCabecera+" "+ store.getState().cliente.datos.nombre}</div>
                             <div id="detalle" 
                                 @click=${this.clickBotonUsuario}>
                             </div>
@@ -278,8 +319,7 @@ export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElem
         }
     }
 
-    firstUpdated() {
-    }
+    firstUpdated() {}
 
     static get properties() {
         return {

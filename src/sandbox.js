@@ -35,10 +35,22 @@ import {
     get as getUsuario
 } from "./redux/actions/usuario"
 
+import {
+    getParameterByName
+} from "./libs/helpers"
+
+
+
+
 store.dispatch(captureMedia())
-store.dispatch(modoPantalla("splash"))
+if (getParameterByName("ticket")) {
+    store.dispatch(modoPantalla("crearclave"))
+} else {
+    store.dispatch(modoPantalla("splash"))
+}
 store.dispatch(getPublicidad())
 store.dispatch(getReserva())
+
 
 
 //store.dispatch(login("yo@yo.yo", "yo"))

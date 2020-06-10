@@ -16,7 +16,9 @@ export const fetchFactory = (url, entity) => {
             return fetch(url, {
                 method: "GET",
                 headers: _getHeaders(token)
-            }).then(res => res.json())
+            }).then(res =>
+                res.headers.get("content-length") == "0" ? {} : res.json()
+            )
 
         },
 
@@ -25,7 +27,9 @@ export const fetchFactory = (url, entity) => {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers: _getHeaders(token)
-            }).then(res => res.json())
+            }).then(res =>
+                res.headers.get("content-length") == "0" ? {} : res.json()
+            )
 
         },
 
@@ -35,7 +39,9 @@ export const fetchFactory = (url, entity) => {
                 method: "PUT",
                 body: JSON.stringify(body),
                 headers: _getHeaders(token)
-            }).then(res => res.json())
+            }).then(res =>
+                res.headers.get("content-length") == "0" ? {} : res.json()
+            )
 
         },
 
@@ -46,7 +52,9 @@ export const fetchFactory = (url, entity) => {
                 method: "PATCH",
                 body: JSON.stringify(body),
                 headers: _getHeaders(token)
-            }).then(res => res.json())
+            }).then(res =>
+                res.headers.get("content-length") == "0" ? {} : res.json()
+            )
 
         },
 
@@ -55,7 +63,9 @@ export const fetchFactory = (url, entity) => {
             return fetch(url, {
                 method: "DELETE",
                 headers: _getHeaders(token)
-            }).then(res => res.json())
+            }).then(res =>
+                res.headers.get("content-length") == "0" ? {} : res.json()
+            )
 
         }
     }

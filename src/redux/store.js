@@ -45,10 +45,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 //ver que se guarda en el dispositivo y que no
-// const initialData = loadState()
-
-
+//const initialData = loadState()
 const initialData = {}
+
+
 
 export const store = createStore(
   reducers,
@@ -57,7 +57,6 @@ export const store = createStore(
 );
 
 
-//ver que se guarda en el dispositivo y que no
 /* store.subscribe(function () {
   saveState(store.getState())
 }) */
