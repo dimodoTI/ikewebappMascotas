@@ -33,8 +33,9 @@ import {
 import {
     recupero
 } from "../../redux/actions/autorizacion";
-const RECUPERO_OK = "autorizacion.recuperoTimeStamp"
-export class pantallaRecuperaClave extends connect(store, RECUPERO_OK)(LitElement) {
+const RECUPERO_OK_ERROR = "cliente.recuperandoTimeStamp"
+const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
+export class pantallaRecuperaClave extends connect(store, RECUPERO_OK_ERROR, COMMAND_ERROR)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -154,8 +155,16 @@ export class pantallaRecuperaClave extends connect(store, RECUPERO_OK)(LitElemen
     }
 
     stateChanged(state, name) {
-        if (name == RECUPERO_OK) {
-            store.dispatch(modoPantalla("recuperaclavemsg", "recuperaclave"));
+        if (name == RECUPERO_OK_ERROR) {
+            if (state.cliente.recuperando) {
+                store.dispatch(modoPantalla("recuperaclavemsg", "recuperaclave"));
+            } else {
+                alert("Datos incorrectos")
+            }
+        }
+        if (name == COMMAND_ERROR) {
+            alert("Problemas con la conexión. Intente mas tarde")
+            return
         }
 
     }

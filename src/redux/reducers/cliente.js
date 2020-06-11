@@ -1,7 +1,9 @@
 import {
     SET_DATOS,
     SET_CONFIRMADO,
-    SET_LOGUEADO
+    SET_LOGUEADO,
+    SET_RECUPERANDO,
+    SET_RENOVADO
 } from "../actions/cliente";
 
 
@@ -14,9 +16,13 @@ const initialState = {
     },
     logueado: false,
     confirmado: false,
+    recuperando: false,
+    renovado: false,
     timeStamp: null,
     confirmadoTimeStamp: null,
-    logueadoTimeStamp: null
+    logueadoTimeStamp: null,
+    recuperandoTimeStamp: null,
+    renovadoTimeStamp: null,
 
 };
 
@@ -41,6 +47,14 @@ export const reducer = (state = initialState, action) => {
         case SET_CONFIRMADO:
             newState.confirmado = action.confirmado
             newState.confirmadoTimeStamp = (new Date()).getTime();
+            break
+        case SET_RECUPERANDO:
+            newState.recuperando = action.recuperando
+            newState.recuperandoTimeStamp = (new Date()).getTime();
+            break
+        case SET_RENOVADO:
+            newState.renovado = action.renovado
+            newState.renovadoTimeStamp = (new Date()).getTime();
             break
 
     }

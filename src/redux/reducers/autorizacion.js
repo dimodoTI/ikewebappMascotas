@@ -13,7 +13,6 @@ import {
 
 
 const initialState = {
-    usuario: null,
     loginTimeStamp: null,
     recuperoTimeStamp: null,
     renovacionTimeStamp: null,
@@ -29,7 +28,6 @@ export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOGIN_SUCCESS:
-            //newState.usuario = action.payload.receive
             newState.loginTimeStamp = (new Date()).getTime();
             break;
         case RENOVACION_SUCCESS:
@@ -39,7 +37,6 @@ export const reducer = (state = initialState, action) => {
             newState.recuperoTimeStamp = (new Date()).getTime();
             break;
         case LOGON_SUCCESS:
-            //newState.usuario = action.payload.receive
             newState.logonTimeStamp = (new Date()).getTime();
             break;
         case UPDATE_PROFILE_SUCCESS:

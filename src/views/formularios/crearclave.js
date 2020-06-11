@@ -36,7 +36,10 @@ import {
 import {
     getParameterByName
 } from "../../libs/helpers"
-export class pantallaCrearClave extends connect(store)(LitElement) {
+
+const RENOVACION_OK_ERROR = "cliente.renovadoTimeStamp"
+const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
+export class pantallaCrearClave extends connect(store, RENOVACION_OK_ERROR, COMMAND_ERROR)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -158,11 +161,24 @@ export class pantallaCrearClave extends connect(store)(LitElement) {
                 const ticket = getParameterByName("ticket")
                 const clave1 = this.shadowRoot.querySelector("#txtClave1").value
                 store.dispatch(renovacion(ticket, clave1))
-                store.dispatch(modoPantalla("crearclavemsg", "principal"));
+
             }
         }
     }
-    stateChanged(state, name) {}
+    stateChanged(state, name) {
+        if (name == RENOVACION_OK_ERROR) {
+            if (state.cliente.renovado) {
+                store.dispatch(modoPantalla("crearclavemsg", "principal"));
+            } else {
+                alert("Enlace vencido. Vuelva a solicitar el recupero de clave")
+            }
+        }
+        if (name == COMMAND_ERROR) {
+            alert("Problemas con la conexión. Intente mas tarde")
+            return
+        }
+
+    }
     firstUpdated() {}
 
     static get properties() {

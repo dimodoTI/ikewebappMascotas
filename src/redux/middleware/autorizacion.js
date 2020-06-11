@@ -29,7 +29,9 @@ import {
 } from "../actions/REST"
 import {
     setDatos,
-    setLogueado
+    setLogueado,
+    setRecuperando,
+    setRenovado
 } from "../actions/cliente";
 
 export const login = ({
@@ -108,11 +110,40 @@ export const processLogin = ({
     }
 };
 
+export const processRecupero = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === RECUPERO_SUCCESS) {
+        if (action.payload.receive.status) {
+            dispatch(setRecuperando(false))
+        } else {
+            dispatch(setRecuperando(true))
+        }
+    }
+};
+
+
+
+export const processRenovado = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === RENOVACION_SUCCESS) {
+        if (action.payload.receive.status) {
+            dispatch(setRenovado(false))
+        } else {
+            dispatch(setRenovado(true))
+        }
+    }
+};
+
+
 export const processCommand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === LOGON_SUCCESS || action.type === RENOVACION_SUCCESS || action.type === RECUPERO_SUCCESS || action.type === UPDATE_PROFILE_SUCCESS) {
+    if (action.type === LOGON_SUCCESS || action.type === UPDATE_PROFILE_SUCCESS) {
 
     }
 };
@@ -127,4 +158,4 @@ export const processError = ({
     }
 };
 
-export const middleware = [login, recupero, renovacion, logon, updateProfile, processLogin, processCommand, processError];
+export const middleware = [login, recupero, renovacion, logon, updateProfile, processLogin, processRecupero, processRenovado, processCommand, processError];

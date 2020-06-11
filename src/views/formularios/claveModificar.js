@@ -1,24 +1,50 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { ikeInput } from "../css/ikeInput"
-import { cabecera1 } from "../css/cabecera1"
-import { media01 } from "../css/media01"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS } from "../../../assets/icons/icons"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    media01
+} from "../css/media01"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS
+} from "../../../assets/icons/icons"
 export class pantallarClaveModificar extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { mail: "", clave: "", recordar: "" }
+        this.item = {
+            mail: "",
+            clave: "",
+            recordar: ""
+        }
         this.label = ""
     }
 
     static get styles() {
-        return css`
+        return css `
         ${ikeInput}
         ${button}
         ${cabecera1}
@@ -56,7 +82,7 @@ export class pantallarClaveModificar extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="header">        
             <div id="bar">
                 <div @click=${this.clickBoton1}>${ATRAS}</div>
@@ -67,13 +93,13 @@ export class pantallarClaveModificar extends connect(store)(LitElement) {
         <div id="cuerpo">
             <div class="ikeInput">
                 <label id="lblClave1">${idiomas[this.idioma].clavemodificar.clave1}</label>
-                <input id="txtClave1"  @input=${this.activar} type="password"}>
+                <input id="txtClave1"  @input=${this.activar} type="password">
                 <label id="lblErrorClave1" error oculto>${idiomas[this.idioma].clavemodificar.errorClave1.err1}</label>
             </div>
 
             <div class="ikeInput">
                 <label id="lblClave2">${idiomas[this.idioma].clavemodificar.clave2}</label>
-                <input id="txtClave2" @input=${this.activar} type="password"}>
+                <input id="txtClave2" @input=${this.activar} type="password">
                 <label id="lblErrorClave2" error oculto>${idiomas[this.idioma].clavemodificar.errorClave2.err1}</label>
             </div>
             <button id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
@@ -127,10 +153,8 @@ export class pantallarClaveModificar extends connect(store)(LitElement) {
             }
         }
     }
-    stateChanged(state, name) {
-    }
-    firstUpdated() {
-    }
+    stateChanged(state, name) {}
+    firstUpdated() {}
 
     static get properties() {
         return {
