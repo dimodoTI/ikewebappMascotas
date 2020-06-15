@@ -36,6 +36,9 @@ import {
 import {
     setDatos
 } from "../../redux/actions/cliente";
+import {
+    validaMail
+} from "../../libs/funciones"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 const LOGON_OK = "autorizacion.logonTimeStamp"
 export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA, LOGON_OK)(LitElement) {
@@ -198,7 +201,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA, LOGON
             valido = false
             this.shadowRoot.querySelector("#lblErrorApellido").removeAttribute("oculto");
         }
-        if (mail.value.indexOf("@") == -1) {
+        if (!validaMail(mail.value)) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
         }

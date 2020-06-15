@@ -110,6 +110,7 @@ export class pantallaCrearClave extends connect(store, RENOVACION_OK_ERROR, COMM
                 <label id="lblClave2">${idiomas[this.idioma].crearclave.clave2}</label>
                 <input id="txtClave2" @input=${this.activar} type="password">
                 <label id="lblErrorClave2" error oculto>${idiomas[this.idioma].crearclave.errorClave2.err1}</label>
+                <label id="lblErrorClave22" error oculto>${idiomas[this.idioma].crearclave.errorClave2.err2}</label>
             </div>
             <button id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
             ${idiomas[this.idioma].crearclave.btn1}
@@ -148,6 +149,10 @@ export class pantallaCrearClave extends connect(store, RENOVACION_OK_ERROR, COMM
         if (clave2.value.length < 8) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorClave2").removeAttribute("oculto");
+        }
+        if (clave1.value != clave2.value) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorClave22").removeAttribute("oculto")
         }
         this.update()
         return valido

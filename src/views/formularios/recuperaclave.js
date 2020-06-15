@@ -33,6 +33,11 @@ import {
 import {
     recupero
 } from "../../redux/actions/autorizacion";
+
+import {
+    validaMail
+} from "../../libs/funciones"
+
 const RECUPERO_OK_ERROR = "cliente.recuperandoTimeStamp"
 const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
 export class pantallaRecuperaClave extends connect(store, RECUPERO_OK_ERROR, COMMAND_ERROR)(LitElement) {
@@ -135,7 +140,7 @@ export class pantallaRecuperaClave extends connect(store, RECUPERO_OK_ERROR, COM
             valido = false
             this.shadowRoot.querySelector("#lblErrorDocumento").removeAttribute("oculto");
         }
-        if (email.value.indexOf("@") == -1) {
+        if (!validaMail(email.value)) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
         }

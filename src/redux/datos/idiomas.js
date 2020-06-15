@@ -23,7 +23,7 @@ export const idiomas = {
             },
             errorClave: {
                 err1: "Tu contraseña debe tener 4 caraceres",
-                err2: "wer"
+                err2: "Usuario o clave incorrectas"
             }
         },
         recuperaclave: {
@@ -59,7 +59,7 @@ export const idiomas = {
             },
             errorClave2: {
                 err1: "Clave2 incorrecto",
-                err2: "wer"
+                err2: "Las claves ingresadas deben ser iguales"
             }
         },
         crearclavemsg: {
@@ -152,7 +152,11 @@ export const idiomas = {
             vacuna: "Vacunas",
             informacion: "Tu información personal",
             lblNombre: "Tu nombre",
-            lblNombre_ph: "Jose Perez",
+            lblNombre_ph: "Jose",
+            lblNombreError: "Nombre debe ser mayor a 4 caracteres",
+            lblApellido: "Tu apellido",
+            lblApellido_ph: "Perez",
+            lblApellidoError: "Tenés que ingresar tu apellido",
             lblMail: "Tu mail",
             lblMail_ph: "Jose@gmail.com",
             lblCelu: "Tu celular",
@@ -233,7 +237,7 @@ export const idiomas = {
             },
             errorClave2: {
                 err1: "Clave2 incorrecto",
-                err2: "wer"
+                err2: "Las claves ingresadas deben ser iguales"
             }
         },
         clavemodificarmsg: {

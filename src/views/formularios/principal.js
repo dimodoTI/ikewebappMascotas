@@ -55,7 +55,9 @@ import {
 } from "../../../assets/icons/icons"
 
 const RESERVA_TIMESTAMP = "reserva.timeStamp"
-export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElement) {
+const CLIENTE_TIMESTAMP = "cliente.timestamp"
+
+export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP, CLIENTE_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -98,6 +100,8 @@ export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElem
             background-size: 1rem 1rem;
             opacity:.4;
         }
+
+       
         #campana{
             position:relative;
             background-image: var(--icon-campana-con-marca);
@@ -239,7 +243,7 @@ export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElem
                         <div id="bar">
                             <div id="lblTitulo">${idiomas[this.idioma].principal.tituloCabecera+" "+ store.getState().cliente.datos.nombre}</div>
                             <div id="detalle" 
-                                @click=${this.clickBotonUsuario}>
+                                @click=${this.clickBotonUsuario} style="display:${store.getState().cliente.logueado?"":"none"}">
                             </div>
                         </div>
                         <div id="campana" @click=${this.clickBotonNotificacion}></div>
@@ -319,7 +323,9 @@ export class pantallaPrincipal extends connect(store, RESERVA_TIMESTAMP)(LitElem
         }
     }
 
-    firstUpdated() {}
+    firstUpdated() {
+
+    }
 
     static get properties() {
         return {

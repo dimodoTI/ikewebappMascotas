@@ -30,7 +30,15 @@ import {
 import {
     ATRAS
 } from "../../../assets/icons/icons"
-export class pantallarClaveModificar extends connect(store)(LitElement) {
+import {
+    validaMail
+} from "../../libs/funciones";
+import {
+    renovacion
+} from "../../redux/actions/autorizacion";
+
+const RENOVADO_TIMESTAMP = "autorizacion.renovadoTimeStamp"
+export class pantallarClaveModificar extends connect(store, RENOVADO_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -101,6 +109,7 @@ export class pantallarClaveModificar extends connect(store)(LitElement) {
                 <label id="lblClave2">${idiomas[this.idioma].clavemodificar.clave2}</label>
                 <input id="txtClave2" @input=${this.activar} type="password">
                 <label id="lblErrorClave2" error oculto>${idiomas[this.idioma].clavemodificar.errorClave2.err1}</label>
+                <label id="lblErrorClave22" error oculto>${idiomas[this.idioma].clavemodificar.errorClave2.err2}</label>
             </div>
             <button id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
             ${idiomas[this.idioma].clavemodificar.btn1}
@@ -140,6 +149,10 @@ export class pantallarClaveModificar extends connect(store)(LitElement) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorClave2").removeAttribute("oculto");
         }
+        if (clave1.value != clave2.value) {
+            valido = false
+            this.shadowRoot.querySelector("#lblErrorClave22").removeAttribute("oculto");
+        }
         this.update()
         return valido
     }
@@ -149,11 +162,17 @@ export class pantallarClaveModificar extends connect(store)(LitElement) {
     clickBoton2() {
         if (this.activo) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("clavemodificarmsg", "clavemodificar"));
+                const clave = this.shadowRoot.querySelector("#txtClave1").value
+                store.dispatch(renovacion(store.getState().cliente.datos.ticket, clave))
+
             }
         }
     }
-    stateChanged(state, name) {}
+    stateChanged(state, name) {
+        if (name == RENOVADO_TIMESTAMP) {
+            store.dispatch(modoPantalla("clavemodificarmsg", "clavemodificar"));
+        }
+    }
     firstUpdated() {}
 
     static get properties() {

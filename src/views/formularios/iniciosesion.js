@@ -46,6 +46,10 @@ import {
     saveState
 } from "../../libs/localStorage";
 
+import {
+    validaMail
+} from "../../libs/funciones"
+
 const MODO_PANTALLA = "ui.timeStampPantalla"
 const LOGIN_OK_ERROR = "cliente.logueadoTimeStamp"
 const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
@@ -115,6 +119,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
                 <label id="lblClave">${idiomas[this.idioma].iniciosession.clave}</label>
                 <input id="txtClave" @input=${this.activar} type="password">
                 <label id="lblErrorClave" error oculto>${idiomas[this.idioma].iniciosession.errorClave.err1}</label>
+                <label id="lblErrorLogin" error oculto>${idiomas[this.idioma].iniciosession.errorClave.err2}</label>
             </div>
 
             <mi-checkbox label="${idiomas[this.idioma].iniciosession.datos}"></mi-checkbox>
@@ -156,11 +161,11 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
         let valido = true
         const clave = this.shadowRoot.querySelector("#txtClave")
         const email = this.shadowRoot.querySelector("#txtMail")
-        if (clave.value.length < 8) {
+        if (clave.value.length < 4) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorClave").removeAttribute("oculto");
         }
-        if (email.value.indexOf("@") == -1) {
+        if (!validaMail(email.value)) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
         }
@@ -196,7 +201,11 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
         if (name == LOGIN_OK_ERROR) {
 
             if (!state.cliente.logueado) {
-                alert("Usuario o contraseña incorrectos")
+                [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+                    element.setAttribute("oculto", "")
+                })
+                const errorLogin = this.shadowRoot.querySelector("#lblErrorLogin")
+                errorLogin.removeAttribute("oculto")
 
             } else {
                 store.dispatch(modoPantalla("principal", "iniciosesion"));

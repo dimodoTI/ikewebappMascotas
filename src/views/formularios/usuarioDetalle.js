@@ -1,29 +1,75 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { ikeInput } from "../css/ikeInput"
-import { button } from "../css/button"
-import { modoPantalla } from "../../redux/actions/ui";
-import { cabecera1 } from "../css/cabecera1"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
-import { ATRAS } from "../../../assets/icons/icons"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    button
+} from "../css/button"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
+import {
+    ATRAS
+} from "../../../assets/icons/icons"
+
+import {
+    validaMail
+} from "../../libs/funciones"
+import {
+    updateProfile
+} from "../../redux/actions/autorizacion";
+import {
+    setDatos
+} from "../../redux/actions/cliente";
+
+
+
 const MODO_PANTALLA = "ui.timeStampPantalla"
-export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitElement) {
+const CLIENTE_LOGUEADO = "cliente.logueadoTimeStamp"
+
+const UPDATEPROFILE_TIMESTAMP = "autorizacion.updateProfileTimeStamp"
+const CLIENTE_TIMESTAMP = "cliente.timeStamp"
+
+export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
         this.item = {
-            foto: "--imagen-foto", nombre: "Lucia Lopez", plan: "Plan Iké 110",
-            creada: "Cuenta creada el 02/03/19", mascotas: "3", consultas: "12", vacunas: "14",
-            mail: "1141953476", mail: "lucia@gmail.com"
+            /*            foto: "--imagen-foto",
+                       nombre: "Lucia Lopez",
+                       plan: "Plan Iké 110",
+                       creada: "Cuenta creada el 02/03/19",
+                       mascotas: "3",
+                       consultas: "12",
+                       vacunas: "14",
+                       mail: "1141953476",
+                       mail: "lucia@gmail.com" */
         }
         this.label = ""
     }
 
     static get styles() {
-        return css`
+        return css `
         ${ikeInput}
         ${button}
         ${cabecera1}
@@ -62,10 +108,10 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             overflow-x: hidden; 
             height:90%;
         }
-        :host([media-size="small"]) #cuerpo{
+/*         :host([media-size="small"]) #cuerpo{
             grid-row-start:1;
             grid-row-end:3;
-        }
+        } */
         :host(:not([media-size="small"])) #cuerpo{
             width:70%;
             justify-self:center;
@@ -169,7 +215,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
@@ -200,20 +246,28 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
                 <div id="divInformacion">${idiomas[this.idioma].usuariodetalle.informacion}</div>
 
                 <div class="ikeInput">
-                    <label id="lblNombre">${idiomas[this.idioma].usuariodetalle.lblNombre}</label>
-                    <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuariodetalle.lblNombre_ph}>
-                    <label id="lblErrorNombre" error oculto>Nombre Incorrecto</label>
-                </div>
-
-                <div class="ikeInput">
                     <label id="lblMail">${idiomas[this.idioma].usuariodetalle.lblMail}</label>
-                    <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].usuariodetalle.lblMail_ph}>
+                    <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].usuariodetalle.lblMail_ph} .value="${this.item.email}" disabled>
                     <label id="lblErrorMail" error oculto>Mail Incorrecto</label>
                 </div>
 
                 <div class="ikeInput">
+                    <label id="lblNombre">${idiomas[this.idioma].usuariodetalle.lblNombre}</label>
+                    <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuariodetalle.lblNombre_ph} .value="${this.item.nombre}" >
+                    <label id="lblErrorNombre" error oculto>${idiomas[this.idioma].usuariodetalle.lblNombreError}</label>
+                </div>
+
+                <div class="ikeInput">
+                    <label id="lblApellido">${idiomas[this.idioma].usuariodetalle.lblApelldo}</label>
+                    <input id="txtApellido"  @input=${this.activar} placeholder=${idiomas[this.idioma].usuariodetalle.lblApellido_ph} .value="${this.item.apellido}" >
+                    <label id="lblErrorApellido" error oculto>${idiomas[this.idioma].usuariodetalle.lblApellidoError}</label>
+                </div>
+
+
+
+                <div class="ikeInput">
                     <label id="lblCelular">${idiomas[this.idioma].usuariodetalle.lblCelu}</label>
-                    <input id="txtCelular"  @input=${this.activar} type="phone" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph}>
+                    <input id="txtCelular"  @input=${this.activar} type="text" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph}>
                     <label id="lblErrorCelular" error oculto>Celular Incorrecto</label>
                 </div> 
 
@@ -244,15 +298,16 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
         })
         let valido = true
         const nombre = this.shadowRoot.getElementById("txtNombre");
+        const apellido = this.shadowRoot.getElementById("txtApellido");
         const mail = this.shadowRoot.getElementById("txtMail");
         const celular = this.shadowRoot.getElementById("txtCelular");
-        if (nombre.value.length < 8) {
+        if (nombre.value.length < 4) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorNombre").removeAttribute("oculto");
         }
-        if (mail.value.indexOf("@") == -1) {
+        if (apellido.value == "") {
             valido = false
-            this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");
+            this.shadowRoot.querySelector("#lblErrorApellido").removeAttribute("oculto");
         }
         if (celular.value.length < 8) {
             valido = false
@@ -275,12 +330,37 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
             }
         }
     }
+
+    asignarValores(item) {
+        item = {
+            ...this.item
+
+
+
+        }
+        item.nombre = this.shadowRoot.querySelector("#txtNombre").value
+        item.apellido = this.shadowRoot.querySelector("#txtApellido").value
+        //item.telefono = this.shadowRoot.querySelector("#txtCelular").value
+        return item
+    }
+
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "usuariodetalle") {
+            this.item = store.getState().cliente.datos
+            this.item.mascotas = 2
+            this.item.consultas = 12
+            this.item.vacunas = 15
+            this.item.foto = "--imagen-foto"
         }
+
+        if (name == UPDATEPROFILE_TIMESTAMP) {
+            store.dispatch(setDatos(this.asignarValores(this.item)))
+
+        }
+        this.update()
+
     }
-    firstUpdated() {
-    }
+    firstUpdated() {}
 
     clickAtras() {
         store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
@@ -291,17 +371,21 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA)(LitEle
     clickEdit() {
         if (this.activar) {
             if (this.valido()) {
-                store.dispatch(modoPantalla("principal", "usuariodetalle"))
+
+
+                const nombre = this.shadowRoot.querySelector("#txtNombre").value
+                const apellido = this.shadowRoot.querySelector("#txtApellido").value
+                const documento = this.item.documento
+                const foto = this.item.foto
+                store.dispatch(updateProfile(nombre, apellido, documento, foto, store.getState().cliente.datos.token))
             }
         }
     }
     clickCobertura() {
         store.dispatch(modoPantalla("plandetalle", "usuariodetalle"))
     }
-    clickDelete() {
-    }
-    clickAsistencia() {
-    }
+    clickDelete() {}
+    clickAsistencia() {}
 
     static get properties() {
         return {
