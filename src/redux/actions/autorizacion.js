@@ -34,19 +34,21 @@ export const renovacion = (ticket, password) => ({
     password: password
 });
 
-export const logon = (nombre, apellido, email, documento) => ({
+export const logon = (nombre, apellido, email, documento, telefono) => ({
     type: LOGON,
     nombre: nombre,
     apellido: apellido,
     email: email,
-    documento: documento
+    documento: documento,
+    telefono: telefono,
 });
 
-export const updateProfile = (nombre, apellido, documento, foto, token) => ({
+export const updateProfile = (nombre, apellido, documento, foto, telefono, token) => ({
     type: UPDATE_PROFILE,
     foto: foto,
     nombre: nombre,
     apellido: apellido,
     documento: documento,
+    telefono: telefono,
     token: token
 });

@@ -76,7 +76,8 @@ export const logon = ({
             apellido: action.apellido,
             nombre: action.nombre,
             email: action.email,
-            documento: action.documento
+            documento: action.documento,
+            telefono: action.telefono
         }, LOGON_SUCCESS, LOGON_ERROR))
     }
 };
@@ -91,6 +92,7 @@ export const updateProfile = ({
             nombre: action.nombre,
             foto: action.foto,
             documento: action.documento,
+            telefono: action.telefono
         }, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_ERROR, action.token))
     }
 };

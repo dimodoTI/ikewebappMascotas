@@ -255,13 +255,15 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA, LOGON
                 const nombre = this.shadowRoot.getElementById("txtNombre").value;
                 const apellido = this.shadowRoot.getElementById("txtApellido").value;
                 const mail = this.shadowRoot.getElementById("txtMail").value;
+                const telefono = this.shadowRoot.getElementById("txtCelular").value;
                 store.dispatch(setDatos({
                     nombre: nombre,
                     apellido: apellido,
-                    email: mail
+                    email: mail,
+                    telefono: telefono
                 }))
 
-                store.dispatch(logon(nombre, apellido, mail, store.getState().cliente.datos.documento))
+                store.dispatch(logon(nombre, apellido, mail, store.getState().cliente.datos.documento), telefono)
             }
         }
     }

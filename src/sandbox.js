@@ -15,9 +15,11 @@ import {
     modoPantalla,
     captureMedia
 } from "./redux/actions/ui";
+
 import {
     get as getPublicidad
 } from "./redux/actions/publicidad";
+
 import {
     get as getReserva
 } from "./redux/actions/reserva";
@@ -36,6 +38,30 @@ import {
 } from "./redux/actions/usuario"
 
 import {
+    patch as patchMascotas,
+    add as addMascotas,
+    remove as removeMascotas,
+    get as getMascotas,
+    update as updateMascotas
+} from "./redux/actions/mascotas"
+
+import {
+    patch as patchMascotasTipo,
+    add as addMascotasTipo,
+    remove as removeMascotasTipo,
+    get as getMascotastipo,
+    update as updateMascotasTipo
+} from "./redux/actions/mascotastipo"
+
+import {
+    add as addRazas,
+    get as getRazas,
+    patch as patchRazas,
+    remove as removeRazas,
+    update as updateRazas
+} from "./redux/actions/razas"
+
+import {
     getParameterByName
 } from "./libs/helpers"
 
@@ -50,10 +76,121 @@ if (getParameterByName("ticket")) {
 }
 store.dispatch(getPublicidad())
 store.dispatch(getReserva())
+store.dispatch(getRazas())
+
+/* ---- Razas -----------*/
+// store.dispatch(getRazas())
+// store.dispatch(getRazas(1))
+
+/* store.dispatch(addRazas({
+    "idMascotasTipo": 1,
+    "Descripcion": "Callejero",
+    "Activo": true
+})) */
 
 
+/* store.dispatch(patchRazas(5, [{
+        "op": "replace",
+        "path": "/Descripcion",
+        "value": "Gato Callejero"
+    },
+    {
+        "op": "replace",
+        "path": "/idMascotasTipo",
+        "value": 2
+    }
+])) */
 
-//store.dispatch(login("yo@yo.yo", "yo"))
+/* store.dispatch(updateRazas(6, {
+    "Id": 6,
+    "idMascotasTipo": 2,
+    "descripcion": "Cabeza de termo",
+    "activo": true
+})) */
+
+//store.dispatch(removeRazas(6))
+
+/*-------Fin de Razas---------*/
+
+/*-------MascotasTipo---------*/
+//store.dispatch(getMascotastipo())
+//store.dispatch(getMascotastipo(1))
+
+/* store.dispatch(addMascotasTipo({
+
+    "Descripcion": "Vaca",
+    "Activo": true
+})) */
+
+/* store.dispatch(patchMascotasTipo(6, [{
+        "op": "replace",
+        "path": "/Descripcion",
+        "value": "Vaca Voladora"
+    },
+    {
+        "op": "replace",
+        "path": "/Activo",
+        "value": false
+    }
+])) */
+
+
+/* store.dispatch(updateMascotasTipo(6, {
+    "Id": 6,
+    "descripcion": "Vaquita de San Antonio",
+    "activo": true
+})) */
+
+// store.dispatch(removeMascotasTipo(6))
+
+/*----------Fin MascotasTipo---------- */
+
+/*----------Mascotas------------------*/
+
+//store.dispatch(getMascotas())
+//store.dispatch(getMascotas(2))
+/* store.dispatch(addMascotas({
+    "idUsuario": 2,
+    "idRaza": 1,
+    "Nombre": "Sultan",
+    "FechaNacimiento:": "2001-01-01T00:00:00",
+    "Foto:": "",
+    "Activo": true
+})) */
+
+/* store.dispatch(patchMascotas(4, [{
+        "op": "replace",
+        "path": "/Nombre",
+        "value": "Tom"
+    },
+    {
+        "op": "replace",
+        "path": "/Activo",
+        "value": true
+    },
+    {
+        "op": "replace",
+        "path": "/idRaza",
+        "value": 2
+    }
+])) */
+
+/* store.dispatch(updateMascotas(2, {
+    "id": 2,
+    "idUsuario": 2,
+    "idRaza": 1,
+    "nombre": "Boby",
+    "fechaNacimiento": "2001-01-01T00:00:00",
+    "foto": null,
+    "activo": true
+}))
+ */
+
+// store.dispatch(removeMascotas(4))
+/*-------------Fin Mascotas ---------------*/
+
+
+//store.dispatch(login("yo@yo.yo", "administrador"))
 
 //store.dispatch(recupero("yo@yo.yo"))
 

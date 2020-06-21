@@ -208,6 +208,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
                 errorLogin.removeAttribute("oculto")
 
             } else {
+
                 store.dispatch(modoPantalla("principal", "iniciosesion"));
             }
 

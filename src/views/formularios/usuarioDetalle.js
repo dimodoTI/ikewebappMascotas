@@ -267,7 +267,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
 
                 <div class="ikeInput">
                     <label id="lblCelular">${idiomas[this.idioma].usuariodetalle.lblCelu}</label>
-                    <input id="txtCelular"  @input=${this.activar} type="text" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph}>
+                    <input id="txtCelular"  @input=${this.activar} type="text" placeholder=${idiomas[this.idioma].usuariodetalle.lblCelu_ph} .value="${this.item.telefono}">
                     <label id="lblErrorCelular" error oculto>Celular Incorrecto</label>
                 </div> 
 
@@ -340,7 +340,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
         }
         item.nombre = this.shadowRoot.querySelector("#txtNombre").value
         item.apellido = this.shadowRoot.querySelector("#txtApellido").value
-        //item.telefono = this.shadowRoot.querySelector("#txtCelular").value
+        item.telefono = this.shadowRoot.querySelector("#txtCelular").value
         return item
     }
 
@@ -377,7 +377,8 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
                 const apellido = this.shadowRoot.querySelector("#txtApellido").value
                 const documento = this.item.documento
                 const foto = this.item.foto
-                store.dispatch(updateProfile(nombre, apellido, documento, foto, store.getState().cliente.datos.token))
+                const telefono = this.shadowRoot.querySelector("#txtCelular").value
+                store.dispatch(updateProfile(nombre, apellido, documento, foto, telefono, store.getState().cliente.datos.token))
             }
         }
     }
