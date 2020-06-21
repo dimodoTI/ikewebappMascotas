@@ -40,13 +40,13 @@ export const reducer = (state = initialState, action) => {
             updateTimeStamp = (new Date()).getTime();
             break;
         case PATCH_SUCCESS:
-            updateTimeStamp = (new Date()).getTime();
+            newState.updateTimeStamp = (new Date()).getTime();
             break;
         case REMOVE_SUCCESS:
-            removeTimeStamp = (new Date()).getTime();
+            newState.removeTimeStamp = (new Date()).getTime();
             break;
         case ADD_SUCCESS:
-            addTimeStamp = (new Date()).getTime();
+            newState.addTimeStamp = (new Date()).getTime();
             break;
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
