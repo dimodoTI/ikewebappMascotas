@@ -46,19 +46,15 @@ import {
 } from "./redux/actions/mascotas"
 
 import {
-    patch as patchMascotasTipo,
-    add as addMascotasTipo,
-    remove as removeMascotasTipo,
-    get as getMascotastipo,
-    update as updateMascotasTipo
-} from "./redux/actions/mascotastipo"
+
+    get as getMascotasTipo,
+
+} from "./redux/actions/mascotasTipo"
 
 import {
-    add as addRazas,
+
     get as getRazas,
-    patch as patchRazas,
-    remove as removeRazas,
-    update as updateRazas
+
 } from "./redux/actions/razas"
 
 import {
@@ -76,7 +72,13 @@ if (getParameterByName("ticket")) {
 }
 store.dispatch(getPublicidad())
 store.dispatch(getReserva())
-store.dispatch(getRazas())
+
+store.dispatch(getRazas({
+    orderby: "idMascotasTipo,Descripcion"
+}))
+store.dispatch(getMascotasTipo({
+    orderby: "Descripcion"
+}))
 
 /* ---- Razas -----------*/
 // store.dispatch(getRazas())

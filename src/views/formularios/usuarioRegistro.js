@@ -263,7 +263,7 @@ export class pantallaUsuarioRegistro extends connect(store, MODO_PANTALLA, LOGON
                     telefono: telefono
                 }))
 
-                store.dispatch(logon(nombre, apellido, mail, store.getState().cliente.datos.documento), telefono)
+                store.dispatch(logon(nombre, apellido, mail, store.getState().cliente.datos.documento, telefono))
             }
         }
     }

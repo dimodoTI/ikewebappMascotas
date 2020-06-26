@@ -1,26 +1,65 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { ikeInput } from "../css/ikeInput"
-import { cabecera1 } from "../css/cabecera1"
-import { select } from "../css/select"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS, CAMARA, CAMARAROLLO } from "../../../assets/icons/icons"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
+import {
+    html,
+    LitElement,
+    css,
+    TemplateResult
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    select
+} from "../css/select"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS,
+    CAMARA,
+    CAMARAROLLO
+} from "../../../assets/icons/icons"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
 
-export class pantallaMascotaAlta extends connect(store)(LitElement) {
+import {
+    add as addMascotas,
+    patch as patchMascotas
+} from "../../redux/actions/mascotas"
+
+
+const MASCOTAS_EDIT = "mascotas.editTimeStamp"
+const MASCOTASTIPO_TIMESPAM = "mascotastipo.timeStamp"
+const RAZAS_TIMESTAMP = "razas.timeStamp"
+
+export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTASTIPO_TIMESPAM, RAZAS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { tipo: "", nombre: "", fecha: "", raza: "" }
-        this.accion = ""  // ALTA o UPDATE
+        this.item = []
+        this.razas = []
+        this.mascotasTipo = [];
+        this.modo = ""
     }
 
     static get styles() {
-        return css`
+        return css `
         ${ikeInput}
         ${button}
         ${cabecera1}
@@ -169,56 +208,69 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
                     <div @click=${this.clickAtras}>${ATRAS}</div>
-                    <div id="lblTitulo">${this.accion == "ALTA"
+                    <div id="lblTitulo">${this.modo == "A"
                 ? idiomas[this.idioma].mascotaalta.titulo : idiomas[this.idioma].mascotaedit.titulo}
                     </div>
                 </div>
-                <div id="lblLeyenda">${this.accion == "ALTA"
+                <div id="lblLeyenda">${this.modo == "A"
                 ? idiomas[this.idioma].mascotaalta.leyenda : idiomas[this.idioma].mascotaedit.leyenda}
                 </div>
             </div>
             <div id="cuerpo">
                 <div id="foto">
-                    <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.accion == "ALTA"
+                    <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.modo == "A"
                 ? idiomas[this.idioma].mascotaalta.btn1 : idiomas[this.idioma].mascotaedit.btn1}
                     </button>
                 </div>
-                <div id="selectMascota" class="select" style="width:100%;height:3.4rem"> 
+                
+                
+                <div id="selectMascota" class="select" style="width:100%;height:3.4rem" > 
                     <label >${idiomas[this.idioma].mascotaalta.mascota}</label>
-                    <select style="width:100%;height:1.7rem;" id="mascota">          
-                        <option  value="Perro" .selected="${this.item.tipo == "Perro"}">Perro</option>
-                        <option value="Gato" .selected="${this.item.tipo == "Gato"}">Gato</option>
+                    <select style="width:100%;height:1.7rem; color:black" id="mascota"  @change="${this.cambioTipo}" > 
+                        <option  value="0">Elija Tipo de Mascota</option>                          
+                        ${this.mascotasTipo.map((p)=>{
+                            return html `
+                            <option style="color:black" .selected="${this.item.Raza.idMascotasTipo==p.Id}" value="${p.Id}">${p.Descripcion}</option>
+                             `}
+                                )}
+
                     </select>
-                </div>
+                       
+                </div> 
+
 
                 <div class="ikeInput">
                     <label id="lblNombre">${idiomas[this.idioma].mascotaalta.nombre}</label>
-                    <input id="txtNombre"  @input=${this.activar} placeholder=${idiomas[this.idioma].mascotaalta.nombre_ph}>
+                    <input id="txtNombre"   placeholder=${idiomas[this.idioma].mascotaalta.nombre_ph} .value="${this.item.Nombre}">
                     <label id="lblErrorNombre" error oculto>"Nombre Erroneo"</label>
                 </div>
 
-                <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
-                    <label >${idiomas[this.idioma].mascotaalta.fecha}</label>
-                    <select style="width:100%;height:1.7rem;" id="nombre">          
-                        <option  value="Rabia" .selected="${this.item.mascota == "Rabia"}">Rabia</option>
-                        <option value="Corona virus" .selected="${this.item.mascota == "Corona virus"}">Corona virus</option>
+                <div class="ikeInput">
+                    <label id="lblFecha">${idiomas[this.idioma].mascotaalta.fecha}</label>
+                    <input id="txtFecha"  type="date" placeholder=${idiomas[this.idioma].mascotaalta.fecha_ph}  .value="${this.item.FechaNacimiento?this.item.FechaNacimiento.substr(0,10):""}">
+                    <label id="lblErrorFecha" error oculto>"Fecha Erroneo"</label>
+                </div>
+
+
+                <div  class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].mascotaalta.raza}</label>
+                    <select id="selectRaza" style="width:100%;height:1.7rem;"  >          
+                    ${this.razas.map((p)=>{
+                            return html `
+                            <option style="color:black" .selected="${this.item.idRaza==p.Id}" value="${p.Id}">${p.Descripcion}</option>
+                             `}
+                                )}                      
                     </select>
                 </div>  
 
-                <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
-                    <label >${idiomas[this.idioma].mascotaalta.raza}</label>
-                    <select style="width:100%;height:1.7rem;" id="fecha">          
-                        <option  value="Salchicha" .selected="${this.item.raza == "Salchicha"}">Salchicha</option>
-                        <option value="Calle" .selected="${this.item.raza == "Calle"}">Calle</option>
-                    </select>
-                </div>  
+   
                 <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
-                    ${this.accion == "ALTA"
+                    ${this.modo == "A"
                 ? idiomas[this.idioma].mascotaalta.btn2 : idiomas[this.idioma].mascotaedit.btn2}
                 </button>
                 <div style="height:1rem"></div>
@@ -251,41 +303,7 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         </pie-componente>
     `
     }
-    activar() {
-        this.activo = true
-        const clave1 = this.shadowRoot.querySelector("#txtClave1")
-        const clave2 = this.shadowRoot.querySelector("#txtClave2")
-        if (clave1.value.length < 4) {
-            this.activo = false
-        }
-        if (clave2.value.length < 4) {
-            this.activo = false
-        }
-        if (this.activo) {
-            this.shadowRoot.querySelector("#btn-recuperar").removeAttribute("apagado")
-        } else {
-            this.shadowRoot.querySelector("#btn-recuperar").setAttribute("apagado", "")
-        }
-        this.update()
-    }
-    valido() {
-        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
-            element.setAttribute("oculto", "")
-        })
-        let valido = true
-        const clave1 = this.shadowRoot.querySelector("#txtClave1")
-        const clave2 = this.shadowRoot.querySelector("#txtClave2")
-        if (clave1.value.length < 8) {
-            valido = false
-            this.shadowRoot.querySelector("#lblErrorClave1").removeAttribute("oculto");
-        }
-        if (clave2.value.length < 8) {
-            valido = false
-            this.shadowRoot.querySelector("#lblErrorClave2").removeAttribute("oculto");
-        }
-        this.update()
-        return valido
-    }
+
     clickAtras() {
         store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, store.getState().ui.quePantalla))
     }
@@ -297,17 +315,99 @@ export class pantallaMascotaAlta extends connect(store)(LitElement) {
         this.shadowRoot.querySelector("#divTapa").style.display = "none";
         this.shadowRoot.querySelector("#divMensaje").style.display = "none";
     }
+
+    asignarValores(olditem) {
+        let item = {
+            ...olditem
+        }
+        item.Nombre = this.shadowRoot.querySelector("#txtNombre").value
+        item.FechaNacimiento = this.shadowRoot.querySelector("#txtFecha").value
+        item.idRaza = this.shadowRoot.querySelector("#selectRaza").value
+        item.idUsuario = store.getState().cliente.datos.id
+        item.Foto = ""
+        item.Activo = true
+
+        delete item.Raza
+
+        return item
+    }
+
+    generaPathch(olditem) {
+        let item = {
+            ...olditem
+        }
+
+        let datosPatch = [{
+                "op": "replace",
+                "path": "/Nombre",
+                "value": this.shadowRoot.querySelector("#txtNombre").value
+            },
+            {
+                "op": "replace",
+                "path": "/FechaNacimiento",
+                "value": this.shadowRoot.querySelector("#txtFecha").value
+            },
+            {
+                "op": "replace",
+                "path": "/idRaza",
+                "value": this.shadowRoot.querySelector("#selectRaza").value
+            }
+        ]
+        return datosPatch
+
+    }
+
+
+
+
     clickGrabar() {
-        //        if (this.activo) {
-        //            if (this.valido()) {
+
+
+        if (this.modo == "A") {
+            store.dispatch(addMascotas(this.asignarValores(this.item), store.getState().cliente.datos.token))
+        } else {
+            store.dispatch(patchMascotas(this.item.Id, this.generaPathch(this.item), store.getState().cliente.datos.token))
+        }
+
         store.dispatch(modoPantalla("mascotaaltamsg"));
         //            }
         //       }
     }
+
+
     stateChanged(state, name) {
+        if (name == MASCOTASTIPO_TIMESPAM || name == RAZAS_TIMESTAMP) {
+            if (state.mascotastipo.entities && state.razas.entities) {
+                this.mascotasTipo = [...state.mascotastipo.entities]
+                this.razas = [...state.razas.entities]
+
+                this.update()
+            }
+        }
+
+
+        if (name == MASCOTAS_EDIT) {
+
+            this.modo = state.mascotas.modo
+
+            this.item = state.mascotas.entities.currentItem
+
+
+
+
+
+            this.update()
+        }
+
     }
-    firstUpdated() {
+
+    cambioTipo(e) {
+
+        this.razas = store.getState().razas.entities.filter(r => r.idMascotasTipo == parseInt(e.currentTarget.value, 10))
+        this.update()
     }
+
+
 
     static get properties() {
         return {

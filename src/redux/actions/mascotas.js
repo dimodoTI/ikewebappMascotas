@@ -3,6 +3,8 @@ export const ADD = "[mascotas] ADD";
 export const PATCH = "[mascotas] PATCH";
 export const UPDATE = "[mascotas] UPDATE";
 export const REMOVE = "[mascotas] REMOVE";
+export const EDIT = "[mascotas] EDIT"
+
 
 export const GET_SUCCESS = "[mascotas] GET success";
 export const ADD_SUCCESS = "[mascotas] ADD success";
@@ -19,34 +21,55 @@ export const REMOVE_ERROR = "[mascotas] REMOVE error";
 
 
 
-export const get = (id) => ({
+export const get = (options) => ({
     type: GET,
-    id: id,
-    //token: token
+    options: options
 });
 
-export const add = (body) => ({
+export const add = (body, token) => ({
     type: ADD,
     body: body,
-    // token: token
+    token: token
 });
 
-export const update = (id, body) => ({
+export const update = (id, body, token) => ({
     type: UPDATE,
     id: id,
-    body: body
-    //token: token
+    body: body,
+    token: token
 });
 
-export const patch = (id, body) => ({
+export const patch = (id, body, token) => ({
     type: PATCH,
     id: id,
     body: body,
-    //token: token
+    token: token
 });
 
-export const remove = (id) => ({
+export const remove = (id, token) => ({
     type: REMOVE,
     id: id,
-    //token: token
+    token: token
 });
+
+export const edit = (modo, item) => ({
+    type: EDIT,
+    item: item || {
+        Id: 0,
+        idUsuario: 0,
+        idRaza: 0,
+        Nombre: "",
+        Foto: "",
+        FechaNacimiento: "",
+        Activo: true,
+        Raza: {
+            Id: 0,
+            Descripcion: "",
+            MascotasTipo: {
+                Id: 0,
+                Descripcion: ""
+            }
+        }
+    },
+    modo: modo,
+})

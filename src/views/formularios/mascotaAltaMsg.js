@@ -1,10 +1,26 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { label } from "../css/label"
-import { button } from "../css/button"
-import { modoPantalla } from "../../redux/actions/ui";
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    label
+} from "../css/label"
+import {
+    button
+} from "../css/button"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
 export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -13,7 +29,7 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     }
 
     static get styles() {
-        return css`
+        return css `
         ${label}
         ${button}
         :host{
@@ -120,7 +136,7 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     `
     }
     render() {
-        return html`
+        return html `
         <div id="fondo"> </div>
         <div id="cuerpo">
             <div id="x" @click=${this.clickBoton1}>
@@ -144,7 +160,7 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     }
 
     clickBoton1() {
-        store.dispatch(modoPantalla("principal", "principal"))
+        store.dispatch(modoPantalla("mascota", "mascotasAlta"))
     }
     clickBoton2() {
         store.dispatch(modoPantalla("mascotaver", "principal"))
@@ -155,8 +171,7 @@ export class pantallaMascotaAltaMsg extends connect(store)(LitElement) {
     stateChanged(state, name) {
 
     }
-    firstUpdated() {
-    }
+    firstUpdated() {}
 
     static get properties() {
         return {

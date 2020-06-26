@@ -34,6 +34,11 @@ import {
     setRenovado
 } from "../actions/cliente";
 
+import {
+    get as getMascotas
+}
+from "../actions/mascotas"
+
 export const login = ({
     dispatch
 }) => next => action => {
@@ -99,7 +104,8 @@ export const updateProfile = ({
 
 
 export const processLogin = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
     if (action.type === LOGIN_SUCCESS) {
@@ -108,6 +114,10 @@ export const processLogin = ({
         } else {
             dispatch(setLogueado(true))
             dispatch(setDatos(action.payload.receive))
+            dispatch(getMascotas({
+                token: getState().cliente.datos.token,
+                expand: "Raza($expand=MascotasTipo)"
+            }))
         }
     }
 };

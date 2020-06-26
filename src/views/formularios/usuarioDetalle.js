@@ -334,9 +334,6 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
     asignarValores(item) {
         item = {
             ...this.item
-
-
-
         }
         item.nombre = this.shadowRoot.querySelector("#txtNombre").value
         item.apellido = this.shadowRoot.querySelector("#txtApellido").value
@@ -355,7 +352,6 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
 
         if (name == UPDATEPROFILE_TIMESTAMP) {
             store.dispatch(setDatos(this.asignarValores(this.item)))
-
         }
         this.update()
 
@@ -371,8 +367,6 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
     clickEdit() {
         if (this.activar) {
             if (this.valido()) {
-
-
                 const nombre = this.shadowRoot.querySelector("#txtNombre").value
                 const apellido = this.shadowRoot.querySelector("#txtApellido").value
                 const documento = this.item.documento

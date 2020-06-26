@@ -1,29 +1,76 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { label } from "../css/label"
-import { button } from "../css/button"
-import { cabecera1 } from "../css/cabecera1"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
-import { cardMascotaVertical } from "../css/cardMascotaVertical"
-import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
-import { modoPantalla } from "../../redux/actions/ui";
-import { REGALO, CARRITO, RELOJ, NOVEDADES1, NOVEDADES2, NOVEDADES3, HOME, MASCOTA, CONSULTA, VACUNA, FOTO, MAS } from "../../../assets/icons/icons"
-export class pantallaMascota extends connect(store)(LitElement) {
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    label
+} from "../css/label"
+import {
+    button
+} from "../css/button"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
+import {
+    cardMascotaVertical
+} from "../css/cardMascotaVertical"
+import {
+    btnFlotanteAlargado
+} from "../css/btnFlotanteAlargado"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    REGALO,
+    CARRITO,
+    RELOJ,
+    NOVEDADES1,
+    NOVEDADES2,
+    NOVEDADES3,
+    HOME,
+    MASCOTA,
+    CONSULTA,
+    VACUNA,
+    FOTO,
+    MAS
+} from "../../../assets/icons/icons"
+
+import {
+    edit as editMascotas,
+    get as getMascotas
+} from "../../redux/actions/mascotas"
+
+const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
+const MASCOTAS_ADDTIMESTAMP = "mascotas.addTimeStamp"
+const MASCOTAS_UPDATETIMESTAMP = "mascotas.updateTimeStamp"
+const MASCOTAS_REMOVETIMESTAMP = "mascotas.removeTimeStamp"
+
+
+
+export class pantallaMascota extends connect(store, MASCOTAS_ADDTIMESTAMP, MASCOTAS_REMOVETIMESTAMP, MASCOTAS_TIMESTAMP, MASCOTAS_UPDATETIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = [{ imagen: "--imagen-perro1", tipo: "Perro", nombre: "Coqui", raza: "Calle", edad: "4", consultas: "6" },
-        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" },
-        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" },
-        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" },
-        { imagen: "--imagen-perro1", tipo: "Perro", nombre: "Ringo", raza: "Callejera", edad: "5", consultas: "7" }]
+
+        this.items = []
     }
 
     static get styles() {
-        return css`
+        return css `
         ${label}
         ${button}
         ${cabecera1}
@@ -82,7 +129,7 @@ export class pantallaMascota extends connect(store)(LitElement) {
     `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">
                 <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
@@ -95,14 +142,14 @@ export class pantallaMascota extends connect(store)(LitElement) {
             </div>
 
             <div id="cuerpo">
-                ${this.item.map(dato => html`
-                    <div id="cmhDivEtiqueta" >
-                        <div id="cmhDivImagen" style="background-image:var(${dato.imagen});"></div>
-                        <div id="cmhDivTipo">${dato.tipo}</div>
-                        <div id="cmhDivNombre">${dato.nombre}</div>
-                        <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.raza}</div>
-                        <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + dato.edad}</div>
-                        <div id="cmhDivConsultas">${dato.consultas + idiomas[this.idioma].mascota.consultas}</div>              
+                ${this.items.map(dato => html`
+                    <div id="cmhDivEtiqueta" .item=${dato} @click="${this.editar}">
+                        <div id="cmhDivImagen" style="background-image:var(${dato.Foto})"></div>
+                        <div id="cmhDivTipo">${dato.Raza.MascotasTipo.Descripcion}</div>
+                        <div id="cmhDivNombre">${dato.Nombre}</div>
+                        <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.Raza.Descripcion}</div>
+                        <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + this.calculaEdad(dato.FechaNacimiento)}</div>
+                        <div id="cmhDivConsultas">${"1" + idiomas[this.idioma].mascota.consultas}</div>              
                     </div>
                 `)}
             </div>        
@@ -119,12 +166,47 @@ export class pantallaMascota extends connect(store)(LitElement) {
         store.dispatch(modoPantalla("notificacion", "mascota"))
     }
     clickAgregarMascota() {
+        store.dispatch(editMascotas("A"))
         store.dispatch(modoPantalla("mascotaalta", "mascota"))
     }
+
+    editar(e) {
+
+        store.dispatch(editMascotas("M", e.currentTarget.item))
+        store.dispatch(modoPantalla("mascotaalta", "mascota"))
+    }
+
     stateChanged(state, name) {
+        if (name == MASCOTAS_ADDTIMESTAMP || name == MASCOTAS_REMOVETIMESTAMP || name == MASCOTAS_UPDATETIMESTAMP) {
+            store.dispatch(getMascotas({
+                token: state.cliente.datos.token,
+                expand: "Raza($expand=MascotasTipo)"
+            }))
+
+
+
+        }
+        if (name == MASCOTAS_TIMESTAMP) {
+
+            this.items = state.mascotas.entities
+            this.update()
+        }
+
     }
-    firstUpdated() {
+
+
+
+    calculaEdad(nacimiento) {
+
+
+        const hoy = new Date()
+        const fecNac = new Date(nacimiento)
+        const dif = ((((hoy.getTime() - fecNac.getTime()) / 1000) / 60) / 60) / 24
+        return Math.floor((dif / 365.2425))
+
     }
+
+    firstUpdated() {}
 
     static get properties() {
         return {

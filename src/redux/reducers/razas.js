@@ -1,25 +1,14 @@
 import {
     GET_SUCCESS,
-    GET_ERROR,
-    PATCH_SUCCESS,
-    PATCH_ERROR,
-    UPDATE_SUCCESS,
-    UPDATE_ERROR,
-    ADD_SUCCESS,
-    ADD_ERROR,
-    REMOVE_SUCCESS,
-    REMOVE_ERROR
+    GET_ERROR
 } from "../actions/razas";
 
 
 const initialState = {
-    entities: [],
+    entities: null,
     timeStamp: null,
-    removeTimeStamp: null,
-    updateTimeStamp: null,
-    addTimeStamp: null,
     errorTimeStamp: null,
-    commandErrorTimeStamp: null
+
 };
 
 export const reducer = (state = initialState, action) => {
@@ -29,30 +18,11 @@ export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case GET_SUCCESS:
-            if (action.payload.send) {
-                newState.entities = [action.payload.receive]
-            } else {
-                newState.entities = action.payload.receive
-            }
+            newState.entities = action.payload.receive
             newState.timeStamp = (new Date()).getTime();
-            break;
-        case UPDATE_SUCCESS:
-            updateTimeStamp = (new Date()).getTime();
-            break;
-        case PATCH_SUCCESS:
-            updateTimeStamp = (new Date()).getTime();
-            break;
-        case REMOVE_SUCCESS:
-            removeTimeStamp = (new Date()).getTime();
-            break;
-        case ADD_SUCCESS:
-            addTimeStamp = (new Date()).getTime();
             break;
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
-            break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
-            newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
 
     }

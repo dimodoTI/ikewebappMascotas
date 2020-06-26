@@ -30,8 +30,8 @@ import {
 } from "./middleware/autorizacion";
 
 import {
-  middleware as mascotastipo
-} from "./middleware/mascotastipo"
+  middleware as mascotasTipo
+} from "./middleware/mascotasTipo"
 
 import {
   middleware as razas
@@ -50,7 +50,7 @@ let mdw = [
   ...usuario,
   ...autorizacion,
   ...mascotas,
-  ...mascotastipo,
+  ...mascotasTipo,
   ...razas,
 
 ]

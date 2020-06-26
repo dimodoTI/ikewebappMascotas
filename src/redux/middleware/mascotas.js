@@ -19,7 +19,8 @@ import {
 
 import {
 
-    ikeMascotas
+    ikeMascotas,
+    ikeMascotasQuery
 } from "../fetchs"
 
 import {
@@ -30,12 +31,16 @@ import {
     RESTPatch
 } from "../actions/REST"
 
+import {
+    apiRequest
+} from "../actions/api"
+
 export const get = ({
     dispatch
 }) => next => action => {
     next(action);
     if (action.type === GET) {
-        dispatch(RESTRequest(ikeMascotas, action.id, GET_SUCCESS, GET_ERROR))
+        dispatch(apiRequest(ikeMascotasQuery, action.options, GET_SUCCESS, GET_ERROR))
     }
 };
 
@@ -44,7 +49,7 @@ export const add = ({
 }) => next => action => {
     next(action);
     if (action.type === ADD) {
-        dispatch(RESTAdd(ikeMascotas, action.body, ADD_SUCCESS, ADD_ERROR))
+        dispatch(RESTAdd(ikeMascotas, action.body, ADD_SUCCESS, ADD_ERROR, action.token))
     }
 };
 
@@ -53,7 +58,7 @@ export const update = ({
 }) => next => action => {
     next(action);
     if (action.type === UPDATE) {
-        dispatch(RESTUpdate(ikeMascotas, action.id, action.body, UPDATE_SUCCESS, UPDATE_ERROR))
+        dispatch(RESTUpdate(ikeMascotas, action.id, action.body, UPDATE_SUCCESS, UPDATE_ERROR, action.token))
     }
 };
 
@@ -62,7 +67,7 @@ export const patch = ({
 }) => next => action => {
     next(action);
     if (action.type === PATCH) {
-        dispatch(RESTPatch(ikeMascotas, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR))
+        dispatch(RESTPatch(ikeMascotas, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR, action.token))
     }
 };
 
@@ -71,7 +76,7 @@ export const remove = ({
 }) => next => action => {
     next(action);
     if (action.type === REMOVE) {
-        dispatch(RESTDelete(ikeMascotas, action.id, REMOVE_SUCCESS, REMOVE_ERROR))
+        dispatch(RESTDelete(ikeMascotas, action.id, REMOVE_SUCCESS, REMOVE_ERROR, action.token))
     }
 };
 

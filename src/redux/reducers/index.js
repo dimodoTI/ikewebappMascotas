@@ -27,7 +27,7 @@ import {
 
 import {
   reducer as mascotasTipoReducer
-} from "./mascotastipo"
+} from "./mascotasTipo"
 
 import {
   reducer as razasReducer

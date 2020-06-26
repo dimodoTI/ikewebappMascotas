@@ -50,6 +50,10 @@ import {
     validaMail
 } from "../../libs/funciones"
 
+import {
+    get as getMascotas
+} from "../../redux/actions/mascotas"
+
 const MODO_PANTALLA = "ui.timeStampPantalla"
 const LOGIN_OK_ERROR = "cliente.logueadoTimeStamp"
 const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
@@ -111,13 +115,13 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
         <div id="cuerpo">
             <div class="ikeInput">
                 <label id="lblMail">${idiomas[this.idioma].iniciosession.mail}</label>
-                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].iniciosession.mail_ph}>
+                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].iniciosession.mail_ph} value="bruno@ike.com">
                 <label id="lblErrorMail" error oculto>${idiomas[this.idioma].iniciosession.errorMail.err1}</label>
             </div>
 
             <div class="ikeInput">
                 <label id="lblClave">${idiomas[this.idioma].iniciosession.clave}</label>
-                <input id="txtClave" @input=${this.activar} type="password">
+                <input id="txtClave" @input=${this.activar} type="password" value="bruno ">
                 <label id="lblErrorClave" error oculto>${idiomas[this.idioma].iniciosession.errorClave.err1}</label>
                 <label id="lblErrorLogin" error oculto>${idiomas[this.idioma].iniciosession.errorClave.err2}</label>
             </div>
@@ -188,6 +192,7 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
         store.dispatch(modoPantalla("recuperaclave", "iniciosesion"));
     }
     clickBoton3() {
+
         store.dispatch(modoPantalla("principal", "iniciosesion"));
     }
 
