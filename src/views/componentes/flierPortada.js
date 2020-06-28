@@ -19,7 +19,10 @@ import {
     idiomas
 } from "../../redux/datos/idiomas"
 
-const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
+//const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
+
+const PUBLICIDAD_TIMESTAMP = "publicacion.timeStamp"
+
 export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
@@ -71,19 +74,27 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
         if (this.item) {
             return html `
             ${
-                repeat(this.item, (dato) => dato.texto, (dato, index) => html`
+                repeat(this.item, (dato) => dato.Titulo, (dato, index) => html`
                 <div id="div-agenda" >
-                    <label id="lbl-agenda">${idiomas[this.idioma].publicidad.flier[dato.texto].lbl}</label>
-                    <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].publicidad.flier[dato.texto].lblBtn}</button>
+                    <label id="lbl-agenda">${idiomas[this.idioma].publicidad.flier[dato.Titulo].lbl}</label>
+                    <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].publicidad.flier[dato.Titulo].lblBtn}</button>
                 </div>                
             `)}
         `
         }
     }
     stateChanged(state, name) {
+        /*         if (name == PUBLICIDAD_TIMESTAMP) {
+                     this.item = state.publicidad.entities.filter(item => {
+                        return item.tipo == this.tipo 
+
+                    });
+                    this.update();
+                } */
         if (name == PUBLICIDAD_TIMESTAMP) {
-            this.item = state.publicidad.entities.filter(item => {
-                return item.tipo == this.tipo
+            this.item = state.publicacion.entities.filter(item => {
+                return item.Tipo == this.tipo
+
             });
             this.update();
         }

@@ -9,26 +9,33 @@ import {
 import {
     connect
 } from "@brunomon/helpers";
-import { repeat } from 'lit-html/directives/repeat.js';
-import { modoPantalla, cancelarTimer } from "../../redux/actions/ui";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button";
+import {
+    repeat
+} from 'lit-html/directives/repeat.js';
+import {
+    modoPantalla,
+    cancelarTimer
+} from "../../redux/actions/ui";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button";
 const MODO_PANTALLA = "ui.timeStampPantalla"
-export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement) {
+
+const PUBLICACIONES_TIMESTAMP = "publicacion.timeStamp"
+export class pantallaOnboarding extends connect(store, MODO_PANTALLA, PUBLICACIONES_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
         this.lienaActual = 0;
-        this.lineas = [{ titulo: "Cuidalos. Sin salir de tu casa", mensaje: "Accedé a consultas online y chat personalizado con nuestros profesionales." },
-        { titulo: "Lo que necesitas, al alcance de tu mano.", mensaje: "Consultá la historia clínica de tus mascotas en cualquier momento y lugar." },
-        { titulo: "Te ayudamos a darles lo mejor", mensaje: "Chequeá el calendario de vacunación para estar siempre al día." },
-        { titulo: "Bruno", mensaje: "Chequeá el calendario de vacunación para estar siempre al día." }
-        ];
+        this.lineas = [];
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}        
         :host{
             position: absolute;
@@ -168,7 +175,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
     }
 
     render() {
-        return html`
+        return html `
         <div id="header">
         </div>
         <div id="cuerpo">
@@ -177,13 +184,13 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             <div id="flecha-der" @click="${this.adelante}">
             </div>
             <div id="titulo">
-            ${this.lineas[this.lienaActual].titulo}
+            ${this.lineas[this.lienaActual].Titulo}
             </div>
             <div id="leyenda">
-            ${this.lineas[this.lienaActual].mensaje}
+            ${this.lineas[this.lienaActual].Leyenda}
             </div>
             <div id="puntos">
-            ${repeat(this.lineas, (item) => item.titulo, (item, index) => html`
+            ${repeat(this.lineas, (item) => item.Titulo, (item, index) => html`
                 <div id="punto${index}" class="${index == 0 ? 'puntoLLeno' : 'puntoVacio'}">
                 </div>
             `)}
@@ -201,6 +208,10 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
         if (name == MODO_PANTALLA && state.ui.quePantalla == "onboarding") {
             store.dispatch(cancelarTimer())
         }
+        if (name == PUBLICACIONES_TIMESTAMP) {
+            this.lineas = state.publicacion.entities.filter(reg => reg.Tipo == "D").sort((a, b) => a.Orden - b.Orden)
+
+        }
     }
     firstUpdated() {
         this.shadowRoot.querySelector("#flecha-izq").hidden = true
@@ -216,8 +227,8 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             this.lienaActual = this.lienaActual + 1;
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.add("puntoLLeno");
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoVacio");
-            this.shadowRoot.querySelector("#titulo").innerHTML = this.lineas[this.lienaActual].titulo
-            this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].mensaje
+            this.shadowRoot.querySelector("#titulo").innerHTML = this.lineas[this.lienaActual].Titulo
+            this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].Leyenda
             if (this.lienaActual + 1 == this.lineas.length) {
                 this.shadowRoot.querySelector("#flecha-der").hidden = true
                 this.shadowRoot.querySelector("#btn-siguiente").innerText = idiomas[this.idioma].onboarding.btn3
@@ -232,8 +243,8 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA)(LitElement
             this.lienaActual = this.lienaActual - 1;
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.add("puntoLLeno");
             this.shadowRoot.querySelector("#punto" + this.lienaActual).classList.remove("puntoVacio");
-            this.shadowRoot.querySelector("#titulo").innerHTML = this.lineas[this.lienaActual].titulo
-            this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].mensaje
+            this.shadowRoot.querySelector("#titulo").innerHTML = this.lineas[this.lienaActual].Titulo
+            this.shadowRoot.querySelector("#leyenda").innerHTML = this.lineas[this.lienaActual].Mensaje
             this.shadowRoot.querySelector("#btn-siguiente").innerText = this.txtBtn1
             if (this.lienaActual == 0) {
                 this.shadowRoot.querySelector("#flecha-izq").hidden = true

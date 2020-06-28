@@ -33,6 +33,30 @@ import {
   reducer as razasReducer
 } from "./razas"
 
+import {
+  reducer as publicacionReducer
+} from "./publicacion"
+
+import {
+  reducer as configuracionReducer
+} from "./configuracion"
+
+import {
+  reducer as puestosReducer
+} from "./puestos"
+
+import {
+  reducer as tramosReducer
+} from "./tramos"
+
+import {
+  reducer as reservasReducer
+} from "./reservas"
+
+import {
+  reducer as atencionesReducer
+} from "./atenciones"
+
 export const rootReducer = (state = {}, action) => {
   return {
     ui: uiReducer(state.ui, action),
@@ -44,6 +68,11 @@ export const rootReducer = (state = {}, action) => {
     mascotas: mascotasReducer(state.mascotas, action),
     mascotastipo: mascotasTipoReducer(state.mascotastipo, action),
     razas: razasReducer(state.razas, action),
-
+    publicacion: publicacionReducer(state.publicacion, action),
+    configuracion: configuracionReducer(state.configuracion, action),
+    puestos: puestosReducer(state.puestos, action),
+    tramos: tramosReducer(state.tramos, action),
+    reservas: reservasReducer(state.reservas, action),
+    atenciones: atencionesReducer(state.atenciones, action)
   };
 };

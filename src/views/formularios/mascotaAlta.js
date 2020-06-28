@@ -378,8 +378,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
     stateChanged(state, name) {
         if (name == MASCOTASTIPO_TIMESPAM || name == RAZAS_TIMESTAMP) {
             if (state.mascotastipo.entities && state.razas.entities) {
-                this.mascotasTipo = [...state.mascotastipo.entities]
-                this.razas = [...state.razas.entities]
+
 
                 this.update()
             }
@@ -387,7 +386,8 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
 
 
         if (name == MASCOTAS_EDIT) {
-
+            this.mascotasTipo = [...state.mascotastipo.entities]
+            this.razas = [...state.razas.entities]
             this.modo = state.mascotas.modo
 
             this.item = state.mascotas.entities.currentItem

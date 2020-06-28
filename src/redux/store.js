@@ -41,6 +41,29 @@ import {
   middleware as mascotas
 } from "./middleware/mascotas"
 
+import {
+  middleware as publicaciones
+} from "./middleware/publicacion"
+
+import {
+  middleware as configuracion
+} from "./middleware/configuracion"
+import {
+  middleware as puestos
+} from "./middleware/puestos"
+
+import {
+  middleware as tramos
+} from "./middleware/tramos"
+
+import {
+  middleware as reservas
+} from "./middleware/reservas"
+
+import {
+  middleware as atenciones
+} from "./middleware/atenciones"
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let mdw = [
@@ -52,6 +75,12 @@ let mdw = [
   ...mascotas,
   ...mascotasTipo,
   ...razas,
+  ...publicaciones,
+  ...configuracion,
+  ...puestos,
+  ...tramos,
+  ...reservas,
+  ...atenciones
 
 ]
 

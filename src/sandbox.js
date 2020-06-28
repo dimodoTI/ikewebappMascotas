@@ -61,7 +61,9 @@ import {
     getParameterByName
 } from "./libs/helpers"
 
-
+import {
+    get as getPublicaciones
+} from "./redux/actions/publicacion"
 
 
 store.dispatch(captureMedia())
@@ -70,7 +72,7 @@ if (getParameterByName("ticket")) {
 } else {
     store.dispatch(modoPantalla("splash"))
 }
-store.dispatch(getPublicidad())
+//store.dispatch(getPublicidad())
 store.dispatch(getReserva())
 
 store.dispatch(getRazas({
@@ -79,6 +81,8 @@ store.dispatch(getRazas({
 store.dispatch(getMascotasTipo({
     orderby: "Descripcion"
 }))
+
+store.dispatch(getPublicaciones({}))
 
 /* ---- Razas -----------*/
 // store.dispatch(getRazas())

@@ -36,7 +36,7 @@ import {
     tiempos
 } from "../../redux/datos/tiempoEspera";
 
-const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
+const PUBLICIDAD_TIMESTAMP = "publicacion.timeStamp"
 export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
@@ -121,19 +121,19 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
     }
     render() {
         if (this.item) {
-            return repeat(this.item, (dato) => dato.texto, (dato, index) => html `
-                  <div id="cuerpo-marq" class="${!dato.texto == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.color});">
-                      <div class="${!dato.texto == '' ? 'img-marq-dos' : 'img-marq-solo'}">
-                        <img  style="content:var(${dato.imagen})"/>
+            return repeat(this.item, (dato) => dato.Titulo, (dato, index) => html `
+                  <div id="cuerpo-marq" class="${!dato.Titulo == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.Color});">
+                      <div class="${!dato.Titulo == '' ? 'img-marq-dos' : 'img-marq-solo'}">
+                        <img  style="content:var(${dato.Imagen})"/>
                       </div>
-                      <label id="lbl-marq" >${!dato.texto == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.texto].lbl : ''}</label>
+                      <label id="lbl-marq" >${!dato.Titulo == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl : ''}</label>
                   </div>`)
         }
     }
     stateChanged(state, name) {
         if (name == PUBLICIDAD_TIMESTAMP) {
-            this.item = state.publicidad.entities.filter(item => {
-                return item.tipo == this.tipo
+            this.item = state.publicacion.entities.filter(item => {
+                return item.Tipo == this.tipo
             });
             this.update();
         }
