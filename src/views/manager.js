@@ -135,7 +135,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
     }
 
     static get styles() {
-        return css `
+        return css`
         :host{
             display: grid;                 
             grid-gap:1rem;
@@ -152,7 +152,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         `
     }
     render() {
-        return html `
+        return html`
         <pantalla-splash id="splash" media-size="${this.mediaSize}"></pantalla-splash>
         <pantalla-onboarding id="onboarding" media-size="${this.mediaSize}"></pantalla-onboarding>
         <pantalla-iniciosesion id="iniciosesion" media-size="${this.mediaSize}"></pantalla-iniciosesion>
@@ -193,7 +193,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
     }
 
     stateChanged(state, name) {
-        if (name == QUEPANTALLA || name == MEDIA_CHANGE) {
+        if ((name == QUEPANTALLA || name == MEDIA_CHANGE) && state.ui.quePantalla) {
             this.mediaSize = state.ui.media.size
             if (this.shadowRoot.children.length > 0) {
                 this.shadowRoot.querySelector("#splash").hidden = state.ui.quePantalla != "splash";

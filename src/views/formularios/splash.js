@@ -23,7 +23,7 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     }
 
     static get styles() {
-        return css `
+        return css`
         :host{
             display: grid;
             justify-items:center;
@@ -54,7 +54,7 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
         `
     }
     render() {
-        return html `
+        return html`
         <div id="fondo" @click="${this.pasar}">
         </div>
         `
@@ -62,7 +62,7 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "splash") {
             store.dispatch(cancelarTimer())
-            store.dispatch(dispararTimer(3, "onboarding", "splash"))
+            //store.dispatch(dispararTimer(3, "onboarding", "splash"))
             this.update()
         }
 

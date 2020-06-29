@@ -132,7 +132,7 @@ export class pantallaMisConsultas extends connect(store, RESERVA_TIMESTAMP)(LitE
                 `)}
             </div>
         </div>        
-        <pie-componente id="pie" opcion="tres">
+        <pie-componente id="pie" opcion="tres" media-size="${this.mediaSize}">
         </pie-componente>
         <div id="bfaDivMas"  @click=${this.clickBoton2}>
             ${CONSULTA}
