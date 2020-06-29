@@ -10,45 +10,122 @@ import {
     store
 } from "../redux/store";
 
-import { cabecera3Componente } from "../views/componentes/cabecera3Componente";
-import { marquesinaComponente } from "../views/componentes/marquesina";
-import { pieComponente } from "../views/componentes/pie";
+import {
+    cabecera3Componente
+} from "../views/componentes/cabecera3Componente";
+import {
+    marquesinaComponente
+} from "../views/componentes/marquesina";
+import {
+    pieComponente
+} from "../views/componentes/pie";
 
-import { pantallaSplash } from "../views/formularios/splash";
-import { pantallaOnboarding } from "../views/formularios/onboarding";
-import { pantallaInicioSesion } from "../views/formularios/iniciosesion";
-import { pantallaRecuperaClave } from "../views/formularios/recuperaclave";
-import { pantallaRecuperaClaveMesg } from "../views/formularios/recuperaclavemsg";
-import { pantallaCrearClave } from "../views/formularios/crearclave";
-import { pantallaCrearClaveMsg } from "../views/formularios/crearclavemsg";
-import { pantallaAccespPlan } from "../views/formularios/accesoplan";
-import { pantallaVErCobertuta } from "../views/formularios/vercobertura";
-import { pantallaUsuarioRegistro } from "../views/formularios/usuarioRegistro";
-import { pantallaPlanDetalle } from "../views/formularios/planDetalle";
-import { pantallaPrincipal } from "../views/formularios/principal";
-import { pantallaUsuarioDetalle } from "../views/formularios/usuarioDetalle";
-import { pantallaMascota } from "../views/formularios/mascota";
-import { pantallaMisConsultas } from "../views/formularios/misConsultas";
-import { pantallaCalendario } from "../views/formularios/calendario";
-import { pantallaFotoGaleria } from "../views/formularios/fotoGaleria";
-import { pantallaFotoVer } from "../views/formularios/fotoVer";
-import { pantallaVideo } from "../views/formularios/video";
-import { pantallaVideoCalificacion } from "../views/formularios/videoCalificacion";
-import { pantallaVideoDetalle } from "../views/formularios/videoDetalle";
-import { pantallarClaveModificar } from "../views/formularios/claveModificar";
-import { pantallarClaveModificarMsg } from "./formularios/claveModificarMsg";
-import { pantallaPlanContrata } from "./formularios/planContrata";
-import { pantallaNotificacion } from "./formularios/notificacion";
-import { pantallaVacuna } from "./formularios/vacuna";
-import { pantallaVacunaMsg } from "./formularios/vacunaMsg";
-import { pantallaMascotaAlta } from "./formularios/mascotaAlta";
-import { pantallaMascotaAltaMsg } from "./formularios/mascotaAltaMsg";
-import { pantallaMascotaVer } from "./formularios/mascotaVer";
-import { pantallaConsulta } from "./formularios/consulta";
-import { pantallaConsultaTurnos } from "./formularios/consultaTurnos";
-import { pantallaConsultaDetalle } from "./formularios/consultaDetalle";
-import { pantallaConsultaDetalleMsg } from "./formularios/consultaDetalleMsg";
+import {
+    pantallaSplash
+} from "../views/formularios/splash";
+import {
+    pantallaOnboarding
+} from "../views/formularios/onboarding";
+import {
+    pantallaInicioSesion
+} from "../views/formularios/iniciosesion";
+import {
+    pantallaRecuperaClave
+} from "../views/formularios/recuperaclave";
+import {
+    pantallaRecuperaClaveMesg
+} from "../views/formularios/recuperaclavemsg";
+import {
+    pantallaCrearClave
+} from "../views/formularios/crearclave";
+import {
+    pantallaCrearClaveMsg
+} from "../views/formularios/crearclavemsg";
+import {
+    pantallaAccespPlan
+} from "../views/formularios/accesoplan";
+import {
+    pantallaVErCobertuta
+} from "../views/formularios/vercobertura";
+import {
+    pantallaUsuarioRegistro
+} from "../views/formularios/usuarioRegistro";
+import {
+    pantallaPlanDetalle
+} from "../views/formularios/planDetalle";
+import {
+    pantallaPrincipal
+} from "../views/formularios/principal";
+import {
+    pantallaUsuarioDetalle
+} from "../views/formularios/usuarioDetalle";
+import {
+    pantallaMascota
+} from "../views/formularios/mascota";
+import {
+    pantallaMisConsultas
+} from "../views/formularios/misConsultas";
+import {
+    pantallaCalendario
+} from "../views/formularios/calendario";
+import {
+    pantallaFotoGaleria
+} from "../views/formularios/fotoGaleria";
+import {
+    pantallaFotoVer
+} from "../views/formularios/fotoVer";
+import {
+    pantallaVideo
+} from "../views/formularios/video";
+import {
+    pantallaVideoCalificacion
+} from "../views/formularios/videoCalificacion";
+import {
+    pantallaVideoDetalle
+} from "../views/formularios/videoDetalle";
+import {
+    pantallarClaveModificar
+} from "../views/formularios/claveModificar";
+import {
+    pantallarClaveModificarMsg
+} from "./formularios/claveModificarMsg";
+import {
+    pantallaPlanContrata
+} from "./formularios/planContrata";
+import {
+    pantallaNotificacion
+} from "./formularios/notificacion";
+import {
+    pantallaVacuna
+} from "./formularios/vacuna";
+import {
+    pantallaVacunaMsg
+} from "./formularios/vacunaMsg";
+import {
+    pantallaMascotaAlta
+} from "./formularios/mascotaAlta";
+import {
+    pantallaMascotaAltaMsg
+} from "./formularios/mascotaAltaMsg";
+import {
+    pantallaMascotaVer
+} from "./formularios/mascotaVer";
+import {
+    pantallaConsulta
+} from "./formularios/consulta";
+import {
+    pantallaConsultaTurnos
+} from "./formularios/consultaTurnos";
+import {
+    pantallaConsultaDetalle
+} from "./formularios/consultaDetalle";
+import {
+    pantallaConsultaDetalleMsg
+} from "./formularios/consultaDetalleMsg";
 
+import {
+    fotosComponente
+} from "../views/componentes/fotos"
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitElement) {
@@ -58,7 +135,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
     }
 
     static get styles() {
-        return css`
+        return css `
         :host{
             display: grid;                 
             grid-gap:1rem;
@@ -75,7 +152,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         `
     }
     render() {
-        return html`
+        return html `
         <pantalla-splash id="splash" media-size="${this.mediaSize}"></pantalla-splash>
         <pantalla-onboarding id="onboarding" media-size="${this.mediaSize}"></pantalla-onboarding>
         <pantalla-iniciosesion id="iniciosesion" media-size="${this.mediaSize}"></pantalla-iniciosesion>
@@ -111,6 +188,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-consultaturnos id="consultaturnos" media-size="${this.mediaSize}"></pantalla-consultaturnos>
         <pantalla-consultadetalle id="consultadetalle" media-size="${this.mediaSize}"></pantalla-consultadetalle>
         <pantalla-consultadetallemsg id="consultadetallemsg" media-size="${this.mediaSize}"></pantalla-consultadetallemsg>
+        <fotos-componente id="fotos" media-size="${this.mediaSize}"></fotos-componente>
         `
     }
 
@@ -163,6 +241,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
                     this.shadowRoot.querySelector("#consultadetalle").hidden = state.ui.quePantalla != "consultadetalle";
                 }
                 this.shadowRoot.querySelector("#consultadetallemsg").hidden = state.ui.quePantalla != "consultadetallemsg";
+                this.shadowRoot.querySelector("#fotos").hidden = state.ui.quePantalla != "fotos";
             }
         }
         this.update();

@@ -10,7 +10,11 @@ import {
     connect
 } from "@brunomon/helpers";
 
-import { modoPantalla, dispararTimer, cancelarTimer } from "../../redux/actions/ui";
+import {
+    modoPantalla,
+    dispararTimer,
+    cancelarTimer
+} from "../../redux/actions/ui";
 const MODO_PANTALLA = "ui.timeStampPantalla"
 export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     constructor() {
@@ -19,7 +23,7 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
     }
 
     static get styles() {
-        return css`
+        return css `
         :host{
             display: grid;
             justify-items:center;
@@ -50,7 +54,7 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="fondo" @click="${this.pasar}">
         </div>
         `
@@ -59,7 +63,9 @@ export class pantallaSplash extends connect(store, MODO_PANTALLA)(LitElement) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "splash") {
             store.dispatch(cancelarTimer())
             store.dispatch(dispararTimer(3, "onboarding", "splash"))
+            this.update()
         }
+
     }
     pasar(e) {
         store.dispatch(modoPantalla("onboarding", "splash"))

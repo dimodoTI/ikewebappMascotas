@@ -143,8 +143,8 @@ export class pantallaMascota extends connect(store, MASCOTAS_ADDTIMESTAMP, MASCO
 
             <div id="cuerpo">
                 ${this.items.map(dato => html`
-                    <div id="cmhDivEtiqueta" .item=${dato} @click="${this.editar}">
-                        <div id="cmhDivImagen" style="background-image:var(${dato.Foto})"></div>
+                    <div id="cmhDivEtiqueta" .item=${dato} @click="${this.editar}"> 
+                        <div id="cmhDivImagen" style="background-position:center;background:url(${dato.Foto});background-repeat: no-repeat;background-position: center center;"></div>
                         <div id="cmhDivTipo">${dato.Raza.MascotasTipo.Descripcion}</div>
                         <div id="cmhDivNombre">${dato.Nombre}</div>
                         <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.Raza.Descripcion}</div>

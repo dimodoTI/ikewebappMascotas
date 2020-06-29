@@ -43,11 +43,14 @@ import {
 } from "../../redux/actions/mascotas"
 
 
+
+
 const MASCOTAS_EDIT = "mascotas.editTimeStamp"
 const MASCOTASTIPO_TIMESPAM = "mascotastipo.timeStamp"
 const RAZAS_TIMESTAMP = "razas.timeStamp"
+const FOTOS_TIMESTAMP = "fotos.timeStamp"
 
-export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTASTIPO_TIMESPAM, RAZAS_TIMESTAMP)(LitElement) {
+export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTASTIPO_TIMESPAM, RAZAS_TIMESTAMP, FOTOS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -103,13 +106,18 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
             width: 100%;
             background-color: var(--color-gris-claro);
             border-radius: .5rem;
+            overflow-y: hidden;
+           justify-content: center;
+           position: relative;
         }
         #fotoBoton{
+            position:absolute;
             width: 6rem;
             align-self: flex-end;
             justify-self: end;
-            margin-right:.5rem;
-            margin-bottom:.5rem;
+          
+            bottom:.5rem;
+            right:.5rem;
         }
         #divTapa{
             display:none;
@@ -222,7 +230,8 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                 </div>
             </div>
             <div id="cuerpo">
-                <div id="foto">
+                <div id="foto" >
+                    <img src="" id = "fotoMascota">
                     <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.modo == "A"
                 ? idiomas[this.idioma].mascotaalta.btn1 : idiomas[this.idioma].mascotaedit.btn1}
                     </button>
@@ -279,11 +288,13 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
             </div>
             <div id="divMensaje">
                 <div id=divMensaje1>
-                    <div id="divMsj1Linea1Col1">
-                        ${CAMARA}
-                    </div>
-                    <div id="divMsj1Linea1Col2">
-                        ${idiomas[this.idioma].mascotaalta.btnCamara}
+                    <div style="display:grid;grid-auto-flow:column" @click="${this.abreFoto}">
+                        <div id="divMsj1Linea1Col1">
+                            ${CAMARA}
+                        </div>
+                        <div id="divMsj1Linea1Col2">
+                            ${idiomas[this.idioma].mascotaalta.btnCamara}
+                        </div>
                     </div>
                     <div id="divMsj1Linea2">
                     </div>
@@ -311,6 +322,10 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";
         this.shadowRoot.querySelector("#divMensaje").style.display = "grid";
     }
+
+    abreFoto() {
+        store.dispatch(modoPantalla("fotos", "mascotaalta"))
+    }
     clickCancelar() {
         this.shadowRoot.querySelector("#divTapa").style.display = "none";
         this.shadowRoot.querySelector("#divMensaje").style.display = "none";
@@ -324,7 +339,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
         item.FechaNacimiento = this.shadowRoot.querySelector("#txtFecha").value
         item.idRaza = this.shadowRoot.querySelector("#selectRaza").value
         item.idUsuario = store.getState().cliente.datos.id
-        item.Foto = ""
+        item.Foto = store.getState().fotos.foto
         item.Activo = true
 
         delete item.Raza
@@ -351,6 +366,11 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                 "op": "replace",
                 "path": "/idRaza",
                 "value": this.shadowRoot.querySelector("#selectRaza").value
+            },
+            {
+                "op": "replace",
+                "path": "/Foto",
+                "value": store.getState().fotos.foto
             }
         ]
         return datosPatch
@@ -382,6 +402,11 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
 
                 this.update()
             }
+        }
+
+        if (name == FOTOS_TIMESTAMP && state.fotos.quien == "mascota") {
+            const foto = this.shadowRoot.querySelector("#fotoMascota")
+            foto.src = state.fotos.foto
         }
 
 

@@ -57,6 +57,10 @@ import {
   reducer as atencionesReducer
 } from "./atenciones"
 
+import {
+  reducer as fotosReducer
+} from "./fotos"
+
 export const rootReducer = (state = {}, action) => {
   return {
     ui: uiReducer(state.ui, action),
@@ -73,6 +77,7 @@ export const rootReducer = (state = {}, action) => {
     puestos: puestosReducer(state.puestos, action),
     tramos: tramosReducer(state.tramos, action),
     reservas: reservasReducer(state.reservas, action),
-    atenciones: atencionesReducer(state.atenciones, action)
+    atenciones: atencionesReducer(state.atenciones, action),
+    fotos: fotosReducer(state.fotos, action)
   };
 };
