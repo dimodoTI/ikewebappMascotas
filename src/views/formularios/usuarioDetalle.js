@@ -41,6 +41,10 @@ import {
     setDatos
 } from "../../redux/actions/cliente";
 
+import {
+    llamador
+} from "../../redux/actions/fotos";
+
 
 
 const MODO_PANTALLA = "ui.timeStampPantalla"
@@ -48,8 +52,8 @@ const CLIENTE_LOGUEADO = "cliente.logueadoTimeStamp"
 
 const UPDATEPROFILE_TIMESTAMP = "autorizacion.updateProfileTimeStamp"
 const CLIENTE_TIMESTAMP = "cliente.timeStamp"
-
-export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP)(LitElement) {
+const FOTOS_TIMESTAMP = "fotos.timeStamp"
+export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP, FOTOS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -227,8 +231,9 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
             <div id="cuerpo">
                 <div style="height:1rem;width:100%"></div>
                 <div id="marco">
-                    <div id="foto" style="background-image:var(${this.item.foto});">
-                        <div id="fotoEdit"></div>
+                    <!-- <div id="foto" style="background-image:var(${this.item.foto});"> -->
+                    <div id="foto" style="background-image:url(${this.item.foto});">
+                        <div id="fotoEdit" @click="${this.abreFoto}"></div>
                     </div>
                     <div id="lblTitNombre">${this.item.nombre}</div>
                     <div id="lblPlan">${this.item.plan}</div>
@@ -316,6 +321,12 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
         this.update()
         return valido
     }
+
+    abreFoto() {
+        store.dispatch(llamador("usuario"))
+        store.dispatch(modoPantalla("fotos", "usuariodetalle"))
+    }
+
     activar() {
         let nom = this.shadowRoot.getElementById("txtNombre");
         let mail = this.shadowRoot.getElementById("txtMail");
@@ -338,6 +349,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
         item.nombre = this.shadowRoot.querySelector("#txtNombre").value
         item.apellido = this.shadowRoot.querySelector("#txtApellido").value
         item.telefono = this.shadowRoot.querySelector("#txtCelular").value
+        item.foto = store.getState().fotos.foto
         return item
     }
 
@@ -347,19 +359,29 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
             this.item.mascotas = 2
             this.item.consultas = 12
             this.item.vacunas = 15
-            this.item.foto = "--imagen-foto"
+
         }
 
         if (name == UPDATEPROFILE_TIMESTAMP) {
             store.dispatch(setDatos(this.asignarValores(this.item)))
         }
+
+        if (name == FOTOS_TIMESTAMP && state.fotos.quien == "usuario") {
+            const foto = this.shadowRoot.querySelector("#foto")
+            const imagen = state.fotos.foto
+            foto.style.backgroundImage = "url('" + imagen + "')"
+            this.item.foto = imagen
+
+        }
+
         this.update()
 
     }
     firstUpdated() {}
 
     clickAtras() {
-        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
+        //store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
+        store.dispatch(modoPantalla("principal", "usuariodetalle"))
     }
     clickClave() {
         store.dispatch(modoPantalla("clavemodificar", "usuariodetalle"))
