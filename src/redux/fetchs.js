@@ -48,5 +48,6 @@ export const ikePuestosQuery = ODataEntity(OdataMascotas, "PuestosQuery")
 export const ikeTramosQuery = ODataEntity(OdataMascotas, "TramosQuery")
 export const ikeReservasQuery = ODataEntity(OdataMascotas, "ReservasQuery")
 export const ikeAtencionesQuery = ODataEntity(OdataMascotas, "AtencionesQuery")
+export const ikeCalendarioQuery = ODataEntity(OdataMascotas, "CalendarioQuery")
 
 export const ikeOdataPublicaciones = ODataEntity(OdataPublicaciones, "PublicacionesQuery")

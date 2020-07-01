@@ -34,11 +34,21 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA, PUBLICACIO
         this.hidden = true
         this.idioma = "ES"
         this.lienaActual = 0;
-        this.lineas = [{ id: 0, tipo: "D", imagen: "", titulo: "", leyenda: "", btnCaption: "", color: "", http: "", orden: 0 }];
+        this.lineas = [{
+            Id: 0,
+            Tipo: "D",
+            Imagen: "",
+            Titulo: "",
+            Leyenda: "",
+            BtnCaption: "",
+            Color: "",
+            Http: "",
+            Orden: 0
+        }];
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}        
         :host{
             position: absolute;
@@ -179,7 +189,7 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA, PUBLICACIO
 
     render() {
         if (this.lineas.length > 0) {
-            return html`
+            return html `
             <div id="header">
             </div>
             <div id="cuerpo">

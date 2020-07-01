@@ -1,10 +1,10 @@
-import { } from "../css/main.css"
-import { } from "../css/media.css"
-import { } from "../css/quicksand.css"
-import { } from "../css/fontSizes.css"
-import { } from "../css/colors.css"
-import { } from "../css/shadows.css"
-import { } from "../css/imagenes.css"
+import {} from "../css/main.css"
+import {} from "../css/media.css"
+import {} from "../css/quicksand.css"
+import {} from "../css/fontSizes.css"
+import {} from "../css/colors.css"
+import {} from "../css/shadows.css"
+import {} from "../css/imagenes.css"
 import {
     store
 } from "../src/redux/store"
@@ -65,6 +65,10 @@ import {
     get as getPublicaciones
 } from "./redux/actions/publicacion"
 
+import {
+    get as getCalendario
+} from "./redux/actions/calendario"
+
 
 store.dispatch(captureMedia())
 if (getParameterByName("ticket")) {
@@ -82,6 +86,15 @@ store.dispatch(getMascotasTipo({
 }))
 
 store.dispatch(getPublicaciones({}))
+
+store.dispatch(getCalendario({
+    expand: "MascotasTipo, Vacuna"
+
+}))
+
+
+
+
 
 /* ---- Razas -----------*/
 // store.dispatch(getRazas())

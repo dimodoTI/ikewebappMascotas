@@ -1,26 +1,54 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { ikeInput } from "../css/ikeInput"
-import { cabecera1 } from "../css/cabecera1"
-import { select } from "../css/select"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS } from "../../../assets/icons/icons"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    select
+} from "../css/select"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS
+} from "../../../assets/icons/icons"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
 
 export class pantallaVacuna extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { mascota: "", vacuna: "", fecha: "" }
+        this.item = {
+            mascota: "",
+            vacuna: "",
+            fecha: ""
+        }
         this.label = ""
     }
 
     static get styles() {
-        return css`
+        return css `
         ${ikeInput}
         ${button}
         ${cabecera1}
@@ -77,7 +105,7 @@ export class pantallaVacuna extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
@@ -164,10 +192,8 @@ export class pantallaVacuna extends connect(store)(LitElement) {
         //            }
         //        }
     }
-    stateChanged(state, name) {
-    }
-    firstUpdated() {
-    }
+    stateChanged(state, name) {}
+    firstUpdated() {}
 
     static get properties() {
         return {

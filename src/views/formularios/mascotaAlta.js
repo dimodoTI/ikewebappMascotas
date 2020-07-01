@@ -279,6 +279,11 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                     </select>
                 </div>  
 
+                <div class="ikeInput" >
+                        <label>${idiomas[this.idioma].mascotaalta.castrada}</label>
+                        <input type="checkbox" id="castrada" .checked="${this.item.Castrada}">
+                </div>
+
    
                 <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
                     ${this.modo == "A"
@@ -346,6 +351,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
         item.idRaza = this.shadowRoot.querySelector("#selectRaza").value
         item.idUsuario = store.getState().cliente.datos.id
         item.Foto = store.getState().fotos.foto
+        item.Castrada = this.shadowRoot.querySelector("#castrada").checked
         item.Activo = true
 
         delete item.Raza
@@ -377,6 +383,11 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                 "op": "replace",
                 "path": "/Foto",
                 "value": store.getState().fotos.foto
+            },
+            {
+                "op": "replace",
+                "path": "/Castrada",
+                "value": this.shadowRoot.querySelector("#castrada").checked
             }
         ]
         return datosPatch

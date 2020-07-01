@@ -60,6 +60,9 @@ import {
 import {
   reducer as fotosReducer
 } from "./fotos"
+import {
+  reducer as calendarioReducer
+} from "./calendario"
 
 export const rootReducer = (state = {}, action) => {
   return {
@@ -78,6 +81,7 @@ export const rootReducer = (state = {}, action) => {
     tramos: tramosReducer(state.tramos, action),
     reservas: reservasReducer(state.reservas, action),
     atenciones: atencionesReducer(state.atenciones, action),
-    fotos: fotosReducer(state.fotos, action)
+    fotos: fotosReducer(state.fotos, action),
+    calendario: calendarioReducer(state.calendario, action)
   };
 };

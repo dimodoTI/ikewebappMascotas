@@ -64,6 +64,10 @@ import {
   middleware as atenciones
 } from "./middleware/atenciones"
 
+import {
+  middleware as calendario
+} from "./middleware/calendario"
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let mdw = [
@@ -80,7 +84,8 @@ let mdw = [
   ...puestos,
   ...tramos,
   ...reservas,
-  ...atenciones
+  ...atenciones,
+  ...calendario
 
 ]
 
