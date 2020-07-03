@@ -261,10 +261,19 @@ export const idiomas = {
             titulo: "Registrá una vacuna",
             leyenda: "Completá los datos de la vacuna que le aplicaste a tu mascota.",
             mascota: "¿A cuál mascota vacunaste?",
+            elegimascota: "Elegí una mascota",
             vacuna: "¿Qué vacuna le aplicaron?",
+            elegivacuna: "Elegí una vacuna",
             fecha: "¿Cuándo se la dieron?",
-            btn1: "Registrar vacuna"
+            fecha_ph: "",
+            elegifecha: "Elegí una fecha",
+            btn1: "Registrar vacuna",
+            mascotaerror: "Tenés que elgir una mascota",
+            vacunaerror: "Tenés que seleccionar una vacuna",
+            fechaerror: "Seleccioná la fecha de aplicación"
+
         },
+
         vacunamsg: {
             titulo: "¡Genial!",
             leyenda: "La vacuna fue registrada con éxito.",

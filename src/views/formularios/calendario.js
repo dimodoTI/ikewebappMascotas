@@ -165,9 +165,6 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA, MASCOTASTI
             </div>
             <div id="cuerpo">
                 <div id="animales" style="padding-top:.4rem;">
-
-                   
-
                     ${this.tipo.map(tipo => html `<div  class="btnCalendario ${tipo.Id==this.animal?"botonMarcado":""}" .item=${tipo} @click="${this.seleccionTipo}">
                         ${tipo.Descripcion}</div>`)}
                 </div>
@@ -223,6 +220,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA, MASCOTASTI
         store.dispatch(modoPantalla("notificacion", "calendario"))
     }
     clickBotonVacuna() {
+
         store.dispatch(modoPantalla("vacuna", "calendario"))
     }
     stateChanged(state, name) {
@@ -232,14 +230,13 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA, MASCOTASTI
             let tipo = [
                 ...state.mascotastipo.entities
             ]
-
             this.tipo = tipo.filter(u => (u.Descripcion.toLowerCase().includes("perro") || u.Descripcion.toLowerCase().includes("gato")))
-
-            this.animal = tipo[0].Id
-
+            this.animal = this.tipo[0].Id
+            this.update()
         }
         if (name == CALENDARIO_TIMESTAMP) {
             this.items = state.calendario.entities
+            this.update()
         }
 
     }

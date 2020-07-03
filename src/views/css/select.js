@@ -2,7 +2,7 @@ import {
   css
 } from "lit-element"
 
-export const select = css`
+export const select = css `
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -38,8 +38,10 @@ select {
     font-weight: var(--font-bajada-weight);
   }
   option{
-      color:var(--color-blanco);
+      color:var(--color-azul-oscuro);
       padding:0rem;
+      font-size: var(--font-bajada-size);
+    font-weight: var(--font-bajada-weight);
   }
   .select::after {
     content: "\\25BC";

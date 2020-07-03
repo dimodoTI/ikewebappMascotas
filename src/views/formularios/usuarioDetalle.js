@@ -58,18 +58,11 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = {
-            /*            foto: "--imagen-foto",
-                       nombre: "Lucia Lopez",
-                       plan: "Plan Iké 110",
-                       creada: "Cuenta creada el 02/03/19",
-                       mascotas: "3",
-                       consultas: "12",
-                       vacunas: "14",
-                       mail: "1141953476",
-                       mail: "lucia@gmail.com" */
-        }
+        this.item = {}
         this.label = ""
+        this.cuantasMascotas = 0
+        this.cuantasVacunas = 0
+        this.cuantasConsultas = 0
     }
 
     static get styles() {
@@ -112,10 +105,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
             overflow-x: hidden; 
             height:90%;
         }
-/*         :host([media-size="small"]) #cuerpo{
-            grid-row-start:1;
-            grid-row-end:3;
-        } */
+
         :host(:not([media-size="small"])) #cuerpo{
             width:70%;
             justify-self:center;
@@ -240,7 +230,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
                     <div id="lblCreada">${this.item.creada}</div>
                     <div id="divLinea"></div>
                     <div id="divDatos">
-                        <div id="divMascotaCan">${this.item.mascotas}</div>
+                        <div id="divMascotaCan">${this.cuantasMascotas}</div>
                         <div id="divConsultaCan">${this.item.consultas}</div>
                         <div id="divVacunaCan">${this.item.vacunas}</div>
                         <div id="divMascotaTitulo">${idiomas[this.idioma].usuariodetalle.mascota}</div>
@@ -356,9 +346,12 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "usuariodetalle") {
             this.item = store.getState().cliente.datos
-            this.item.mascotas = 2
+            this.mascotas = store.getState().mascotas.entities
+            this.cuantasMascotas = this.mascotas ? this.mascotas.length : 0
+            this.vacunas = store.getState().mascotasvacunas.entities
             this.item.consultas = 12
-            this.item.vacunas = 15
+            this.item.vacunas = this.vacunas ? this.vacunas.length : 0
+
 
         }
 

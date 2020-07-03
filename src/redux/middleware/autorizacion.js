@@ -39,6 +39,10 @@ import {
 }
 from "../actions/mascotas"
 
+import {
+    get as getMascotasVacunas
+} from "../actions/mascotasvacunas"
+
 export const login = ({
     dispatch
 }) => next => action => {
@@ -113,11 +117,19 @@ export const processLogin = ({
             dispatch(setLogueado(false))
         } else {
             dispatch(setLogueado(true))
+
             dispatch(setDatos(action.payload.receive))
+
+            dispatch(getMascotasVacunas({
+                token: getState().cliente.datos.token
+            }))
+
             dispatch(getMascotas({
                 token: getState().cliente.datos.token,
                 expand: "Raza($expand=MascotasTipo)"
             }))
+
+
         }
     }
 };

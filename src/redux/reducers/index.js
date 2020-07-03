@@ -63,6 +63,13 @@ import {
 import {
   reducer as calendarioReducer
 } from "./calendario"
+import {
+  reducer as vacunasReducer
+} from "./vacunas"
+
+import {
+  reducer as mascotasvacunasReducer
+} from "./mascotasvacunas"
 
 export const rootReducer = (state = {}, action) => {
   return {
@@ -82,6 +89,8 @@ export const rootReducer = (state = {}, action) => {
     reservas: reservasReducer(state.reservas, action),
     atenciones: atencionesReducer(state.atenciones, action),
     fotos: fotosReducer(state.fotos, action),
-    calendario: calendarioReducer(state.calendario, action)
+    calendario: calendarioReducer(state.calendario, action),
+    vacunas: vacunasReducer(state.vacunas, action),
+    mascotasvacunas: mascotasvacunasReducer(state.mascotasvacunas, action),
   };
 };

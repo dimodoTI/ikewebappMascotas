@@ -69,6 +69,10 @@ import {
     get as getCalendario
 } from "./redux/actions/calendario"
 
+import {
+    get as getVacunas
+} from "./redux/actions/vacunas"
+
 
 store.dispatch(captureMedia())
 if (getParameterByName("ticket")) {
@@ -91,6 +95,9 @@ store.dispatch(getCalendario({
     expand: "MascotasTipo, Vacuna"
 
 }))
+
+
+store.dispatch(getVacunas({}))
 
 
 
