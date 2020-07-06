@@ -20,9 +20,7 @@ import {
     get as getPublicidad
 } from "./redux/actions/publicidad";
 
-import {
-    get as getReserva
-} from "./redux/actions/reserva";
+
 import {
     login,
     recupero,
@@ -74,13 +72,20 @@ import {
 } from "./redux/actions/vacunas"
 
 
+
+
+
+import {
+    get as getTurnosDisponibles
+} from "./redux/actions/turnosdisponibles"
+
 store.dispatch(captureMedia())
 if (getParameterByName("ticket")) {
     store.dispatch(modoPantalla("crearclave"))
 } else {
     store.dispatch(modoPantalla("splash"))
 }
-store.dispatch(getReserva())
+
 
 store.dispatch(getRazas({
     orderby: "idMascotasTipo,Descripcion"
@@ -96,8 +101,11 @@ store.dispatch(getCalendario({
 
 }))
 
-
 store.dispatch(getVacunas({}))
+
+
+
+
 
 
 

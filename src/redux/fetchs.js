@@ -40,6 +40,7 @@ export const ikeTramos = fetchFactory(webApiMascotas, "Tramos")
 export const ikeReservas = fetchFactory(webApiMascotas, "Reservas")
 export const ikeAtenciones = fetchFactory(webApiMascotas, "Atenciones")
 export const ikeMascotasVacunas = fetchFactory(webApiMascotas, "MascotasVacunas")
+export const ikeTurnosDisponibles = fetchFactory(webApiMascotas, "TurnosDisponibles")
 
 export const ikeMascotasQuery = ODataEntity(OdataMascotas, "MascotasQuery")
 export const ikeMascotasTipoQuery = ODataEntity(OdataMascotas, "MascotasTipoQuery")

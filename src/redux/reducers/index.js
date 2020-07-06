@@ -71,6 +71,10 @@ import {
   reducer as mascotasvacunasReducer
 } from "./mascotasvacunas"
 
+import {
+  reducer as turnosdisponiblesReducer
+} from "./turnosdisponibles"
+
 export const rootReducer = (state = {}, action) => {
   return {
     ui: uiReducer(state.ui, action),
@@ -92,5 +96,7 @@ export const rootReducer = (state = {}, action) => {
     calendario: calendarioReducer(state.calendario, action),
     vacunas: vacunasReducer(state.vacunas, action),
     mascotasvacunas: mascotasvacunasReducer(state.mascotasvacunas, action),
+    turnosdisponibles: turnosdisponiblesReducer(state.turnosdisponibles, action),
+
   };
 };

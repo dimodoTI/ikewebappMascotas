@@ -183,7 +183,6 @@ export class pantallaInicioSesion extends connect(store, MODO_PANTALLA, LOGIN_OK
                 const clave = this.shadowRoot.querySelector("#txtClave").value
                 const email = this.shadowRoot.querySelector("#txtMail").value
                 store.dispatch(login(email, clave))
-                //store.dispatch(modoPantalla("principal", "iniciosesion"));
             }
         }
     }

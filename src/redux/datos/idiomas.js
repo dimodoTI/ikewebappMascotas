@@ -335,7 +335,8 @@ export const idiomas = {
             btn2: "Seleccionar fecha y hora",
             para: "¿Para qué mascota es la consulta?",
             motivo: "¿Cuál es el motivo de la consulta?",
-            sintoma: "¿Qué síntomas tiene? (opcional)"
+            sintoma: "¿Qué síntomas tiene? (opcional)",
+            elegimascota: "Elegí tu mascota"
         },
         consultaturnos: {
             titulo: "Agendá una consulta",

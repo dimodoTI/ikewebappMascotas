@@ -4,13 +4,15 @@ export const PATCH = "[reservas] PATCH";
 export const UPDATE = "[reservas] UPDATE";
 export const REMOVE = "[reservas] REMOVE";
 export const EDIT = "[reservas] EDIT"
-
+export const RESERVAR = "[reservas] RESERVAR"
+export const RESERVARFECHA = "[reservas] RESERVARFECHA"
 
 export const GET_SUCCESS = "[reservas] GET success";
 export const ADD_SUCCESS = "[reservas] ADD success";
 export const PATCH_SUCCESS = "[reservas] PATCH success";
 export const UPDATE_SUCCESS = "[reservas] UPDATE success";
 export const REMOVE_SUCCESS = "[reservas] REMOVE success";
+
 
 export const GET_ERROR = "[reservas] GET error";
 export const ADD_ERROR = "[reservas] ADD error";
@@ -66,4 +68,18 @@ export const edit = (modo, item) => ({
         Activo: 1
     },
     modo: modo,
+})
+
+export const reservar = (mascotaId, motivo) => ({
+    type: RESERVAR,
+    mascotaId: mascotaId,
+    motivo: motivo
+})
+
+export const reservarFecha = (fecha, hora, tramoId) => ({
+    type: RESERVARFECHA,
+    fecha: fecha,
+    hora: hora,
+    tramoId: tramoId,
+
 })

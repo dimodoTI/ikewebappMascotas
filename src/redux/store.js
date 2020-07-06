@@ -76,6 +76,10 @@ import {
   middleware as mascotasvacunas
 } from "./middleware/mascotasvacunas"
 
+import {
+  middleware as turnosdisponibles
+} from "./middleware/turnosdiponibles"
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let mdw = [
@@ -95,7 +99,8 @@ let mdw = [
   ...atenciones,
   ...calendario,
   ...vacunas,
-  ...mascotasvacunas
+  ...mascotasvacunas,
+  ...turnosdisponibles
 
 ]
 
