@@ -7,11 +7,11 @@ import {
   fetchFactory
 } from "../libs/fetchFactory"
 
-const mascotasDomain = "http://64.227.109.20:8081"
+const mascotasDomain = "https://apis.mascotas.dimodo.ga"
 
-const publicacionesDomain = "http://64.227.109.20:8082"
+const publicacionesDomain = "https://apis.publicaciones.dimodo.ga"
 
-const webApiUsuarios = "http://64.227.109.20:8080/api"
+const webApiUsuarios = "https://apis.usuarios.dimodo.ga/api"
 
 
 

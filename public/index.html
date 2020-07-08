@@ -14,6 +14,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
     <link rel="apple-touch-icon" href="./single-page-icon.png">
     <style>
         #snackbar {
@@ -50,14 +51,10 @@
     </div>
 <script type="text/javascript" src="./app.bundle.js"></script></body>
 <script>
+
     let newWorker;
 
-    function showUpdateBar() {
-        let snackbar = document.getElementById('snackbar');
-        snackbar.className = 'show';
-    }
-
-    // The click event on the pop up notification
+    //The click event on the pop up notification
     document.getElementById('reload').addEventListener('click', function () {
         newWorker.postMessage({
             action: 'skipWaiting'
@@ -65,7 +62,6 @@
     });
 
     if ('serviceWorker' in navigator) {
-
         navigator.serviceWorker.register('/Service-worker.js').then(reg => {
             reg.addEventListener('updatefound', () => {
                 // A wild service worker has appeared in reg.installing!

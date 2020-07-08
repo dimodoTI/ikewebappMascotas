@@ -148,6 +148,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
             align-self: top;
             height: 100%;
             width: 100%;
+            z-index:1
         }
         `
     }
