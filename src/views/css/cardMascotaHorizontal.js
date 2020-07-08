@@ -2,7 +2,7 @@ import {
     css
 } from "lit-element"
 
-export const cardMascotaHorizontal = css`
+export const cardMascotaHorizontal = css `
 #cmhDivEtiqueta{
     display: grid; 
     height:22vw;
@@ -12,7 +12,7 @@ export const cardMascotaHorizontal = css`
     grid-template-rows: 25% 45% 30%;
     grid-gap:0rem;
     border-radius:.4rem ;           
-    align-items: center;
+    align-items: flex-start;
     box-shadow: var(--shadow-elevation-4-box);
 }  
 :host(:not([media-size="small"])) #cmhDivEtiqueta{

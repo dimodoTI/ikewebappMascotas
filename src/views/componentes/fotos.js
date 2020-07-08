@@ -30,8 +30,8 @@ const TAKE_PICTURE = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2
 const CLOSE_CAMERA = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`
 const ACCEPT = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>`
 const QUEPANTALLA = "ui.timeStampPantalla";
-
-export class fotosComponente extends connect(store, QUEPANTALLA)(LitElement) {
+const LLAMADOR_TIMESTAMP = "fotos.llamadorTimeStamp"
+export class fotosComponente extends connect(store, QUEPANTALLA, LLAMADOR_TIMESTAMP)(LitElement) {
   constructor() {
     super();
     this.item = []
@@ -41,6 +41,7 @@ export class fotosComponente extends connect(store, QUEPANTALLA)(LitElement) {
     this.cameras = []
     this.currentCamera = 1,
       this.facingMode = "user"
+    this.quien = ""
     //this.hidden = true
   }
 
@@ -542,7 +543,8 @@ export class fotosComponente extends connect(store, QUEPANTALLA)(LitElement) {
   }
   salvar(data) {
     //ej: store.dispatch(setFoto(data))
-    store.dispatch(captura(data, "mascota"))
+
+    store.dispatch(captura(data, this.quien))
     this.salir()
   }
 
@@ -567,6 +569,10 @@ export class fotosComponente extends connect(store, QUEPANTALLA)(LitElement) {
         this.getVideo()
       }
     }
+
+    if (name = LLAMADOR_TIMESTAMP) {
+      this.quien = state.fotos.quien
+    }
   }
 
   static get properties() {
@@ -584,7 +590,6 @@ export class fotosComponente extends connect(store, QUEPANTALLA)(LitElement) {
       hidden: {
         type: Boolean,
         reflect: true,
-
       }
     }
   }

@@ -120,7 +120,7 @@ export const idiomas = {
             lblNovedades: "Novedades Iké",
             lblAyuda01: "¿Necesitás ayuda?.",
             lblAyuda02: "Estamos para lo que necesites.",
-            btnAyuda: "Solicitar asistencia"
+            btnAyuda: "Comunicarse con IKÉ"
         },
         publicidad: {
             marquesina: [{
@@ -165,7 +165,7 @@ export const idiomas = {
             btnEdit: "Guardar mis datos",
             btnCobertura: "¿Qué incluye mi cobertura?",
             btnDelete: "Eliminar esta cuenta",
-            btnAsistencia: "Solicitar asistencia",
+            btnAsistencia: "Comunicarse con IKÉ",
             lblAyuda: "¿Necesitás ayuda?. Estamos para lo que necesites."
         },
         mascota: {
@@ -191,7 +191,9 @@ export const idiomas = {
             btn: "Registrar vacuna",
             perro: "Perros",
             gato: "Gatos",
-            verDetalle: "Ver detalle: "
+            verDetalle: "Ver detalle: ",
+            optativa: "Optativa",
+            obligatoria: "Obligatoria"
         },
         fotogaleria: {
             titulo: "Mis fotos",
@@ -212,8 +214,8 @@ export const idiomas = {
         },
         videodetalle: {
             titulo: "Detalle de tu consulta",
-            leyenda: "Acá vas a encontrar el expediente generado por el profesional.",
-            expediente: "Expediente ",
+            leyenda: "Acá vas a encontrar la consulta generada por el profesional.",
+            expediente: "Consulta ",
             calificar: "¿Cómo estuvo tu consulta?",
             btn1: "Calificar",
             conclusion: "Conclusión",
@@ -259,10 +261,19 @@ export const idiomas = {
             titulo: "Registrá una vacuna",
             leyenda: "Completá los datos de la vacuna que le aplicaste a tu mascota.",
             mascota: "¿A cuál mascota vacunaste?",
+            elegimascota: "Elegí una mascota",
             vacuna: "¿Qué vacuna le aplicaron?",
+            elegivacuna: "Elegí una vacuna",
             fecha: "¿Cuándo se la dieron?",
-            btn1: "Registrar vacuna"
+            fecha_ph: "",
+            elegifecha: "Elegí una fecha",
+            btn1: "Registrar vacuna",
+            mascotaerror: "Tenés que elgir una mascota",
+            vacunaerror: "Tenés que seleccionar una vacuna",
+            fechaerror: "Seleccioná la fecha de aplicación"
+
         },
+
         vacunamsg: {
             titulo: "¡Genial!",
             leyenda: "La vacuna fue registrada con éxito.",
@@ -281,7 +292,8 @@ export const idiomas = {
             btn2: "Agregar mascota",
             btnCamara: "Camara",
             btnImagen: "Libreria de Fotos",
-            btnCancelar: "Cancelar"
+            btnCancelar: "Cancelar",
+            castrada: "Castrado/a"
         },
         mascotaedit: {
             titulo: "Editar perfil",
@@ -323,7 +335,8 @@ export const idiomas = {
             btn2: "Seleccionar fecha y hora",
             para: "¿Para qué mascota es la consulta?",
             motivo: "¿Cuál es el motivo de la consulta?",
-            sintoma: "¿Qué síntomas tiene? (opcional)"
+            sintoma: "¿Qué síntomas tiene? (opcional)",
+            elegimascota: "Elegí tu mascota"
         },
         consultaturnos: {
             titulo: "Agendá una consulta",
@@ -335,7 +348,7 @@ export const idiomas = {
             titulo: "Agendá una consulta",
             leyenda: "Confirmá los datos para agendar tu consulta.",
             detalle: "Detalle de consulta",
-            expediente: "Expediente ",
+            expediente: "Consulta ",
             paciente: "Paciente: ",
             motivo: "Motivo: ",
             fecha: "Fecha: ",

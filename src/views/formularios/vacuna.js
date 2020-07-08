@@ -1,26 +1,73 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { ikeInput } from "../css/ikeInput"
-import { cabecera1 } from "../css/cabecera1"
-import { select } from "../css/select"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS } from "../../../assets/icons/icons"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    ikeInput
+} from "../css/ikeInput"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    select
+} from "../css/select"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS
+} from "../../../assets/icons/icons"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
+import {
+    validaMail
+} from "../../libs/funciones";
 
-export class pantallaVacuna extends connect(store)(LitElement) {
+import {
+    add as addMascotasvacunas
+} from "../../redux/actions/mascotasvacunas"
+
+const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
+
+const VACUNAS_TIMESTAMP = "vacunas.timeStamp"
+
+export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { mascota: "", vacuna: "", fecha: "" }
+        this.vacunas = []
+        this.mascotasTipo = []
+        this.mascotas = []
+
+        this.item = {
+            Id: 0,
+            MascotaId: 0,
+            VacunaId: 0,
+            Fecha: "",
+            Realizada: true,
+            Activo: true
+        }
+
         this.label = ""
     }
 
     static get styles() {
-        return css`
+        return css `
         ${ikeInput}
         ${button}
         ${cabecera1}
@@ -77,7 +124,7 @@ export class pantallaVacuna extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
@@ -87,29 +134,35 @@ export class pantallaVacuna extends connect(store)(LitElement) {
                 <div id="lblLeyenda">${idiomas[this.idioma].vacuna.leyenda}</div>
             </div>
             <div id="cuerpo">
-                <div id="selectMascoto" class="select" style="width:100%;height:3.4rem"> 
-                    <label >${idiomas[this.idioma].vacuna.vacuna}</label>
-                    <select style="width:100%;height:1.7rem;" id="mascota">          
-                        <option  value="Coco" .selected="${this.item.mascota == "Coco"}">Coco</option>
-                        <option value="Mafalda" .selected="${this.item.mascota == "Mafalda"}">Mafalda</option>
+                <div id="selectMascota" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].vacuna.mascota}</label>
+                    <select style="width:100%;height:1.7rem;" id="mascota" @change="${this.cambioMascota}">   
+                        <option  value=0>${idiomas[this.idioma].vacuna.elegimascota}</option>
+                        ${this.mascotas.map(mascota => html `<option value=${mascota.Id}>${mascota.Nombre}</option>`)}
                     </select>
+                    <label id="mascotaEror" oculto>${idiomas[this.idioma].vacuna.mascotaerror}</label>
                 </div>  
 
                 <div id="selectVacuna" class="select" style="width:100%;height:3.4rem"> 
                     <label >${idiomas[this.idioma].vacuna.vacuna}</label>
-                    <select style="width:100%;height:1.7rem;" id="vacuna">          
-                        <option  value="Rabia" .selected="${this.item.mascota == "Rabia"}">Rabia</option>
-                        <option value="Corona virus" .selected="${this.item.mascota == "Corona virus"}">Corona virus</option>
+                    <select style="width:100%;height:1.7rem;" id="vacuna">  
+                    <option  value=0>${idiomas[this.idioma].vacuna.elegivacuna}</option>
+                        ${this.vacunas.map((p)=>{
+                            return html `
+                            <option value=${p.Id}>${p.Descripcion}</option>
+                             `}
+                                )}
                     </select>
+                    <label id="vacunaEror" oculto style="display:none">${idiomas[this.idioma].vacuna.mascotaerror}</label>
                 </div>  
 
-                <div id="selectFecha" class="select" style="width:100%;height:3.4rem"> 
-                    <label >${idiomas[this.idioma].vacuna.fecha}</label>
-                    <select style="width:100%;height:1.7rem;" id="fecha">          
-                        <option  value="Rabia" .selected="${this.item.mascota == "Rabia"}">Rabia</option>
-                        <option value="Corona virus" .selected="${this.item.mascota == "Corona virus"}">Corona virus</option>
-                    </select>
-                </div>  
+                 
+                <div class="ikeInput" style="width:100%;height:3.4rem">
+                    <label id="lblFecha">${idiomas[this.idioma].vacuna.fecha}</label>
+                    <input id="txtFecha"  type="date" placeholder=${idiomas[this.idioma].vacuna.fecha_ph}  >
+                    <label id="lblErrorFecha" error oculto>${idiomas[this.idioma].vacuna.fechaerror}</label>
+                </div>
+    
                 <button style="width:95%;height:2rem;justify-self: center;align-self: end;" id="btn-recuperar" btn1 @click=${this.clickBoton2}>
                     ${idiomas[this.idioma].vacuna.btn1}
                 </button>
@@ -119,55 +172,78 @@ export class pantallaVacuna extends connect(store)(LitElement) {
         </pie-componente>
     `
     }
-    activar() {
-        this.activo = true
-        const clave1 = this.shadowRoot.querySelector("#txtClave1")
-        const clave2 = this.shadowRoot.querySelector("#txtClave2")
-        if (clave1.value.length < 4) {
-            this.activo = false
-        }
-        if (clave2.value.length < 4) {
-            this.activo = false
-        }
-        if (this.activo) {
-            this.shadowRoot.querySelector("#btn-recuperar").removeAttribute("apagado")
-        } else {
-            this.shadowRoot.querySelector("#btn-recuperar").setAttribute("apagado", "")
-        }
+
+
+    cambioMascota(e) {
+        const tipomascota = this.mascotas.filter(u => u.Id == parseInt(e.currentTarget.value, 10))[0].Raza.MascotasTipo.Id
+        this.vacunas = store.getState().vacunas.entities.filter(r => r.MascotaTipoId == tipomascota)
         this.update()
     }
+
+    activar() {
+
+    }
+
+
     valido() {
         [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
             element.setAttribute("oculto", "")
         })
         let valido = true
-        const clave1 = this.shadowRoot.querySelector("#txtClave1")
-        const clave2 = this.shadowRoot.querySelector("#txtClave2")
-        if (clave1.value.length < 8) {
+        const mascota = this.shadowRoot.querySelector("#mascota")
+        const vacuna = this.shadowRoot.querySelector("#vacuna")
+        const fecha = this.shadowRoot.querySelector("#txtFecha")
+
+
+        if (mascota.value == 0) {
             valido = false
-            this.shadowRoot.querySelector("#lblErrorClave1").removeAttribute("oculto");
+            this.shadowRoot.querySelector("#mascotaEror").removeAttribute("oculto");
         }
-        if (clave2.value.length < 8) {
+
+        if (vacuna.value == 0) {
             valido = false
-            this.shadowRoot.querySelector("#lblErrorClave2").removeAttribute("oculto");
+            this.shadowRoot.querySelector("#vacunaEror").removeAttribute("oculto");
         }
+
         this.update()
         return valido
+    }
+
+    asignarValores(olditem) {
+        let item = {
+            ...olditem
+        }
+
+        item.MascotaId = parseInt(this.shadowRoot.querySelector("#mascota").value, 10)
+        item.VacunaId = parseInt(this.shadowRoot.querySelector("#vacuna").value, 10)
+        item.Fecha = this.shadowRoot.querySelector("#txtFecha").value
+        item.Realizada = true
+        item.Activo = true
+
+
+        return item
     }
     clickBoton1() {
         store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, store.getState().ui.quePantalla))
     }
     clickBoton2() {
-        //        if (this.activo ) {
-        //            if (this.valido() ) {
+        if (this.valido()) {
+            store.dispatch(addMascotasvacunas(this.asignarValores(this.item), store.getState().cliente.datos.token))
+        }
         store.dispatch(modoPantalla("vacunamsg", "vacuna"));
-        //            }
-        //        }
+
     }
     stateChanged(state, name) {
+        if (name == MASCOTAS_TIMESTAMP) {
+            this.mascotas = state.mascotas.entities
+        }
+
+
+        if (name == VACUNAS_TIMESTAMP) {
+            this.vacunas = state.vacunas.entities
+        }
     }
-    firstUpdated() {
-    }
+    firstUpdated() {}
 
     static get properties() {
         return {

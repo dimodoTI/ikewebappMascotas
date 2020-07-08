@@ -41,6 +41,10 @@ import {
     setDatos
 } from "../../redux/actions/cliente";
 
+import {
+    llamador
+} from "../../redux/actions/fotos";
+
 
 
 const MODO_PANTALLA = "ui.timeStampPantalla"
@@ -48,24 +52,17 @@ const CLIENTE_LOGUEADO = "cliente.logueadoTimeStamp"
 
 const UPDATEPROFILE_TIMESTAMP = "autorizacion.updateProfileTimeStamp"
 const CLIENTE_TIMESTAMP = "cliente.timeStamp"
-
-export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP)(LitElement) {
+const FOTOS_TIMESTAMP = "fotos.timeStamp"
+export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP, FOTOS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = {
-            /*            foto: "--imagen-foto",
-                       nombre: "Lucia Lopez",
-                       plan: "Plan Iké 110",
-                       creada: "Cuenta creada el 02/03/19",
-                       mascotas: "3",
-                       consultas: "12",
-                       vacunas: "14",
-                       mail: "1141953476",
-                       mail: "lucia@gmail.com" */
-        }
+        this.item = {}
         this.label = ""
+        this.cuantasMascotas = 0
+        this.cuantasVacunas = 0
+        this.cuantasConsultas = 0
     }
 
     static get styles() {
@@ -108,10 +105,7 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
             overflow-x: hidden; 
             height:90%;
         }
-/*         :host([media-size="small"]) #cuerpo{
-            grid-row-start:1;
-            grid-row-end:3;
-        } */
+
         :host(:not([media-size="small"])) #cuerpo{
             width:70%;
             justify-self:center;
@@ -227,15 +221,16 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
             <div id="cuerpo">
                 <div style="height:1rem;width:100%"></div>
                 <div id="marco">
-                    <div id="foto" style="background-image:var(${this.item.foto});">
-                        <div id="fotoEdit"></div>
+                    <!-- <div id="foto" style="background-image:var(${this.item.foto});"> -->
+                    <div id="foto" style="background-image:url(${this.item.foto});">
+                        <div id="fotoEdit" @click="${this.abreFoto}"></div>
                     </div>
                     <div id="lblTitNombre">${this.item.nombre}</div>
                     <div id="lblPlan">${this.item.plan}</div>
                     <div id="lblCreada">${this.item.creada}</div>
                     <div id="divLinea"></div>
                     <div id="divDatos">
-                        <div id="divMascotaCan">${this.item.mascotas}</div>
+                        <div id="divMascotaCan">${this.cuantasMascotas}</div>
                         <div id="divConsultaCan">${this.item.consultas}</div>
                         <div id="divVacunaCan">${this.item.vacunas}</div>
                         <div id="divMascotaTitulo">${idiomas[this.idioma].usuariodetalle.mascota}</div>
@@ -316,6 +311,12 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
         this.update()
         return valido
     }
+
+    abreFoto() {
+        store.dispatch(llamador("usuario"))
+        store.dispatch(modoPantalla("fotos", "usuariodetalle"))
+    }
+
     activar() {
         let nom = this.shadowRoot.getElementById("txtNombre");
         let mail = this.shadowRoot.getElementById("txtMail");
@@ -338,28 +339,42 @@ export class pantallaUsuarioDetalle extends connect(store, MODO_PANTALLA, CLIENT
         item.nombre = this.shadowRoot.querySelector("#txtNombre").value
         item.apellido = this.shadowRoot.querySelector("#txtApellido").value
         item.telefono = this.shadowRoot.querySelector("#txtCelular").value
+        item.foto = store.getState().fotos.foto
         return item
     }
 
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "usuariodetalle") {
             this.item = store.getState().cliente.datos
-            this.item.mascotas = 2
+            this.mascotas = store.getState().mascotas.entities
+            this.cuantasMascotas = this.mascotas ? this.mascotas.length : 0
+            this.vacunas = store.getState().mascotasvacunas.entities
             this.item.consultas = 12
-            this.item.vacunas = 15
-            this.item.foto = "--imagen-foto"
+            this.item.vacunas = this.vacunas ? this.vacunas.length : 0
+
+
         }
 
         if (name == UPDATEPROFILE_TIMESTAMP) {
             store.dispatch(setDatos(this.asignarValores(this.item)))
         }
+
+        if (name == FOTOS_TIMESTAMP && state.fotos.quien == "usuario") {
+            const foto = this.shadowRoot.querySelector("#foto")
+            const imagen = state.fotos.foto
+            foto.style.backgroundImage = "url('" + imagen + "')"
+            this.item.foto = imagen
+
+        }
+
         this.update()
 
     }
     firstUpdated() {}
 
     clickAtras() {
-        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
+        //store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
+        store.dispatch(modoPantalla("principal", "usuariodetalle"))
     }
     clickClave() {
         store.dispatch(modoPantalla("clavemodificar", "usuariodetalle"))

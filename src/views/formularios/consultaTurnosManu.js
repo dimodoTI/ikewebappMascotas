@@ -42,99 +42,99 @@ export class pantallaConsultaTurnosManu extends connect(store, MODO_PANTALLA)(Li
         this.leyenda = "Leyenda"
 
         this.items = [{
-            fecha: "20200524",
-            atenciones: [{
-                hora: "16.00",
-            }]
+                fecha: "20200524",
+                atenciones: [{
+                    hora: "16.00",
+                }]
 
-        },
-        {
-            fecha: "202005260",
-            atenciones: []
-        }
+            },
+            {
+                fecha: "202005260",
+                atenciones: []
+            }
 
         ]
 
         this.items = [{
-            fecha: "2020-05-24",
-            hora: "16:00",
-            idMascota: 1,
-            Mascotas: {
-                Id: 1,
-                Nombre: "Ringo"
+                fecha: "2020-05-24",
+                hora: "16:00",
+                idMascota: 1,
+                Mascotas: {
+                    Id: 1,
+                    Nombre: "Ringo"
+                },
+                motivo: "Tos convulsa"
             },
-            motivo: "Tos convulsa"
-        },
-        {
-            fecha: "2020-05-24",
-            hora: "16:00",
-            idMascota: 2,
-            Mascotas: {
-                Id: 2,
-                Nombre: "Collie"
+            {
+                fecha: "2020-05-24",
+                hora: "16:00",
+                idMascota: 2,
+                Mascotas: {
+                    Id: 2,
+                    Nombre: "Collie"
+                },
+                motivo: "Orejas Infectadas"
             },
-            motivo: "Orejas Infectadas"
-        },
-        {
-            fecha: "2020-05-25",
-            hora: "16:00",
-            idMascota: 3,
-            Mascotas: {
-                Id: 3,
-                Nombre: "Coqui"
+            {
+                fecha: "2020-05-25",
+                hora: "16:00",
+                idMascota: 3,
+                Mascotas: {
+                    Id: 3,
+                    Nombre: "Coqui"
+                },
+                motivo: "Renguea una pata"
             },
-            motivo: "Renguea una pata"
-        },
-        {
-            fecha: "2020-05-25",
-            hora: "16:00",
-            idMascota: 3,
-            Mascotas: {
-                Id: 3,
-                Nombre: "Coqui"
+            {
+                fecha: "2020-05-25",
+                hora: "16:00",
+                idMascota: 3,
+                Mascotas: {
+                    Id: 3,
+                    Nombre: "Coqui"
+                },
+                motivo: "Renguea una pata"
             },
-            motivo: "Renguea una pata"
-        },
-        {
-            fecha: "2020-05-25",
-            hora: "16:00",
-            idMascota: 3,
-            Mascotas: {
-                Id: 3,
-                Nombre: "Coqui"
+            {
+                fecha: "2020-05-25",
+                hora: "16:00",
+                idMascota: 3,
+                Mascotas: {
+                    Id: 3,
+                    Nombre: "Coqui"
+                },
+                motivo: "Renguea una pata"
             },
-            motivo: "Renguea una pata"
-        },
-        {
-            fecha: "2020-05-25",
-            hora: "16:00",
-            idMascota: 3,
-            Mascotas: {
-                Id: 3,
-                Nombre: "Coqui"
+            {
+                fecha: "2020-05-25",
+                hora: "16:00",
+                idMascota: 3,
+                Mascotas: {
+                    Id: 3,
+                    Nombre: "Coqui"
+                },
+                motivo: "Renguea una pata"
             },
-            motivo: "Renguea una pata"
-        },
-        {
-            fecha: "2020-05-25",
-            hora: "16:00",
-            idMascota: 3,
-            Mascotas: {
-                Id: 3,
-                Nombre: "Coqui"
+            {
+                fecha: "2020-05-25",
+                hora: "16:00",
+                idMascota: 3,
+                Mascotas: {
+                    Id: 3,
+                    Nombre: "Coqui"
+                },
+                motivo: "Renguea una pata"
             },
-            motivo: "Renguea una pata"
-        },
-        {
-            fecha: "2020-05-25",
-            hora: "16:00",
-            idMascota: 3,
-            Mascotas: {
-                Id: 3,
-                Nombre: "Coqui"
-            },
-            motivo: "Renguea una pata"
-        }
+            {
+                fecha: "2020-05-25",
+                hora: "16:00",
+                idMascota: 3,
+                Mascotas: {
+                    Id: 3,
+                    Nombre: "Coqui"
+                },
+                motivo: "Renguea una pata"
+            }
 
         ]
 
@@ -150,7 +150,7 @@ export class pantallaConsultaTurnosManu extends connect(store, MODO_PANTALLA)(Li
     }
 
     static get styles() {
-        return css`
+        return css `
         ${cabecera1}
         ${proxima}
 
@@ -240,7 +240,7 @@ export class pantallaConsultaTurnosManu extends connect(store, MODO_PANTALLA)(Li
        `
     }
     render() {
-        return html`
+        return html `
 
             <div id="header">
                 <div id="bar">

@@ -9,10 +9,8 @@ import {
     ADD_ERROR,
     REMOVE_SUCCESS,
     REMOVE_ERROR,
-    EDIT,
-    RESERVAR,
-    RESERVARFECHA
-} from "../actions/reservas";
+    EDIT
+} from "../actions/mascotasvacunas";
 
 
 const initialState = {
@@ -24,17 +22,6 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
-    reserva: {
-        TramoId: 0,
-        MascotaId: 0,
-        UsuarioId: 0,
-        FechaAtencion: "",
-        HoraAtencion: 0,
-        FechaGeneracion: "",
-        Motivo: "",
-        Estdo: 0,
-        Activo: 1
-    }
 };
 
 export const reducer = (state = initialState, action) => {
@@ -69,20 +56,6 @@ export const reducer = (state = initialState, action) => {
             break;
         case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
-            break;
-        case RESERVAR:
-            newState.reservarTimeStamp = (new Date()).getTime();
-            newState.reserva.MascotaId = action.mascotaId;
-            newState.reserva.Motivo = action.motivo
-            newState.reserva.TramoId = action.tramoId
-
-            break;
-        case RESERVARFECHA:
-            newState.reservarTimeStamp = (new Date()).getTime();
-            newState.reserva.FechaAtencion = action.fecha;
-            newState.reserva.HoraAtencion = action.hora
-            newState.reserva.TramoId = action.tramoId
-
             break;
 
     }

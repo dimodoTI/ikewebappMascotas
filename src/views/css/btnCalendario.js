@@ -9,18 +9,9 @@ export const btnCalendario = css `
     font-weight: bold;
     border-bottom: solid;
     cursor:pointer;
-}
-.btnCalendario[pres]{
-    cursor: not-allowed;
-    pointer-events: none;
-    border-color: var(--color-celeste);
-    color: var(--color-celeste);
-    border-width: thick;
-}
-.btnCalendario[nopres]{
-    cursor:pointer;
     color: var(--color-gris);
     border-color: var(--color-gris);
     border-width: thin;
 }
+
 `

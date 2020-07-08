@@ -60,6 +60,20 @@ import {
 import {
   reducer as fotosReducer
 } from "./fotos"
+import {
+  reducer as calendarioReducer
+} from "./calendario"
+import {
+  reducer as vacunasReducer
+} from "./vacunas"
+
+import {
+  reducer as mascotasvacunasReducer
+} from "./mascotasvacunas"
+
+import {
+  reducer as turnosdisponiblesReducer
+} from "./turnosdisponibles"
 
 export const rootReducer = (state = {}, action) => {
   return {
@@ -78,6 +92,11 @@ export const rootReducer = (state = {}, action) => {
     tramos: tramosReducer(state.tramos, action),
     reservas: reservasReducer(state.reservas, action),
     atenciones: atencionesReducer(state.atenciones, action),
-    fotos: fotosReducer(state.fotos, action)
+    fotos: fotosReducer(state.fotos, action),
+    calendario: calendarioReducer(state.calendario, action),
+    vacunas: vacunasReducer(state.vacunas, action),
+    mascotasvacunas: mascotasvacunasReducer(state.mascotasvacunas, action),
+    turnosdisponibles: turnosdisponiblesReducer(state.turnosdisponibles, action),
+
   };
 };

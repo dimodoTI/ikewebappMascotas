@@ -22,6 +22,9 @@ import {
 import {
     button
 } from "../css/button";
+import {
+    get as getPublicaciones
+} from "../../redux/actions/publicacion"
 const MODO_PANTALLA = "ui.timeStampPantalla"
 
 const PUBLICACIONES_TIMESTAMP = "publicacion.timeStamp"
@@ -31,7 +34,17 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA, PUBLICACIO
         this.hidden = true
         this.idioma = "ES"
         this.lienaActual = 0;
-        this.lineas = [];
+        this.lineas = [{
+            Id: 0,
+            Tipo: "D",
+            Imagen: "",
+            Titulo: "",
+            Leyenda: "",
+            BtnCaption: "",
+            Color: "",
+            Http: "",
+            Orden: 0
+        }];
     }
 
     static get styles() {
@@ -175,42 +188,45 @@ export class pantallaOnboarding extends connect(store, MODO_PANTALLA, PUBLICACIO
     }
 
     render() {
-        return html `
-        <div id="header">
-        </div>
-        <div id="cuerpo">
-            <div id="flecha-izq" @click="${this.atras}">
+        if (this.lineas.length > 0) {
+            return html `
+            <div id="header">
             </div>
-            <div id="flecha-der" @click="${this.adelante}">
-            </div>
-            <div id="titulo">
-            ${this.lineas[this.lienaActual].Titulo}
-            </div>
-            <div id="leyenda">
-            ${this.lineas[this.lienaActual].Leyenda}
-            </div>
-            <div id="puntos">
-            ${repeat(this.lineas, (item) => item.Titulo, (item, index) => html`
-                <div id="punto${index}" class="${index == 0 ? 'puntoLLeno' : 'puntoVacio'}">
+            <div id="cuerpo">
+                <div id="flecha-izq" @click="${this.atras}">
                 </div>
-            `)}
+                <div id="flecha-der" @click="${this.adelante}">
+                </div>
+                <div id="titulo">
+                ${this.lineas[this.lienaActual].Titulo}
+                </div>
+                <div id="leyenda">
+                ${this.lineas[this.lienaActual].Leyenda}
+                </div>
+                <div id="puntos">
+                ${repeat(this.lineas, (item) => item.Titulo, (item, index) => html`
+                    <div id="punto${index}" class="${index == 0 ? 'puntoLLeno' : 'puntoVacio'}">
+                    </div>
+                `)}
+                </div>
+                <button id="btn-siguiente" btn1 @click=${this.clickBoton1}>
+                ${idiomas[this.idioma].onboarding.btn1}
+                </button>
+                <button id="btn-cuenta" btn2 @click=${this.clickBoton2}>
+                ${idiomas[this.idioma].onboarding.btn2}
+                </button>
             </div>
-            <button id="btn-siguiente" btn1 @click=${this.clickBoton1}>
-            ${idiomas[this.idioma].onboarding.btn1}
-            </button>
-            <button id="btn-cuenta" btn2 @click=${this.clickBoton2}>
-            ${idiomas[this.idioma].onboarding.btn2}
-            </button>
-        </div>
-        `
+            `
+        }
     }
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "onboarding") {
             store.dispatch(cancelarTimer())
+            store.dispatch(getPublicaciones({}))
         }
         if (name == PUBLICACIONES_TIMESTAMP) {
             this.lineas = state.publicacion.entities.filter(reg => reg.Tipo == "D").sort((a, b) => a.Orden - b.Orden)
-
+            this.update()
         }
     }
     firstUpdated() {

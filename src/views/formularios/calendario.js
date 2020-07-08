@@ -1,36 +1,65 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { label } from "../css/label"
-import { cabecera1 } from "../css/cabecera1"
-import { btnCalendario } from "../css/btnCalendario"
-import { cardCalendario } from "../css/cardCalendario"
-import { btnFlotanteAlargado } from "../css/btnFlotanteAlargado"
-import { modoPantalla } from "../../redux/actions/ui";
-import { VACUNA, CONSULTA } from "../../../assets/icons/icons"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    label
+} from "../css/label"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    btnCalendario
+} from "../css/btnCalendario"
+import {
+    cardCalendario
+} from "../css/cardCalendario"
+import {
+    btnFlotanteAlargado
+} from "../css/btnFlotanteAlargado"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    VACUNA,
+    CONSULTA,
+    MAS
+} from "../../../assets/icons/icons"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
 
 const MODO_PANTALLA = "ui.timeStampPantalla"
-export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement) {
+
+const MASCOTASTIPO_TIMESTAMP = "mascotastipo.timeStamp"
+const CALENDARIO_TIMESTAMP = "calendario.timeStamp"
+export class pantallaCalendario extends connect(store, MODO_PANTALLA, MASCOTASTIPO_TIMESTAMP, CALENDARIO_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.animal = "perro"
-        this.itemVacunas = [{ animal: "perro", vacuna: "Perro Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "perro", vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "perro", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "perro", vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "gato", vacuna: " Gato Quíntuple Refuerzo", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "gato", vacuna: "Rabia", para: "Rabia", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "gato", vacuna: "Quíntuple", para: "Tos de las perreras - Hepatitis - Moquillo - Parvovirus", edad: "Cachorros", obligatoria: "Obligatoria" },
-        { animal: "gato", vacuna: "Tetano", para: "Tetano", edad: "Cachorros", obligatoria: "Obligatoria" }
-        ]
+
+        this.animal = 1
+
+
+        this.items = []
+        this.tipo = []
+
+
     }
 
     static get styles() {
-        return css`
+        return css `
         ${label}
         ${cabecera1}
         ${cardCalendario}
@@ -74,6 +103,7 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             overflow-y: auto; 
             overflow-x: hidden; 
             grid-gap:1rem;
+            align-content:flex-start
         }
         #cuerpoVacuna::-webkit-scrollbar {
             display: none;
@@ -100,10 +130,29 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
             display:grid;
             overflow-x: none; 
         }
-    `
+
+        .botonMarcado{
+            cursor: not-allowed;
+            pointer-events: none;
+            border-color: var(--color-celeste);
+            color: var(--color-celeste);
+            border-width: thick;
+        }
+
+        .labelRedondeado{
+            font-size: var(--font-bajada-size);
+            font-weight: var(--font-bajada-weight);  
+            background-color: var(--color-celeste-claro);          
+            color: var(--color-azul-oscuro);
+            padding:0 .5rem 0 .5rem;
+            justify-self: center;
+            border-radius:1rem ;    
+        }
+ 
+        `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">
                 <div style="display:grid;width:100%;grid-template-columns:90% 10%;">
@@ -115,27 +164,21 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
                 <div id="lblLeyenda">${idiomas[this.idioma].calendario.leyenda}</div>
             </div>
             <div id="cuerpo">
-                <div id="animales" style="padding-top: .4rem;">
-                    <div id="btnPerro" class="btnCalendario" pres @click="${this.perro}">
-                        ${idiomas[this.idioma].calendario.perro}
-                    </div>
-                    <div id="btnGato" class="btnCalendario" nopres @click="${this.gato}">
-                        ${idiomas[this.idioma].calendario.gato}
-                    </div>
+                <div id="animales" style="padding-top:.4rem;">
+                    ${this.tipo.map(tipo => html `<div  class="btnCalendario ${tipo.Id==this.animal?"botonMarcado":""}" .item=${tipo} @click="${this.seleccionTipo}">
+                        ${tipo.Descripcion}</div>`)}
                 </div>
-                <div id="cuerpoVacuna" style="width:95%;justify-self: center;">
-                    ${this.itemVacunas.filter(itemVacuna => { return itemVacuna.animal == this.animal }).map(dato => html`
-                        <div id="ccDivEtiqueta">
-                            <div id="ccDivVacuna">${dato.vacuna}</div>
-                            <div id="ccDivPara">${dato.para}</div>
-                            <div id="ccDivCachorro">${dato.edad}</div>
-                            <div id="ccDivObligatorio">${dato.obligatoria}</div>
-                        </div>
-                    `)}
+
+                <div id="cuerpoVacuna" style="width:95%;justify-self:center;">
+                ${this.items
+                    .filter(item =>{
+                        return item.MascotasTipoId==this.animal
+                    })
+                    .map(dato => this.renderItemVacuna(dato))}
                 </div>        
             </div>        
         </div>        
-        <pie-componente id="pie" opcion="cuatro" >
+        <pie-componente id="pie" opcion="cuatro" media-size="${this.mediaSize}">
         </pie-componente>
         <div id="bfaDivMas"  @click=${this.clickBotonVacuna}>
             ${VACUNA}
@@ -143,30 +186,57 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
         </div>
         `
     }
-    perro() {
-        this.shadowRoot.getElementById("btnPerro").setAttribute("pres", "")
-        this.shadowRoot.getElementById("btnPerro").removeAttribute("nopres")
-        this.shadowRoot.getElementById("btnGato").setAttribute("nopres", "")
-        this.shadowRoot.getElementById("btnGato").removeAttribute("pres")
-        this.animal = "perro"
-        this.update();
+
+
+
+    desmarcarBotones() {
+        const botones = this.shadowRoot.querySelectorAll(".btnCalendario")
+        botones.forEach((button) => {
+            button.classList.remove("botonMarcado")
+        });
     }
-    gato() {
-        this.shadowRoot.getElementById("btnPerro").setAttribute("nopres", "")
-        this.shadowRoot.getElementById("btnPerro").removeAttribute("pres")
-        this.shadowRoot.getElementById("btnGato").setAttribute("pres", "")
-        this.shadowRoot.getElementById("btnGato").removeAttribute("nopres")
-        this.animal = "gato"
-        this.update();
+
+    seleccionTipo(e) {
+        this.desmarcarBotones()
+        e.currentTarget.classList.add("botonMarcado")
+        this.animal = e.currentTarget.item.Id
+        this.update()
     }
+
+    renderItemVacuna(dato) {
+        return html `                
+        <div id="ccDivEtiqueta">
+            <div id="ccDivVacuna">${dato.Vacuna.Descripcion}</div>
+            <div id="ccDivPara">${dato.Enfermedades}</div>
+            <div class="labelRedondeado" id="ccDivCachorro">${dato.Edad}</div>
+            <div class="labelRedondeado" id="ccDivObligatorio">${dato.Optativa?idiomas[this.idioma].calendario.optativa:idiomas[this.idioma].calendario.obligatoria}</div>
+            <div class="labelRedondeado" id="ccDivPeriodicidad">${dato.Periodicidad}</div>
+        </div>`
+        this.update()
+    }
+
+
     clickBotonNotificacion() {
         store.dispatch(modoPantalla("notificacion", "calendario"))
     }
     clickBotonVacuna() {
+
         store.dispatch(modoPantalla("vacuna", "calendario"))
     }
     stateChanged(state, name) {
-        if (name == MODO_PANTALLA && state.ui.quePantalla == "calendario") {
+        if (name == MODO_PANTALLA && state.ui.quePantalla == "calendario") {}
+
+        if (name == MASCOTASTIPO_TIMESTAMP) {
+            let tipo = [
+                ...state.mascotastipo.entities
+            ]
+            this.tipo = tipo.filter(u => (u.Descripcion.toLowerCase().includes("perro") || u.Descripcion.toLowerCase().includes("gato")))
+            this.animal = this.tipo[0].Id
+            this.update()
+        }
+        if (name == CALENDARIO_TIMESTAMP) {
+            this.items = state.calendario.entities
+            this.update()
         }
 
     }
@@ -184,6 +254,10 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA)(LitElement
                 type: String,
                 reflect: true,
                 attribute: 'media-size'
+            },
+            animal: {
+                type: String,
+                reflect: true
             }
         }
     }

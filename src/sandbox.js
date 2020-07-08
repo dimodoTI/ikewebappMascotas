@@ -20,9 +20,7 @@ import {
     get as getPublicidad
 } from "./redux/actions/publicidad";
 
-import {
-    get as getReserva
-} from "./redux/actions/reserva";
+
 import {
     login,
     recupero,
@@ -65,6 +63,21 @@ import {
     get as getPublicaciones
 } from "./redux/actions/publicacion"
 
+import {
+    get as getCalendario
+} from "./redux/actions/calendario"
+
+import {
+    get as getVacunas
+} from "./redux/actions/vacunas"
+
+
+
+
+
+import {
+    get as getTurnosDisponibles
+} from "./redux/actions/turnosdisponibles"
 
 store.dispatch(captureMedia())
 if (getParameterByName("ticket")) {
@@ -72,8 +85,7 @@ if (getParameterByName("ticket")) {
 } else {
     store.dispatch(modoPantalla("splash"))
 }
-//store.dispatch(getPublicidad())
-store.dispatch(getReserva())
+
 
 store.dispatch(getRazas({
     orderby: "idMascotasTipo,Descripcion"
@@ -83,6 +95,21 @@ store.dispatch(getMascotasTipo({
 }))
 
 store.dispatch(getPublicaciones({}))
+
+store.dispatch(getCalendario({
+    expand: "MascotasTipo, Vacuna"
+
+}))
+
+store.dispatch(getVacunas({}))
+
+
+
+
+
+
+
+
 
 /* ---- Razas -----------*/
 // store.dispatch(getRazas())

@@ -1,30 +1,63 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { cabecera1 } from "../css/cabecera1"
-import { cardTurnosPaciente } from "../css/cardTurnosPaciente"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS } from "../../../assets/icons/icons"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    cardTurnosPaciente
+} from "../css/cardTurnosPaciente"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS
+} from "../../../assets/icons/icons"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
 
-export class pantallaConsultaTurnos extends connect(store)(LitElement) {
+import {
+    get as getReservas,
+    reservarFecha,
+    add as addReservas
+
+} from "../../redux/actions/reservas"
+
+
+const TURNOSDISPONIBLES_TIMESTAMP = "turnosdisponibles.timeStamp"
+
+
+const RESERVASADD_TIMESTAMP = "reservas.addTimeStamp"
+
+export class pantallaConsultaTurnos extends connect(store, TURNOSDISPONIBLES_TIMESTAMP, RESERVASADD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.libres = [{ fecha: "2020-05-24", libre: [{ hora: "16:00" }, { hora: "16:20" }, { hora: "16.40" }] },
-        { fecha: "2020-05-26", libre: [{ hora: "9:00" }, { hora: "9:20" }, { hora: "12:40" }] },
-        { fecha: "2020-05-27", libre: [{ hora: "12:00" }, { hora: "14:20" }, { hora: "16:40" }] },
-        { fecha: "2020-05-29", libre: [{ hora: "9:20" }, { hora: "9:40" }, { hora: "10:40" }] },
-        { fecha: "2020-05-29", libre: [{ hora: "11:20" }, { hora: "11:40" }, { hora: "12:40" }] },
-        { fecha: "2020-05-29", libre: [{ hora: "13:20" }, { hora: "13:40" }, { hora: "14:40" }] },
-        { fecha: "2020-05-30", libre: [{ hora: "9:00" }, { hora: "9:20" }, { hora: "12:40" }] },
-        { fecha: "2020-06-1", libre: [{ hora: "9:00" }, { hora: "9:20" }, { hora: "12:40" }] }]
+        this.libres = []
+        this.item = []
+        //this.boton
+        this.reserva = []
+
+
     }
     static get styles() {
-        return css`
+        return css `
         ${button}
         ${cabecera1}
         ${cardTurnosPaciente}
@@ -87,10 +120,27 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
         :host([media-size="small"]) #pie{
             display:none;
         }
+
+        .etiqueta{
+            position:relative;
+            display: grid; 
+            height:3.5rem;
+            width:100%;
+            grid-template-columns: 50% 50%;
+            grid-gap:0rem;
+            align-items: center;
+            border-radius:.4rem ; 
+            box-shadow: var(--shadow-elevation-2-box);
+            background-color:transparent;
+        }
+        .seleccionado{
+            box-shadow: var(--shadow-elevation-4-box);
+            background-color:var(--color-gris-claro);
+        }
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
@@ -101,17 +151,22 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
             </div>
             <label id="lblProximo">${idiomas[this.idioma].consultaturnos.proximo}</label>
             <div id="cuerpo">
-                ${this.libres.map((item) => {
-            return item.libre.map((queDia) => {
-                return html`
-                        <div id="atDivEtiqueta" no @click=${this.clickSeleccionar}>
+                ${this.libres.map((item) => { 
+                    
+                    const dia = this.nroDia(item.fecha)
+                    const mes = this.mes(item.fecha)
+                    const fecha = item.fecha
+                   
+                    return item.horarios.map(horario=>{
+                    return  html`
+                        <div   class="etiqueta" .item="${item}" .horario="${horario}"  @click=${this.clickSeleccionar}>
                             <div id="atDivDia">
-                                <label id="atLblDiaNumero">${this.nroDia(item.fecha)}</label>
-                                <label id="atLblMes">${this.mes(item.fecha)}</label>
+                                <label id="atLblDiaNumero">${dia}</label>
+                                <label id="atLblMes">${mes}</label>
                             </div>
-                            <div id="atDivHora" no>
-                                <label id="atLblDiaTexto">${this.dow(item.fecha)}</label>
-                                <label id="atLblHora">${queDia.hora}</label>
+                            <div id="atDivHora">
+                                <label id="atLblDiaTexto">${this.dow(fecha)}</label>
+                                <label id="atLblHora" value="${horario.hora}">${this.formateoHora(horario.hora)}</label>
                             </div>
                         </div>`
             })
@@ -127,50 +182,89 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
     }
 
     clickSeleccionar(e) {
-        if (e.currentTarget.hasAttribute("no")) {
-            [].forEach.call(this.shadowRoot.querySelectorAll("#atDivHora"), element => {
-                element.setAttribute("no", "")
-                element.removeAttribute("si")
-            });
-            [].forEach.call(this.shadowRoot.querySelectorAll("#atDivEtiqueta"), element => {
-                element.setAttribute("no", "")
-                element.removeAttribute("si")
-            });
-            e.currentTarget.setAttribute("si", "")
-            e.currentTarget.removeAttribute("no")
-            e.currentTarget.querySelector("#atDivHora").setAttribute("si", "")
-            e.currentTarget.querySelector("#atDivHora").removeAttribute("no")
-            this.shadowRoot.querySelector("#btnSeleccionar").removeAttribute("apagado")
-        } else {
-            e.currentTarget.setAttribute("no", "")
-            e.currentTarget.removeAttribute("si")
-            e.currentTarget.querySelector("#atDivHora").setAttribute("no", "")
-            e.currentTarget.querySelector("#atDivHora").removeAttribute("si")
-            this.shadowRoot.querySelector("#btnSeleccionar").setAttribute("apagado", "")
+        const botones = this.shadowRoot.querySelectorAll(".etiqueta")
+        botones.forEach((button) => {
+            button.classList.remove("seleccionado")
+        });
+        e.currentTarget.classList.add("seleccionado")
+        this.shadowRoot.querySelector("#btnSeleccionar").removeAttribute("apagado", "")
+        const fecha = e.currentTarget.item.fecha
+        const hora = e.currentTarget.horario.hora
+        const tramo = e.currentTarget.horario.tramos[0]
+        store.dispatch(reservarFecha(fecha, hora, tramo))
 
-        }
+        /*         if (e.currentTarget.hasAttribute("no")) {
+                    [].forEach.call(this.shadowRoot.querySelectorAll("#atDivHora"), element => {
+                        element.setAttribute("no", "")
+                        element.removeAttribute("si")
+                    });
+                    [].forEach.call(this.shadowRoot.querySelectorAll("#atDivEtiqueta"), element => {
+                        element.setAttribute("no", "")
+                        element.removeAttribute("si")
+                    });
+                    e.currentTarget.setAttribute("si", "")
+                    e.currentTarget.removeAttribute("no")
+                    e.currentTarget.querySelector("#atDivHora").setAttribute("si", "")
+                    e.currentTarget.querySelector("#atDivHora").removeAttribute("no")
+                    this.shadowRoot.querySelector("#btnSeleccionar").removeAttribute("apagado")
+                } else {
+                    e.currentTarget.setAttribute("no", "")
+                    e.currentTarget.removeAttribute("si")
+                    e.currentTarget.querySelector("#atDivHora").setAttribute("no", "")
+                    e.currentTarget.querySelector("#atDivHora").removeAttribute("si")
+                    this.shadowRoot.querySelector("#btnSeleccionar").setAttribute("apagado", "")
+
+                } */
+
     }
     clickBoton1() {
         store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "principal"))
     }
+
+
     clickBoton2() {
-        store.dispatch(modoPantalla("consultadetalle", "consultaturnos"))
+        //store.dispatch(modoPantalla("consultadetalle", "consultaturnos"))
+
+        let reserva = store.getState().reservas.reserva
+
+        reserva.UsuarioId = store.getState().cliente.datos.id
+        reserva.FechaGeneracion = new Date()
+        store.dispatch(addReservas(reserva, store.getState().cliente.datos.token))
     }
+
     stateChanged(state, name) {
+        if (name == TURNOSDISPONIBLES_TIMESTAMP) {
+            this.libres = state.turnosdisponibles.entities._retorno
+            this.update()
+        }
+        if (name == RESERVASADD_TIMESTAMP) {
+            store.dispatch(getReservas({
+                token: state.cliente.datos.token,
+                expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
+                orderby: "FechaAtencion desc"
+            }))
+            store.dispatch(modoPantalla("misconsultas", "consultaturnos"))
+        }
     }
-    firstUpdated() {
+    firstUpdated() {}
+
+    formateoHora(hora) {
+        let horaRetorno = "0000" + hora.toString()
+        horaRetorno = horaRetorno.substring(horaRetorno.length - 4)
+        return horaRetorno.substr(0, 2) + ":" + horaRetorno.substr(2, 2)
+
     }
     nroDia(fecha) {
-        let d = new Date(fecha + ":12:12:12")
-        return d.getDate()
+        let d = new Date(fecha)
+        return d.getDate() + 1
     }
     dow(fecha) {
-        let d = new Date(fecha + ":12:12:12");
+        let d = new Date(fecha);
         let dia = d.getDay()
         return idiomas[this.idioma].diasCortos[dia]
     }
     mes(fecha) {
-        let d = new Date(fecha + ":12:12:12");
+        let d = new Date(fecha);
         let m = d.getMonth()
         return idiomas[this.idioma].mesCortos[m]
     }
@@ -184,7 +278,13 @@ export class pantallaConsultaTurnos extends connect(store)(LitElement) {
                 type: String,
                 reflect: true,
                 attribute: 'media-size'
+            },
+            seleccionado: {
+                type: Boolean,
+                reflect: true,
+
             }
+
         }
     }
 }

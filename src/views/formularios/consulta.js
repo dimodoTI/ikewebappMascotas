@@ -1,25 +1,74 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { cabecera1 } from "../css/cabecera1"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
-import { select } from "../css/select"
-import { cardArchivo } from "../css/cardArchivo"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS, TRASH, ARCHIVO, BASURA } from "../../../assets/icons/icons"
-export class pantallaConsulta extends connect(store)(LitElement) {
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
+import {
+    select
+} from "../css/select"
+import {
+    cardArchivo
+} from "../css/cardArchivo"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS,
+    TRASH,
+    ARCHIVO,
+    BASURA
+} from "../../../assets/icons/icons"
+
+import {
+    get as getTurnosDisponibles
+} from "../../redux/actions/turnosdisponibles"
+import {
+    RESERVAR,
+    reservar
+} from "../../redux/actions/reservas";
+import {
+    tiempos
+} from "../../redux/datos/tiempoEspera";
+
+const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
+const TURNOSDISPONIBLES_TIMESTAMP = "turnosdisponibles.timeStamp"
+const RESERVASRESERVAR_TIMESTAMP = "reservas.reservarTimeStamp"
+export class pantallaConsulta extends connect(store, MASCOTAS_TIMESTAMP, TURNOSDISPONIBLES_TIMESTAMP, RESERVASRESERVAR_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.item = { para: "", motivo: "", sintoma: "" }
-        this.archivo = [{ nombre: "Documento.jpg" }, { nombre: "Estudio.pdf" }]
+        this.item = []
+        //this.item = { para: "", motivo: "", sintoma: "" }
+        this.mascotas = []
+        this.reserva = []
+        this.archivo = [{
+            nombre: "Documento.jpg"
+        }, {
+            nombre: "Estudio.pdf"
+        }]
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         ${cabecera1}
         ${select}
@@ -86,7 +135,7 @@ export class pantallaConsulta extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
@@ -99,19 +148,16 @@ export class pantallaConsulta extends connect(store)(LitElement) {
 
                 <div id="selectPara" class="select" style="width:100%;height:3.4rem"> 
                     <label >${idiomas[this.idioma].consulta.para}</label>
-                    <select style="width:100%;height:1.7rem;" id="txtMascota">          
-                        <option  value="Coco" .selected="${this.item.para == "Coco"}">Coco</option>
-                        <option value="Mafalda" .selected="${this.item.para == "Mafalda"}">Mafalda</option>
+                    <select style="width:100%;height:1.7rem;" id="txtMascota">  
+                    <option  value=0>${idiomas[this.idioma].consulta.elegimascota}</option>
+                        ${this.mascotas.map((p)=>{
+                            return html `
+                            <option value=${p.Id} style="color:black">${p.Nombre}</option>
+                             `}
+                                )}
                     </select>
                 </div>  
 
-                <div id="selectMotivo" class="select" style="width:100%;height:3.4rem"> 
-                    <label >${idiomas[this.idioma].consulta.motivo}</label>
-                    <select style="width:100%;height:1.7rem;" id="txtVacuna">          
-                        <option  value="Diarrea" .selected="${this.item.motivo == "Diarrea"}">Diarrea</option>
-                        <option value="Tos" .selected="${this.item.motivo == "Tos"}">Tos</option>
-                    </select>
-                </div>  
                 <div id="lblSintoma">${idiomas[this.idioma].consulta.sintoma}</div>
                 <textarea id="txtSintoma" style="width:100%;height:5rem;" @input=${this.activar}></textarea>
                 ${this.archivo.map(dato => html`
@@ -139,14 +185,12 @@ export class pantallaConsulta extends connect(store)(LitElement) {
     activar() {
         this.activo = true
         const mascota = this.shadowRoot.querySelector("#txtMascota")
-        const vacuna = this.shadowRoot.querySelector("#txtVacuna")
+
         const sintoma = this.shadowRoot.querySelector("#txtSintoma")
         if (mascota.value.length < 1) {
             this.activo = false
         }
-        if (vacuna.value.length < 1) {
-            this.activo = false
-        }
+
         if (sintoma.value.length < 4) {
             this.activo = false
         }
@@ -163,14 +207,11 @@ export class pantallaConsulta extends connect(store)(LitElement) {
         })
         let valido = true
         const mascota = this.shadowRoot.querySelector("#txtMascota")
-        const vacuna = this.shadowRoot.querySelector("#txtVacuna")
         const sintoma = this.shadowRoot.querySelector("#txtSintoma")
         if (mascota.value.length < 8) {
             valido = false
         }
-        if (vacuna.value.length < 8) {
-            valido = false
-        }
+
         if (sintoma.value.length < 8) {
             valido = false
         }
@@ -181,16 +222,23 @@ export class pantallaConsulta extends connect(store)(LitElement) {
         store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "consulta"))
     }
     clickBoton2() {
-        //        if (this.activo) {
-        //            if (this.valido()) {
+        store.dispatch(getTurnosDisponibles())
+        const mascota = this.shadowRoot.querySelector("#txtMascota").value
+        const motivo = this.shadowRoot.querySelector("#txtSintoma").value
+        store.dispatch((reservar(mascota, motivo)))
         store.dispatch(modoPantalla("consultaturnos", "consulta"));
-        //            }
-        //        }
+
     }
     stateChanged(state, name) {
+        if (name == MASCOTAS_TIMESTAMP) {
+            this.mascotas = state.mascotas.entities
+        }
+
+
     }
-    firstUpdated() {
-    }
+
+
+    firstUpdated() {}
 
     static get properties() {
         return {
@@ -202,7 +250,8 @@ export class pantallaConsulta extends connect(store)(LitElement) {
                 type: String,
                 reflect: true,
                 attribute: 'media-size'
-            }
+            },
+
         }
     }
 }

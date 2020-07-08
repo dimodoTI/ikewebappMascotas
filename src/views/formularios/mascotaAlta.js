@@ -42,7 +42,9 @@ import {
     patch as patchMascotas
 } from "../../redux/actions/mascotas"
 
-
+import {
+    llamador
+} from "../../redux/actions/fotos"
 
 
 const MASCOTAS_EDIT = "mascotas.editTimeStamp"
@@ -145,7 +147,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
             position:relative;
             display:grid;
             grid-template-rows: 49.5% 1% 49.5%;
-            grid-template-columns: 20% 80%;
+            /* grid-template-columns: 20% 80%; */
             border: 2px solid var(--color-gris-oscuro);
             grid-gap: 0;
             height:100%;
@@ -231,7 +233,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
             </div>
             <div id="cuerpo">
                 <div id="foto" >
-                    <img src="" id = "fotoMascota">
+                    <img src="${this.item.Foto}" id = "fotoMascota">
                     <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.modo == "A"
                 ? idiomas[this.idioma].mascotaalta.btn1 : idiomas[this.idioma].mascotaedit.btn1}
                     </button>
@@ -277,6 +279,11 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                     </select>
                 </div>  
 
+                <div class="ikeInput" >
+                        <label>${idiomas[this.idioma].mascotaalta.castrada}</label>
+                        <input type="checkbox" id="castrada" .checked="${this.item.Castrada}">
+                </div>
+
    
                 <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
                     ${this.modo == "A"
@@ -288,7 +295,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
             </div>
             <div id="divMensaje">
                 <div id=divMensaje1>
-                    <div style="display:grid;grid-auto-flow:column" @click="${this.abreFoto}">
+                    <div style="display:grid;grid-template-columns:20% 80%" @click="${this.abreFoto}">
                         <div id="divMsj1Linea1Col1">
                             ${CAMARA}
                         </div>
@@ -296,14 +303,17 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                             ${idiomas[this.idioma].mascotaalta.btnCamara}
                         </div>
                     </div>
+                    
                     <div id="divMsj1Linea2">
                     </div>
-                    <div id="divMsj1Linea3Col1">
-                        ${CAMARAROLLO}
+                    <div style="display:grid;grid-template-columns:20% 80%">
+                        <div id="divMsj1Linea3Col1">
+                            ${CAMARAROLLO}
+                        </div>
+                        <div id="divMsj1Linea3Col2">
+                            ${idiomas[this.idioma].mascotaalta.btnImagen}
+                        </div>
                     </div>
-                    <div id="divMsj1Linea3Col2">
-                    ${idiomas[this.idioma].mascotaalta.btnImagen}
-                </div>
                 </div>
                 <div id=divMensaje2 @click=${this.clickCancelar}>
                     ${idiomas[this.idioma].mascotaalta.btnCancelar}
@@ -324,6 +334,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
     }
 
     abreFoto() {
+        store.dispatch(llamador("mascota"))
         store.dispatch(modoPantalla("fotos", "mascotaalta"))
     }
     clickCancelar() {
@@ -340,6 +351,7 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
         item.idRaza = this.shadowRoot.querySelector("#selectRaza").value
         item.idUsuario = store.getState().cliente.datos.id
         item.Foto = store.getState().fotos.foto
+        item.Castrada = this.shadowRoot.querySelector("#castrada").checked
         item.Activo = true
 
         delete item.Raza
@@ -371,6 +383,11 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
                 "op": "replace",
                 "path": "/Foto",
                 "value": store.getState().fotos.foto
+            },
+            {
+                "op": "replace",
+                "path": "/Castrada",
+                "value": this.shadowRoot.querySelector("#castrada").checked
             }
         ]
         return datosPatch
@@ -414,7 +431,6 @@ export class pantallaMascotaAlta extends connect(store, MASCOTAS_EDIT, MASCOTAST
             this.mascotasTipo = [...state.mascotastipo.entities]
             this.razas = [...state.razas.entities]
             this.modo = state.mascotas.modo
-
             this.item = state.mascotas.entities.currentItem
 
 

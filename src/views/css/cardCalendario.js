@@ -2,7 +2,7 @@ import {
     css
 } from "lit-element"
 
-export const cardCalendario = css`
+export const cardCalendario = css `
 #ccDivEtiqueta{
     display: grid; 
     height:22vw;
@@ -34,23 +34,5 @@ export const cardCalendario = css`
     padding-left:.5rem;
     grid-column-start: 1;
     grid-column-end: 4;
-} 
-#ccDivCachorro{
-    font-size: var(--font-bajada-size);
-    font-weight: var(--font-bajada-weight);  
-    background-color: var(--color-celeste-claro);          
-    color: var(--color-azul-oscuro);
-    padding:0 .5rem 0 .5rem;
-    justify-self: center;
-    border-radius:1rem ;           
-} 
-#ccDivObligatorio{
-    font-size: var(--font-bajada-size);
-    font-weight: var(--font-bajada-weight);            
-    background-color: var(--color-celeste-claro);          
-    color: var(--color-azul-oscuro);
-    padding:0 .5rem 0 .5rem;
-    justify-self: center;
-    border-radius:1rem ;           
-} 
+}  
 `
