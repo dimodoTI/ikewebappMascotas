@@ -45,6 +45,7 @@ const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
 
 const VACUNAS_TIMESTAMP = "vacunas.timeStamp"
 const MASCOTASEDIT_TIMESTAMP = "mascotas.editTimeStamp"
+const MASCOTASGETEDIT_TIMESTAMP = "mascotas.getEditTimeStamp"
 
 export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_TIMESTAMP, MASCOTASEDIT_TIMESTAMP)(LitElement) {
     constructor() {
@@ -246,7 +247,7 @@ export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_T
             this.vacunas = state.vacunas.entities
         }
 
-        if (name == MASCOTASEDIT_TIMESTAMP) {
+        if (name == MASCOTASGETEDIT_TIMESTAMP) {
             /*    const mascota = state.mascotas.entities.currentTarget
                if (mascota.length > 0) { */
             const comboMascota = this.shadowRoot.querySelector("#mascota")
@@ -254,8 +255,6 @@ export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_T
             this.vacunas = state.vacunas.entities.filter(u => u.MascotaTipoId == state.mascotas.entities.currentEdit[0].Raza.idMascotasTipo)
             comboMascota.disable
             this.update()
-
-
         }
     }
     firstUpdated() {}

@@ -11,7 +11,7 @@ import {
 import {
     connect
 } from "@brunomon/helpers/connect";
-export class hc2Spinner extends connect(store, "api.loading")(LitElement) {
+export class dimodoSpinner extends connect(store, "api.loading")(LitElement) {
     constructor() {
         super();
         this.oculto = true;
@@ -46,8 +46,8 @@ export class hc2Spinner extends connect(store, "api.loading")(LitElement) {
                 width:100%;
                 height:100%;
                 border: 3px solid transparent;
-                border-top-color: darkorange;
-                border-bottom-color: darkorange;
+                border-top-color: var(--color-celeste);
+                border-bottom-color: var(--color-celeste);
                 border-radius: 50%;
                 -webkit-animation: rotation .8s ease infinite;
                         animation: rotation .8s ease infinite;
@@ -427,4 +427,4 @@ export class hc2Spinner extends connect(store, "api.loading")(LitElement) {
         }
     }
 }
-window.customElements.define("hc2-spinner", hc2Spinner);
+window.customElements.define("dimodo-spinner", dimodoSpinner);

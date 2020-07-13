@@ -132,6 +132,10 @@ import {
     pantallaDiagnosticosDetalles
 } from "./formularios/diagnosticoDetalles"
 
+import {
+    dimodoSpinner
+} from "../views/componentes/spinner"
+
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
@@ -200,6 +204,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-consultadetallemsg id="consultadetallemsg" media-size="${this.mediaSize}"></pantalla-consultadetallemsg>
         <fotos-componente id="fotos" media-size="${this.mediaSize}"></fotos-componente>
         <pantalla-diagnosticosdetalles id="diagnosticodetalles" media-size="${this.mediaSize}"></pantalla-diagnosticosdetalles>
+        <dimodo-spinner type="spinner2"></dimodo-spinner>
         `
     }
 
