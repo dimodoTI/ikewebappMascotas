@@ -10,11 +10,12 @@ import {
 } from "../../redux/store";
 import {
     connect
-} from "/Nano/nano-helpers/src/nano-connect";
-export class hc2Spinner extends connect(store, "ui.loading")(LitElement) {
+} from "@brunomon/helpers/connect";
+export class hc2Spinner extends connect(store, "api.loading")(LitElement) {
     constructor() {
         super();
         this.oculto = true;
+        this.type = "spinner1"
     }
     render() {
         return html `
@@ -404,10 +405,10 @@ export class hc2Spinner extends connect(store, "ui.loading")(LitElement) {
             }
 
         </style>
-        <div id="spinner" class="spinner${this.type}"></div>`
+        <div id="spinner" class="spinner ${this.type}"></div>`
     }
-    stateChanged(state, i) {
-        this.oculto = (state.ui.loading == 0);
+    stateChanged(state, name) {
+        this.oculto = (state.api.loading == 0);
     }
     set oculto(value) {
         if (value) {

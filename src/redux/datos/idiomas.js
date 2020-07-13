@@ -362,5 +362,19 @@ export const idiomas = {
             btn1: "Ir a Mis Consultas",
             btn2: "Volver al inicio"
         },
+
+        diagnosticosdetalle: {
+            titulo: "Detalle de consulta",
+            leyenda: "Acá vas a encontrar el expediente correspondiente a una consulta.",
+            lblDiagnostico: "Diagnóstico",
+            tituloconsulta: "Detalle de consulta",
+            expediente: "Reserva #",
+            paciente: "Paciente: ",
+            motivo: "Motivo: ",
+            fecha: "Fecha: ",
+            hora: "Hora: ",
+            veterinario: "Veterinario: ",
+
+        }
     }
 }

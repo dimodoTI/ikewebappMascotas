@@ -9,7 +9,8 @@ import {
     ADD_ERROR,
     REMOVE_SUCCESS,
     REMOVE_ERROR,
-    EDIT
+    EDIT,
+    GETEDIT_SUCCESS
 } from "../actions/mascotas";
 
 
@@ -22,6 +23,7 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
+    getEditTimeStamp: null
 };
 
 export const reducer = (state = initialState, action) => {
@@ -57,6 +59,9 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
+        case GETEDIT_SUCCESS:
+            newState.getEditTimeStamp = (new Date()).getTime();
+            newState.entities.currentEdit = action.payload.receive
 
     }
     return newState;

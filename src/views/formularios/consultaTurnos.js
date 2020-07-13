@@ -260,7 +260,7 @@ export class pantallaConsultaTurnos extends connect(store, TURNOSDISPONIBLES_TIM
     }
     dow(fecha) {
         let d = new Date(fecha);
-        let dia = d.getDay()
+        let dia = d.getDay() + 1
         return idiomas[this.idioma].diasCortos[dia]
     }
     mes(fecha) {

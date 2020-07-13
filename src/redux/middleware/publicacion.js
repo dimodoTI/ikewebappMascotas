@@ -5,7 +5,13 @@ import {
 
 
 } from "../actions/publicacion";
-/////////////////////
+
+import {
+    showSpinner,
+    hideSpinner,
+    showError
+} from "../actions/ui";
+
 import {
     ikeOdataPublicaciones
 } from "../fetchs"

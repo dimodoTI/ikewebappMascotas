@@ -47,6 +47,12 @@ import {
     get as getReservas
 } from "../actions/reservas"
 
+import {
+    showSpinner,
+    hideSpinner,
+    showError
+} from "../actions/ui";
+
 export const login = ({
     dispatch
 }) => next => action => {
@@ -137,11 +143,8 @@ export const processLogin = ({
 
             dispatch(getMascotas({
                 token: getState().cliente.datos.token,
-                expand: "Raza($expand=MascotasTipo)"
+                expand: "Raza($expand=MascotasTipo),Reservas"
             }))
-
-
-
         }
     }
 };

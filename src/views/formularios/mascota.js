@@ -50,7 +50,8 @@ import {
 
 import {
     edit as editMascotas,
-    get as getMascotas
+    get as getMascotas,
+    getEdit as getEditMascota
 } from "../../redux/actions/mascotas"
 
 const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
@@ -58,9 +59,11 @@ const MASCOTAS_ADDTIMESTAMP = "mascotas.addTimeStamp"
 const MASCOTAS_UPDATETIMESTAMP = "mascotas.updateTimeStamp"
 const MASCOTAS_REMOVETIMESTAMP = "mascotas.removeTimeStamp"
 
+const MASCOTAS_GETEDITTIMESTAMP = "mascotas.getEditTimeStamp"
 
 
-export class pantallaMascota extends connect(store, MASCOTAS_ADDTIMESTAMP, MASCOTAS_REMOVETIMESTAMP, MASCOTAS_TIMESTAMP, MASCOTAS_UPDATETIMESTAMP)(LitElement) {
+
+export class pantallaMascota extends connect(store, MASCOTAS_GETEDITTIMESTAMP, MASCOTAS_ADDTIMESTAMP, MASCOTAS_REMOVETIMESTAMP, MASCOTAS_TIMESTAMP, MASCOTAS_UPDATETIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -149,7 +152,7 @@ export class pantallaMascota extends connect(store, MASCOTAS_ADDTIMESTAMP, MASCO
                         <div id="cmhDivNombre">${dato.Nombre}</div>
                         <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.Raza.Descripcion}</div>
                         <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + this.calculaEdad(dato.FechaNacimiento)}</div>
-                        <div id="cmhDivConsultas">${"1" + idiomas[this.idioma].mascota.consultas}</div>              
+                        <div id="cmhDivConsultas">${dato.Reservas.length + idiomas[this.idioma].mascota.consultas}</div>              
                     </div>
                 `)}
             </div>        
@@ -172,26 +175,31 @@ export class pantallaMascota extends connect(store, MASCOTAS_ADDTIMESTAMP, MASCO
 
     editar(e) {
 
-        store.dispatch(editMascotas("M", e.currentTarget.item))
-        store.dispatch(modoPantalla("mascotaalta", "mascota"))
+        store.dispatch(getEditMascota({
+            filter: "Id eq " + e.currentTarget.item.Id.toString(),
+            expand: "MascotasVacuna($expand=Vacuna($expand=Calendarios)),Raza($expand=MascotasTipo),Reservas($expand=Atencion)",
+            token: store.getState().cliente.datos.token,
+
+        }))
+
     }
 
     stateChanged(state, name) {
         if (name == MASCOTAS_ADDTIMESTAMP || name == MASCOTAS_REMOVETIMESTAMP || name == MASCOTAS_UPDATETIMESTAMP) {
-            store.dispatch(getMascotas({
+            store.dispatch(getMascota({
                 token: state.cliente.datos.token,
                 expand: "Raza($expand=MascotasTipo)"
             }))
+        }
 
-
-
+        if (name == MASCOTAS_GETEDITTIMESTAMP) {
+            store.dispatch(modoPantalla("mascotaver", "mascota"))
         }
         if (name == MASCOTAS_TIMESTAMP) {
 
             this.items = state.mascotas.entities
             this.update()
         }
-
     }
 
 

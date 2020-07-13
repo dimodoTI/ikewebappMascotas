@@ -26,6 +26,8 @@ import {
     idiomas
 } from "../../redux/datos/idiomas"
 
+
+
 export class pieComponente extends connect(store)(LitElement) {
     constructor() {
         super();
@@ -222,7 +224,8 @@ export class pieComponente extends connect(store)(LitElement) {
         store.dispatch(modoPantalla("calendario", "principal"))
     }
     clickBoton5() {
-        store.dispatch(modoPantalla("fotogaleria", "principal"))
+
+        store.dispatch(modoPantalla("mascotaver", "principal"))
     }
     clickAyudaPie() {
         store.dispatch(modoPantalla("vercobertura", "principal"))

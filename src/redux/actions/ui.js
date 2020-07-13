@@ -12,12 +12,15 @@ export const CANCELAR_TIMER = "[ui] CANCELAR_TIMER"
 export const SET_TIMER = "[ui] SET_TIMER"
 export const SET_CONTADOR = "[ui] SET_CONTADOR"
 
+
 export const showSpinner = () => ({
   type: SHOW_SPINNER
 });
 export const hideSpinner = () => ({
   type: HIDE_SPINNER
 });
+
+
 export const showError = (message) => ({
   type: SHOW_ERROR,
   message: message

@@ -110,6 +110,7 @@ import {
 import {
     pantallaMascotaVer
 } from "./formularios/mascotaVer";
+
 import {
     pantallaConsulta
 } from "./formularios/consulta";
@@ -126,6 +127,13 @@ import {
 import {
     fotosComponente
 } from "../views/componentes/fotos"
+
+import {
+    pantallaDiagnosticosDetalles
+} from "./formularios/diagnosticoDetalles"
+
+
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const QUEPANTALLA = "ui.timeStampPantalla";
 export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitElement) {
@@ -135,7 +143,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
     }
 
     static get styles() {
-        return css`
+        return css `
         :host{
             display: grid;                 
             grid-gap:1rem;
@@ -153,7 +161,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         `
     }
     render() {
-        return html`
+        return html `
         <pantalla-splash id="splash" media-size="${this.mediaSize}"></pantalla-splash>
         <pantalla-onboarding id="onboarding" media-size="${this.mediaSize}"></pantalla-onboarding>
         <pantalla-iniciosesion id="iniciosesion" media-size="${this.mediaSize}"></pantalla-iniciosesion>
@@ -185,11 +193,13 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
         <pantalla-mascotaalta accion="UPDATE" id="mascotaedit" media-size="${this.mediaSize}"></pantalla-mascotaalta>
         <pantalla-mascotaaltamsg id="mascotaaltamsg" media-size="${this.mediaSize}"></pantalla-mascotaaltamsg>
         <pantalla-mascotaver id="mascotaver" media-size="${this.mediaSize}"></pantalla-mascotaver>
+        
         <pantalla-consulta id="consulta" media-size="${this.mediaSize}"></pantalla-consulta>
         <pantalla-consultaturnos id="consultaturnos" media-size="${this.mediaSize}"></pantalla-consultaturnos>
         <pantalla-consultadetalle id="consultadetalle" media-size="${this.mediaSize}"></pantalla-consultadetalle>
         <pantalla-consultadetallemsg id="consultadetallemsg" media-size="${this.mediaSize}"></pantalla-consultadetallemsg>
         <fotos-componente id="fotos" media-size="${this.mediaSize}"></fotos-componente>
+        <pantalla-diagnosticosdetalles id="diagnosticodetalles" media-size="${this.mediaSize}"></pantalla-diagnosticosdetalles>
         `
     }
 
@@ -235,6 +245,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
                     this.shadowRoot.querySelector("#mascotaedit").hidden = state.ui.quePantalla != "mascotaedit";
                 }
                 this.shadowRoot.querySelector("#mascotaaltamsg").hidden = state.ui.quePantalla != "mascotaaltamsg";
+
                 this.shadowRoot.querySelector("#mascotaver").hidden = state.ui.quePantalla != "mascotaver";
                 this.shadowRoot.querySelector("#consulta").hidden = state.ui.quePantalla != "consulta";
                 this.shadowRoot.querySelector("#consultaturnos").hidden = state.ui.quePantalla != "consultaturnos";
@@ -243,6 +254,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, QUEPANTALLA)(LitEl
                 }
                 this.shadowRoot.querySelector("#consultadetallemsg").hidden = state.ui.quePantalla != "consultadetallemsg";
                 this.shadowRoot.querySelector("#fotos").hidden = state.ui.quePantalla != "fotos";
+                this.shadowRoot.querySelector("#diagnosticodetalles").hidden = state.ui.quePantalla != "diagnosticodetalles";
             }
         }
         this.update();

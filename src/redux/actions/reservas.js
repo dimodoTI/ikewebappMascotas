@@ -6,12 +6,14 @@ export const REMOVE = "[reservas] REMOVE";
 export const EDIT = "[reservas] EDIT"
 export const RESERVAR = "[reservas] RESERVAR"
 export const RESERVARFECHA = "[reservas] RESERVARFECHA"
+export const ENATENCION = "[reservas] ENATENCION"
 
-export const GET_SUCCESS = "[reservas] GET success";
+export const GET_SUCCESS = "[reservas] GET success"
 export const ADD_SUCCESS = "[reservas] ADD success";
 export const PATCH_SUCCESS = "[reservas] PATCH success";
 export const UPDATE_SUCCESS = "[reservas] UPDATE success";
 export const REMOVE_SUCCESS = "[reservas] REMOVE success";
+export const ENATENCION_SUCCESS = "[reservas] ENATENCION success";
 
 
 export const GET_ERROR = "[reservas] GET error";
@@ -19,6 +21,7 @@ export const ADD_ERROR = "[reservas] ADD error";
 export const PATCH_ERROR = "[reservas] PATCH error";
 export const UPDATE_ERROR = "[reservas] UPDATE error";
 export const REMOVE_ERROR = "[reservas] REMOVE error";
+export const ENATENCION_ERROR = "[reservas] ENATENCION error";
 
 
 
@@ -82,4 +85,9 @@ export const reservarFecha = (fecha, hora, tramoId) => ({
     hora: hora,
     tramoId: tramoId,
 
+})
+
+export const enAtencion = (options) => ({
+    type: ENATENCION,
+    options: options
 })

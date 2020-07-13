@@ -220,9 +220,9 @@ export class pantallaCalendario extends connect(store, MODO_PANTALLA, MASCOTASTI
         store.dispatch(modoPantalla("notificacion", "calendario"))
     }
     clickBotonVacuna() {
-
         store.dispatch(modoPantalla("vacuna", "calendario"))
     }
+
     stateChanged(state, name) {
         if (name == MODO_PANTALLA && state.ui.quePantalla == "calendario") {}
 

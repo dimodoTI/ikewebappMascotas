@@ -11,7 +11,8 @@ import {
     REMOVE_ERROR,
     EDIT,
     RESERVAR,
-    RESERVARFECHA
+    RESERVARFECHA,
+    ENATENCION_SUCCESS
 } from "../actions/reservas";
 
 
@@ -83,6 +84,11 @@ export const reducer = (state = initialState, action) => {
             newState.reserva.HoraAtencion = action.hora
             newState.reserva.TramoId = action.tramoId
 
+            break;
+
+        case ENATENCION_SUCCESS:
+            newState.enAtencionTimeStamp = (new Date()).getTime();
+            newState.entities.enAtencion = action.payload.receive[0]
             break;
 
     }

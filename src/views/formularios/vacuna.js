@@ -44,8 +44,9 @@ import {
 const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
 
 const VACUNAS_TIMESTAMP = "vacunas.timeStamp"
+const MASCOTASEDIT_TIMESTAMP = "mascotas.editTimeStamp"
 
-export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_TIMESTAMP)(LitElement) {
+export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_TIMESTAMP, MASCOTASEDIT_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -53,6 +54,7 @@ export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_T
         this.vacunas = []
         this.mascotasTipo = []
         this.mascotas = []
+        this.mascota = 0
 
         this.item = {
             Id: 0,
@@ -137,8 +139,8 @@ export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_T
                 <div id="selectMascota" class="select" style="width:100%;height:3.4rem"> 
                     <label >${idiomas[this.idioma].vacuna.mascota}</label>
                     <select style="width:100%;height:1.7rem;" id="mascota" @change="${this.cambioMascota}">   
-                        <option  value=0>${idiomas[this.idioma].vacuna.elegimascota}</option>
-                        ${this.mascotas.map(mascota => html `<option value=${mascota.Id}>${mascota.Nombre}</option>`)}
+                        <option  selected="true"value=0>${idiomas[this.idioma].vacuna.elegimascota}</option>
+                        ${this.mascotas.map(mascota => html `<option .selected="${this.mascotas.Id==mascota.Id}" value=${mascota.Id}>${mascota.Nombre}</option>`)}
                     </select>
                     <label id="mascotaEror" oculto>${idiomas[this.idioma].vacuna.mascotaerror}</label>
                 </div>  
@@ -175,6 +177,8 @@ export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_T
 
 
     cambioMascota(e) {
+
+
         const tipomascota = this.mascotas.filter(u => u.Id == parseInt(e.currentTarget.value, 10))[0].Raza.MascotasTipo.Id
         this.vacunas = store.getState().vacunas.entities.filter(r => r.MascotaTipoId == tipomascota)
         this.update()
@@ -238,9 +242,20 @@ export class pantallaVacuna extends connect(store, MASCOTAS_TIMESTAMP, VACUNAS_T
             this.mascotas = state.mascotas.entities
         }
 
-
         if (name == VACUNAS_TIMESTAMP) {
             this.vacunas = state.vacunas.entities
+        }
+
+        if (name == MASCOTASEDIT_TIMESTAMP) {
+            /*    const mascota = state.mascotas.entities.currentTarget
+               if (mascota.length > 0) { */
+            const comboMascota = this.shadowRoot.querySelector("#mascota")
+            comboMascota.value = state.mascotas.entities.currentEdit[0].Id.toString()
+            this.vacunas = state.vacunas.entities.filter(u => u.MascotaTipoId == state.mascotas.entities.currentEdit[0].Raza.idMascotasTipo)
+            comboMascota.disable
+            this.update()
+
+
         }
     }
     firstUpdated() {}

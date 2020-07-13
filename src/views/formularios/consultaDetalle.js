@@ -1,27 +1,60 @@
-import { html, LitElement, css } from "lit-element";
-import { store } from "../../redux/store";
-import { connect } from "@brunomon/helpers";
-import { idiomas } from "../../redux/datos/idiomas"
-import { button } from "../css/button"
-import { cabecera1 } from "../css/cabecera1"
-import { cardArchivoSolo } from "../css/cardArchivoSolo"
-import { modoPantalla } from "../../redux/actions/ui";
-import { ATRAS, ARCHIVO } from "../../../assets/icons/icons"
-import { mediaConMenu01 } from "../css/mediaConMenu01"
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+import {
+    cabecera1
+} from "../css/cabecera1"
+import {
+    cardArchivoSolo
+} from "../css/cardArchivoSolo"
+import {
+    modoPantalla
+} from "../../redux/actions/ui";
+import {
+    ATRAS,
+    ARCHIVO
+} from "../../../assets/icons/icons"
+import {
+    mediaConMenu01
+} from "../css/mediaConMenu01"
 
 export class pantallaConsultaDetalle extends connect(store)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
-        this.archivo = [{ nombre: "Documento.jpg" }, { nombre: "Estudio.pdf" }]
+        this.archivo = [{
+            nombre: "Documento.jpg"
+        }, {
+            nombre: "Estudio.pdf"
+        }]
         this.expediente = "#1234"
         this.recomienda = "Tomar jarabe para la tos CanTos 200ml. 1 tapita cada 8hs durante 7 días.     Si el cuadro se prolonga volver a consultar."
-        this.datos = { paciente: "Ringo", motivo: "Tos convulsa", fecha: "01/5/2020", hora: "12:40", sintoma: "Tose repetidamente con flema." }
+        this.datos = {
+            paciente: "Ringo",
+            motivo: "Tos convulsa",
+            fecha: "01/5/2020",
+            hora: "12:40",
+            sintoma: "Tose repetidamente con flema."
+        }
     }
 
     static get styles() {
-        return css`
+        return css `
         ${button}
         ${cabecera1}
         ${cardArchivoSolo}
@@ -39,7 +72,8 @@ export class pantallaConsultaDetalle extends connect(store)(LitElement) {
             display: none; 
         } 
         #gridContenedor{
-        }
+            display:grid
+        };
         :host([media-size="small"]) #gridContenedor{
             grid-row-start:1;
             grid-row-end:3;
@@ -103,7 +137,7 @@ export class pantallaConsultaDetalle extends connect(store)(LitElement) {
         `
     }
     render() {
-        return html`
+        return html `
         <div id="gridContenedor">
             <div id="header">        
                 <div id="bar">
@@ -157,10 +191,8 @@ export class pantallaConsultaDetalle extends connect(store)(LitElement) {
         this.shadowRoot.querySelector("#divMensaje").style.display = "none";
     }
 
-    stateChanged(state, name) {
-    }
-    firstUpdated() {
-    }
+    stateChanged(state, name) {}
+    firstUpdated() {}
 
     static get properties() {
         return {

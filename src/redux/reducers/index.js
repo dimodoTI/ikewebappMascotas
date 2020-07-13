@@ -75,8 +75,13 @@ import {
   reducer as turnosdisponiblesReducer
 } from "./turnosdisponibles"
 
+import {
+  reducer as apiReducer
+} from "./api"
+
 export const rootReducer = (state = {}, action) => {
   return {
+    api: apiReducer(state.api, action),
     ui: uiReducer(state.ui, action),
     publicidad: publicidadReducer(state.publicidad, action),
     reserva: reservaReducer(state.reserva, action),

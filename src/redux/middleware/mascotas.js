@@ -13,7 +13,10 @@ import {
     PATCH_ERROR,
     REMOVE,
     REMOVE_SUCCESS,
-    REMOVE_ERROR
+    REMOVE_ERROR,
+    GETEDIT,
+    GETEDIT_ERROR,
+    GETEDIT_SUCCESS
 
 } from "../actions/mascotas";
 
@@ -41,6 +44,15 @@ export const get = ({
     next(action);
     if (action.type === GET) {
         dispatch(apiRequest(ikeMascotasQuery, action.options, GET_SUCCESS, GET_ERROR))
+    }
+};
+
+export const getEdit = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === GETEDIT) {
+        dispatch(apiRequest(ikeMascotasQuery, action.options, GETEDIT_SUCCESS, GETEDIT_ERROR))
     }
 };
 
@@ -94,7 +106,7 @@ export const processComand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS) {
 
     }
 };
@@ -105,9 +117,9 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || GETEDIT_ERROR) {
 
     }
 };
 
-export const middleware = [get, add, update, patch, remove, processGet, processComand, processError];
+export const middleware = [get, add, update, patch, remove, getEdit, processGet, processComand, processError];

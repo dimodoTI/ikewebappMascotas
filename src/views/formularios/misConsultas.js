@@ -35,7 +35,9 @@ import {
 } from "../../redux/actions/ui";
 import {
     CHAT,
-    CONSULTA
+    CONSULTA,
+    VIDEO,
+    ARCHIVO
 } from "../../../assets/icons/icons"
 import {
     mediaConMenu01
@@ -43,7 +45,8 @@ import {
 
 import {
     edit as editReservas,
-    reservar
+    reservar,
+    enAtencion as getEnAtencion
 } from "../../redux/actions/reservas"
 
 import {
@@ -51,11 +54,15 @@ import {
 } from "../../redux/actions/mascotas"
 
 
+
+
+
 const RESERVAS_TIMESTAMP = "reservas.timeStamp"
 
 const RESERVASADD_TIMESTAMP = "reservas.addTimeStamp"
+const RESERVASENATENCION_TIMESTAMP = "reservas.enAtencionTimeStamp"
 
-export class pantallaMisConsultas extends connect(store, RESERVAS_TIMESTAMP, RESERVASADD_TIMESTAMP)(LitElement) {
+export class pantallaMisConsultas extends connect(store, RESERVAS_TIMESTAMP, RESERVASADD_TIMESTAMP, RESERVASENATENCION_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -132,7 +139,12 @@ export class pantallaMisConsultas extends connect(store, RESERVAS_TIMESTAMP, RES
         }
         #pie{
             position:relative;
+           
         }
+
+
+
+
     `
     }
     render() {
@@ -157,22 +169,25 @@ export class pantallaMisConsultas extends connect(store, RESERVAS_TIMESTAMP, RES
                 </div> 
 
                 ${this.items.map(dato => html`
-                    <div id="cmhDivEtiqueta" >
+                <div id="cmhDivEtiqueta" >
                     <div id="cmhDivImagen" style="background-position:center;background:url(${dato.Mascota.Foto});background-repeat: no-repeat;background-position: center center;"></div>
                         <div id="cmhDivNombre">
                             ${dato.Mascota.Nombre}
                         </div>
                         <div id="cmhDivFecha">
-                            ${dato.FechaAtencion.substring(8,10)+"/"+dato.FechaAtencion.substring(5,7)+"/"+dato.FechaAtencion.substring(0,4)}
+                            ${dato.FechaAtencion.substring(8,10)+"/"+dato.FechaAtencion.substring(5,7)+"/"+dato.FechaAtencion.substring(0,4)+" "+ this.formateoHora( dato.HoraAtencion)}
                         </div>
                         <div id="cmhDivDiagnostico">
                             ${dato.Motivo}
                         </div>
+
+                        <div></div>
                         <div id="cmhDivVerDetalle">
                             <button btn2 .item=${dato} @click=${this.clickBoton1} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misconsultas.verDetalle}</button>                    
                         </div>
-                        <div id="cmhDivChat">${CHAT}</div>              
+                        <div id="cmhDivChat">${this.verReserva(dato.FechaAtencion)?VIDEO:ARCHIVO}</div>              
                     </div>
+                </div>
                 `)}
             </div>
         </div>        
@@ -184,22 +199,38 @@ export class pantallaMisConsultas extends connect(store, RESERVAS_TIMESTAMP, RES
         </div>
         `
     }
+
+    verReserva(fecha) {
+
+
+        let hoy = new Date();
+        let atencion = new Date(fecha);
+        return hoy.getTime() === atencion.getTime();
+
+    }
     clickBotonNotificacion() {
         store.dispatch(modoPantalla("notificacion", "misconsultas"))
     }
     clickBoton1(e) {
-        /*         store.dispatch(getMascotas({
-                    filter: "Id eq " + e.currentTarget.item.Mascota.Id,
-                    expand: "Reservas($expand=Atencion),MascotasVacuna,Raza($expand=MascotasTipo)",
-                    token: store.getState().cliente.datos.token
-                })) */
-        store.dispatch(editReservas("M", e.currentTarget.item))
+
+        store.dispatch(getEnAtencion({
+            filter: "Id eq " + e.currentTarget.item.Id,
+            expand: "Atencion,Mascota",
+            token: store.getState().cliente.datos.token
+        }))
+
+    }
+
+    formateoHora(hora) {
+        let horaRetorno = "0000" + hora.toString()
+        horaRetorno = horaRetorno.substring(horaRetorno.length - 4)
+        return horaRetorno.substr(0, 2) + ":" + horaRetorno.substr(2, 2)
 
     }
 
     clickBoton2() {
 
-        store.dispatch(modoPantalla("consulta", "misconsultas"))
+        //store.dispatch(modoPantalla("consulta", "misconsultas"))
     }
 
     stateChanged(state, name) {
@@ -207,6 +238,10 @@ export class pantallaMisConsultas extends connect(store, RESERVAS_TIMESTAMP, RES
         if (name == RESERVAS_TIMESTAMP || RESERVASADD_TIMESTAMP) {
             this.items = state.reservas.entities
             this.update()
+        }
+
+        if (name == RESERVASENATENCION_TIMESTAMP) {
+            store.dispatch(modoPantalla("diagnosticodetalles", "misconsultas"))
         }
 
 
